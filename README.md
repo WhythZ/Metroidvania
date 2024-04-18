@@ -16,8 +16,10 @@ The idea of the gameplay design mainly comes from the following games
 - Hollow Knight
 - Celeste
 - All the other RPGs I've ever played and got impressed
+
 Where the assets come from
 - [Itch](https://itch.io/), [Unity](https://assetstore.unity.com/zh-CN), [OpenGameArt](https://opengameart.org/), [CraftPix](https://craftpix.net/), [Spriters-Resource](https://www.spriters-resource.com/) and [Twitter](https://x.com)
 - Soundtracks from NetEast Music
+
 Where do I learn the game development skill
 - Courses on [Udemy](https://www.udemy.com/course/2d-rpg-alexdev/) and [Bilibili](https://www.bilibili.com/)
