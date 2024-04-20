@@ -15,6 +15,8 @@ The idea of the gameplay design mainly comes from the following games
 - Ender Lilies
 - Hollow Knight
 - Celeste
+- Katana Zero
+- Phoenotopia Awakening
 - All the other RPGs I've ever played and got impressed
 
 Where the assets come from
