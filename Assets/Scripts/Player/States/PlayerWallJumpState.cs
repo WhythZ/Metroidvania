@@ -23,9 +23,6 @@ public class PlayerWallJumpState : PlayerState
     public override void Exit()
     {
         base.Exit();
-
-        //仅在此状态后变为真，下一状态airState后立刻赋值为假
-        player.FromWallJumpToAirStateSetting(true);
     }
 
     public override void Update()

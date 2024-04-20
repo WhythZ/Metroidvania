@@ -37,8 +37,6 @@ public class Player : Entity
     [Header("Player Movement Info")]
     //人物在空中的移动速度是moveSpeed的小于一倍
     public float airMoveSpeedRate = 0.9f;
-    //从墙跳到air状态的话，我们需要让air状态保持一下原来的水平速度，达到物体惯性的效果，只有在墙跳后变为真，air完后立刻变假
-    public bool isFromWallJumpToAirState { get; private set; } = false;
     #endregion
 
     #region JumpInfo
@@ -49,9 +47,12 @@ public class Player : Entity
     public int jumpNum = 2;
     #endregion
 
-    #region Skill
+    #region SkillInfo
     //使得代码更简洁，不用PlayerSkillManager.instance.xxx，直接player.skill.instance.xxx即可
     public PlayerSkillManager skill;
+    //记录是否已经投掷出去了剑，防止无限投掷，在GroundedState中（即投掷能力的入口处）检测是否已经创建过剑Prefab
+    //那里的player.assignedSword可以当bool值使用
+    public GameObject assignedSword {  get; private set; }
     #endregion
 
     #region DashInfo
@@ -164,6 +165,19 @@ public class Player : Entity
     }
     #endregion
 
+    #region Sword
+    public void AssignNewSword(GameObject _newSword)
+    {
+        //记录一下新建了一个剑Prefab，在CreateSword()函数中被调用一次
+        assignedSword = _newSword;
+    }
+    public void ClearAssignedSword()
+    {
+        //销毁多余的剑Prefab
+        Destroy(assignedSword);
+    }
+    #endregion
+
     #region FlipControllerOverride
     public override void FlipController()
     {
@@ -198,11 +212,6 @@ public class Player : Entity
     #endregion
 
     #region Accessibility
-    public void FromWallJumpToAirStateSetting(bool _bool)
-    {
-        //我不想让这个变量在Unity中可以操纵，但又需要这个变量在airState中被操纵赋值，故用单独一个函数控制
-        isFromWallJumpToAirState = _bool;
-    }
     public void CanDashSetting(bool _bool)
     {
         //我不想让这个变量在Unity中可以操纵，但又需要这个变量在其他脚本中被操纵赋值，故用单独一个函数控制

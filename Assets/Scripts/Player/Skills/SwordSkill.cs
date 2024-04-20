@@ -19,7 +19,7 @@ public class SwordSkill : PlayerSkill
     #region AimDirectionDots
     [Header("AimDirection Dots")]
     //瞄准辅助线的点的个数
-    [SerializeField] private int dotsNum = 20;
+    [SerializeField] private int dotsNum = 35;
     //点之间的间隔
     [SerializeField] private float spaceBetweenDots = 0.07f;
     //点的游戏内对象
@@ -68,6 +68,9 @@ public class SwordSkill : PlayerSkill
         //初始化剑的发射方向、刚体重力
         newSwordController.SetupSword(finalAimDir, swordGravity);
 
+        //记录一下，创建了一个新的剑，防止无限投掷
+        PlayerManager.instance.player.AssignNewSword(newSword);
+
         //创建了剑出来之后，关闭辅助瞄准轨迹点线
         ActivateDots(false);
     }
@@ -83,7 +86,6 @@ public class SwordSkill : PlayerSkill
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         //方向向量是为从玩家指向鼠标这个方向
         Vector2 aimDirection = mousePos - playerPos;
-        Debug.Log("Doing Aim Direction Detect");
         return aimDirection;
     }
     #endregion

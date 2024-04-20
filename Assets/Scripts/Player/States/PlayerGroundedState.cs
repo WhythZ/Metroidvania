@@ -41,8 +41,18 @@ public class PlayerGroundedState : PlayerState
         if((Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.Mouse1)) && player.isGround)
             player.stateMachine.ChangeState(player.counterAttackState);
 
+        #region SwordSkill
         //在地面上按下鼠标中键进入瞄准状态
-        if (Input.GetKeyDown(KeyCode.Mouse2) && player.isGround)
+        //前提是可以投掷，即比如可投掷剑数为1，则手中的剑没丢出去过才可以投掷
+        if (Input.GetKeyDown(KeyCode.Mouse2) && player.isGround && !player.assignedSword)
             player.stateMachine.ChangeState(player.aimSwordState);
+
+        //如果玩家投掷出去剑了后，再按一次中键，则使剑返回到玩家手里
+        if (PlayerManager.instance.player.assignedSword && Input.GetKeyDown(KeyCode.Mouse2))
+        {
+            //调用玩家丢出去的剑对象的返回函数
+            player.assignedSword.GetComponent<Sword_Controller>().ReturnTheSword();
+        }
+        #endregion
     }
 }
