@@ -14,8 +14,9 @@ public class PlayerAnimationTriggers : MonoBehaviour
         player.AnimationTrigger();
     }
 
-    //此事件在攻击动画进行到造成伤害的那一帧执行
+    #region Damage
     private void AttackDamageTrigger()
+    //此事件在攻击动画进行到造成伤害的那一帧执行
     {
         //建立一个临时数组，储存此时在人物攻击检测圈内的所有实体
         Collider2D[] collidersInAttackZone = Physics2D.OverlapCircleAll(player.attackCheck.position, player.attackCheckRadius);
@@ -23,17 +24,27 @@ public class PlayerAnimationTriggers : MonoBehaviour
         //循环遍历上述数组内的敌人实体，进行伤害
         foreach(var beHitEntity in collidersInAttackZone)
         {
-            //对敌人类实体造成伤害
-            if(beHitEntity.GetComponent<Enemy>() != null)
+
+                /*
+                 * 待解决问题有一
+                 * 如何拓展到伤害所有被击中的Enemy类而不仅仅是Bringer
+                 */
+
+            //对Bringer类实体造成伤害
+            if (beHitEntity.GetComponent<Bringer>() != null)
             {
-                beHitEntity.GetComponent<Enemy>().Damage();
+                //受到伤害的效果与数值变化
+                beHitEntity.GetComponent<BringerStats>().GetDamaged(player.sts.primaryAttackDamage.GetValue());
             }
         }
     }
+    #endregion
 
+    #region Sword
     //剑预制体的创建的触发
     private void ThrowSwordTrigger()
     {
         PlayerSkillManager.instance.swordSkill.CreateSword();
     }
+    #endregion
 }

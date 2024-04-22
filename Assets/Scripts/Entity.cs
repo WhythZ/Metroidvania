@@ -5,12 +5,12 @@ using UnityEngine;
 public class Entity : MonoBehaviour
 {
     #region Components
-    public Animator anim { get; private set; }
     //用这个anim变量去接收和控制这个实体的子Sprite动画管理器
-    public Rigidbody2D rb { get; private set; }
+    public Animator anim { get; private set; }
     //接收实体的刚体Component
-    public EntityFX fx { get; private set; }
+    public Rigidbody2D rb { get; private set; }
     //接收控制实体动画效果的脚本组件
+    public EntityFX fx { get; private set; }
     #endregion
 
     #region CollisionInfo
@@ -101,20 +101,6 @@ public class Entity : MonoBehaviour
         yield return new WaitForSeconds(knockbackDuration);
 
         isKnocked = false;
-    }
-    #endregion
-
-    #region Damage
-    public virtual void Damage()
-    //实体受到伤害的函数调用
-    {
-        //受攻击的材质变化，使得有闪烁的动画效果
-        fx.StartCoroutine("FlashHitFX");
-
-        //受伤的击退效果
-        StartCoroutine("HitKnockback");
-
-        //Debug.Log(gameObject.name + " Was Damaged");
     }
     #endregion
 

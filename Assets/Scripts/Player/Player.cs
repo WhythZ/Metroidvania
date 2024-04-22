@@ -33,6 +33,11 @@ public class Player : Entity
     //引入人物的投掷状态
     #endregion
 
+    #region Components
+    //记录对象的数据统计脚本
+    public PlayerStats sts {  get; private set; }
+    #endregion
+
     #region MovementInfo
     [Header("Player Movement Info")]
     //人物在空中的移动速度是moveSpeed的小于一倍
@@ -128,6 +133,11 @@ public class Player : Entity
     {
         base.Start();
 
+        #region Components
+        //数据统计脚本
+        sts = GetComponent<PlayerStats>();
+        #endregion
+
         //用站立状态初始化玩家的状态机
         stateMachine.Initialize(idleState);
         //简化代码
@@ -194,19 +204,6 @@ public class Player : Entity
             {
                 Flip();
             }
-        }
-    }
-    #endregion
-
-    #region DamageOverride
-    public override void Damage()
-    //由于需要给玩家冲刺的时候无敌帧，所以要全部重写
-    {
-        //冲刺的时候不触发受击
-        if(stateMachine.currentState != dashState)
-        {
-            //受攻击的材质变化，使得有闪烁的动画效果
-            fx.StartCoroutine("FlashHitFX");
         }
     }
     #endregion

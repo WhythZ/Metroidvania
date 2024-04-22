@@ -29,8 +29,6 @@ public class PlayerSkill : MonoBehaviour
         }
         else
         {
-            //其他情况，返回不可使用信号
-            Debug.Log("Dash Skill Cooldown");
             return false;
         }
     }

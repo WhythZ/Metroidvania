@@ -13,6 +13,10 @@ public class Bringer : Enemy
     public BringerStunnedState stunnedState { get; private set; }
     #endregion
 
+    #region Components
+    public BringerStats sts {  get; private set; }
+    #endregion
+
     protected override void Awake()
     {
         base.Awake();
@@ -31,6 +35,10 @@ public class Bringer : Enemy
     protected override void Start()
     {
         base.Start();
+
+        #region Components
+        sts = GetComponent<BringerStats>();
+        #endregion
 
         //用站立状态初始化怪物的状态机
         stateMachine.Initialize(idleState);
