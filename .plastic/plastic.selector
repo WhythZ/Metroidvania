@@ -1,4 +1,0 @@
-repository "Metroidvania@wechat_os_qy044rtf-eaizcgvhpn7gwemw@cloud.cn"
-  path "/"
-    br "/main"
-    co "/main"
