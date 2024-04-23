@@ -9,7 +9,7 @@ public class EntityStats : MonoBehaviour
     //角色最大生命值
     public Stat maxHealth;
     //角色当前生命值
-    [SerializeField] protected int currentHealth;
+    public int currentHealth;
     #endregion
 
     #region AttackDamage

@@ -57,6 +57,11 @@ public class Entity : MonoBehaviour
     protected bool isKnocked = false;
     #endregion
 
+    #region Events
+    //用于记录实体转向这个事件，在Plip()函数处调用
+    public System.Action onFlipped;
+    #endregion
+
     protected virtual void Awake()
     //对象刚出生时调用且仅调用一次，相当于类的构造函数；比Start更早调用
     {
@@ -153,6 +158,10 @@ public class Entity : MonoBehaviour
         //把方向的相关判断参数反向
         facingDir *= -1;
         facingRight = !facingRight;
+
+        //当实体对象上有比如血条UI时，记录转向事件，并调用其对UI的特别的函数，若对象没有该类UI，则不记录，也不会调用UI脚本（防止报错）
+        if (onFlipped != null)
+            onFlipped();
     }
     public virtual void FlipController()
     {
