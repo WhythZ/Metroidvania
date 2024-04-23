@@ -60,8 +60,8 @@ public class PlayerDashState : PlayerState
             }
         }
 
-        //与墙壁相关的判断
-        if(!player.isGround && player.isWall)
+        //冲刺的时候如果蹭着墙，则进入滑墙状态；处于滑墙状态时，冲刺可以离开墙壁
+        if (!player.isGround && player.isWall)
         {
             //可以冲刺离开墙壁
             if(player.facingDir != xInput)

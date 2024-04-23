@@ -39,12 +39,6 @@ public class playerWallSlideState : PlayerState
             return;
         }
 
-        //如果着陆了，则进入Idle状态
-        if(player.isGround)
-        {
-            player.stateMachine.ChangeState(player.idleState);
-        }
-
         //滑动速度慢于普通坠落速度
         if (yInput < 0)
         {
@@ -57,8 +51,15 @@ public class playerWallSlideState : PlayerState
             player.SetVelocity(0, rb.velocity.y * player.slideSpeed);
         }
 
+        #region OtherCasesToQuitWallSlideState
+        //如果着陆了，则进入Idle状态
+        if (player.isGround)
+        {
+            player.stateMachine.ChangeState(player.idleState);
+        }
+
         //若是滑出了墙壁范围，则进入airState
-        if(!player.isWall)
+        if (!player.isWall && !player.isGround)
         {
             player.stateMachine.ChangeState(player.airState);
         }
@@ -74,5 +75,6 @@ public class playerWallSlideState : PlayerState
             player.stateMachine.ChangeState(player.airState);
         }
         */
+        #endregion
     }
 }

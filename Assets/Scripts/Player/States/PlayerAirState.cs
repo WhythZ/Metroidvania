@@ -56,7 +56,7 @@ public class PlayerAirState : PlayerUntouchedState
         if (player.isWall && !player.isGround)
         {
             //你总不能面向左边的墙壁按了A还能进入滑墙状态吧；注意这里是GetKey而不是GetKeyDown
-            if( (Input.GetKey(KeyCode.A) && player.facingDir == -1) || (Input.GetKey(KeyCode.D) && player.facingDir == 1) )
+            if ((Input.GetKey(KeyCode.A) && player.facingDir == -1) || (Input.GetKey(KeyCode.D) && player.facingDir == 1))
             {
                 player.stateMachine.ChangeState(player.wallSlideState);
                 //Debug.Log("Air to WallSlide");

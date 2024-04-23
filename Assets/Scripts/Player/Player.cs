@@ -54,7 +54,7 @@ public class Player : Entity
 
     #region SkillInfo
     //使得代码更简洁，不用PlayerSkillManager.instance.xxx，直接player.skill.instance.xxx即可
-    public PlayerSkillManager skill;
+    public PlayerSkillManager skill {  get; private set; }
     //记录是否已经投掷出去了剑，防止无限投掷，在GroundedState中（即投掷能力的入口处）检测是否已经创建过剑Prefab
     //那里的player.assignedSword可以当bool值使用
     public GameObject assignedSword {  get; private set; }
@@ -168,8 +168,12 @@ public class Player : Entity
             //注意这里使用了PlayerSkillManager
             if (Input.GetKeyDown(KeyCode.LeftShift) && skill.dashSkill.WhetherCanUseSkill() && canDash)
             {
-                //dashCooldownTimer = dashCooldown;
-                stateMachine.ChangeState(dashState);
+                //瞄准与投掷状态不能冲刺
+                if(stateMachine.currentState != aimSwordState && stateMachine.currentState != throwSwordState)
+                {
+                    //dashCooldownTimer = dashCooldown;
+                    stateMachine.ChangeState(dashState);
+                }
             }
         }
     }
@@ -195,14 +199,18 @@ public class Player : Entity
             return;
         else
         {
-            //这里新增一个xInput限制，防止莫名的速度增量产生的转向问题
-            if ((stateMachine.currentState.xInput > 0) && (rb.velocity.x > 0) && !facingRight)
+            //你妈的，这个状态直接给他特判掉，我倒看你tm还出不出问题！
+            if(stateMachine.currentState != wallSlideState)
             {
-                Flip();
-            }
-            if ((stateMachine.currentState.xInput < 0) && (rb.velocity.x < 0) && facingRight)
-            {
-                Flip();
+                //这里新增一个xInput限制，防止莫名的速度增量产生的转向问题
+                if ((stateMachine.currentState.xInput > 0) && (rb.velocity.x > 0) && !facingRight)
+                {
+                    Flip();
+                }
+                if ((stateMachine.currentState.xInput < 0) && (rb.velocity.x < 0) && facingRight)
+                {
+                    Flip();
+                }
             }
         }
     }

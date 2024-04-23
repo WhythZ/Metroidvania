@@ -36,6 +36,7 @@ public class HealthBar_UI : MonoBehaviour
     }
 
     private void Update()
+    //出于节省系统性能考虑，最好选择不使用Update函数，而是使用事件，在每一次对生命值进行更新时（受到伤害），调用一次更新UI的函数
     {
         //更新血条
         UpdateHealthUI();
