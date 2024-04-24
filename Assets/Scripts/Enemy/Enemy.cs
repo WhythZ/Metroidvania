@@ -7,6 +7,7 @@ using UnityEngine;
 public class Enemy : Entity
 {
     #region States
+    //链接到每个敌人类的状态机
     public EnemyStateMachine stateMachine { get; private set; }
     #endregion
 

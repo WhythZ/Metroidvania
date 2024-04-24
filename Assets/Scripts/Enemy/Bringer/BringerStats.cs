@@ -23,4 +23,11 @@ public class BringerStats : EnemyStats
         //受伤的击退效果
         bringer.StartCoroutine("HitKnockback");
     }
+
+    public override void StatsDie()
+    {
+        base.StatsDie();
+
+        bringer.EntityDie();
+    }
 }

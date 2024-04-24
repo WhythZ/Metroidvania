@@ -11,6 +11,7 @@ public class Bringer : Enemy
     public BringerBattleState battleState { get; private set; }
     public BringerAttackState attackState { get; private set; }
     public BringerStunnedState stunnedState { get; private set; }
+    public BringerDeadState deadState { get; private set; }
     #endregion
 
     #region Components
@@ -29,6 +30,8 @@ public class Bringer : Enemy
         battleState = new BringerBattleState(this, stateMachine, "Move", this);
         attackState = new BringerAttackState(this, stateMachine, "Attack", this);
         stunnedState = new BringerStunnedState(this, stateMachine, "Stunned", this);
+        //死亡状态在Awake处声明的AnimBoolName无意义，但是得有，所以随便输个Idle
+        deadState = new BringerDeadState(this, stateMachine, "Idle", this);
         #endregion
     }
 
@@ -99,6 +102,24 @@ public class Bringer : Enemy
                 Flip();
             }
         }
+    }
+    #endregion
+
+    #region DieOverride
+    protected override void DieDetect()
+    {
+        base.DieDetect();
+
+        if(sts.currentHealth <= 0)
+        {
+            sts.StatsDie();
+        }
+    }
+    public override void EntityDie()
+    {
+        base.EntityDie();
+
+        stateMachine.ChangeState(deadState);
     }
     #endregion
 }

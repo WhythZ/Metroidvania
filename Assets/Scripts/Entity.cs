@@ -11,6 +11,8 @@ public class Entity : MonoBehaviour
     public Rigidbody2D rb { get; private set; }
     //接收控制实体动画效果的脚本组件
     public EntityFX fx { get; private set; }
+    //接收实体的碰撞组件，用于比如死亡后掉下平台（解除碰撞）
+    public BoxCollider2D cd {  get; private set; }
     #endregion
 
     #region CollisionInfo
@@ -57,6 +59,11 @@ public class Entity : MonoBehaviour
     protected bool isKnocked = false;
     #endregion
 
+    #region StatesInfo
+    //用于记录上一个状态的Animator内的parameter的名称，比如可以用于敌人死亡时保留上一个状态的动画
+    public string lastAnimBoolName {  get; private set; }
+    #endregion
+
     #region Events
     //用于记录实体转向这个事件，在Plip()函数处调用
     public System.Action onFlipped;
@@ -76,6 +83,8 @@ public class Entity : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         //接收控制实体动画效果的脚本组件
         fx = GetComponent<EntityFX>();
+        //链接碰撞组件
+        cd = GetComponent<BoxCollider2D>();
         #endregion
     }
 
@@ -87,6 +96,8 @@ public class Entity : MonoBehaviour
         FlipController();
         //被击退方向检测
         KnockbackDirDetect();
+        //检测实体的死亡
+        DieDetect();
     }
 
     #region Knockback
@@ -150,6 +161,13 @@ public class Entity : MonoBehaviour
     }
     #endregion
 
+    #region LastAnimBoolName
+    public virtual void AssignLastAnimBoolName(string _lastAnimBoolName)
+    {
+        lastAnimBoolName = _lastAnimBoolName;
+    }
+    #endregion
+
     #region Flip
     public virtual void Flip()
     {
@@ -181,6 +199,20 @@ public class Entity : MonoBehaviour
                 Flip();
             }
         }
+    }
+    #endregion
+
+    #region Die
+    protected virtual void DieDetect()
+    //游戏设计想避免设置所有敌人的不同的死亡状态动画，而是以统一的一种死亡方式替代
+    //所以只有玩家有单独的死亡动画，其他敌人都是在当前状态的动画死亡（实际在状态机内也有deadState，但无动画罢了）
+    {
+        //用于死亡检测的override
+    }
+    public virtual void EntityDie()
+    //实体的死亡
+    {
+        //用于override
     }
     #endregion
 }

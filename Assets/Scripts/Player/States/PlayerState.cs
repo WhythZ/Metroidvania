@@ -62,6 +62,8 @@ public class PlayerState
     {
         //赋值这个动作的激活状态为假
         player.anim.SetBool(animBoolName, false);
+        //每次离开当下状态时，被离开的状态就成了上一个状态，记录下来
+        player.AssignLastAnimBoolName(animBoolName);
     }
 
     public virtual void TriggerWhenAnimationFinished()

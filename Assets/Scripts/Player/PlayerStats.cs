@@ -27,6 +27,20 @@ public class PlayerStats : EntityStats
 
             //受攻击的材质变化，使得有闪烁的动画效果
             player.fx.StartCoroutine("FlashHitFX");
+
+            //被攻击时，调用一下血条UI的更新
+            if (onHealthChanged != null)
+            {
+                onHealthChanged();
+            }
         }
+    }
+
+    public override void StatsDie()
+    {
+        base.StatsDie();
+
+        //这里是状态机转化到deadState的调用
+        player.EntityDie();
     }
 }

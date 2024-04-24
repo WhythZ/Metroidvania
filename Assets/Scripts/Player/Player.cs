@@ -31,6 +31,8 @@ public class Player : Entity
     //引入人物的瞄准状态
     public PlayerThrowSwordState throwSwordState { get; private set;}
     //引入人物的投掷状态
+    public PlayerDeadState deadState { get; private set; }
+    //引入死亡状态
     #endregion
 
     #region Components
@@ -126,6 +128,8 @@ public class Player : Entity
         aimSwordState = new PlayerAimSwordState(this, stateMachine, "AimSword");
         //初始化投掷状态
         throwSwordState = new PlayerThrowSwordState(this, stateMachine, "ThrowSword");
+        //初始化死亡状态
+        deadState = new PlayerDeadState(this, stateMachine, "Dead");
         #endregion
     }
 
@@ -150,7 +154,6 @@ public class Player : Entity
 
         //此处是通过MonoBehavior的Update函数来不断调用PlayerState类中的Update函数，不断刷新人物状态
         stateMachine.currentState.Update();
-
         //控制人物的冲刺状态
         DashController();
     }
@@ -213,6 +216,25 @@ public class Player : Entity
                 }
             }
         }
+    }
+    #endregion
+
+    #region DieOverride
+    protected override void DieDetect()
+    {
+        //若人物血量小于等于零，触发PlayerStats处的死亡函数
+        if(sts.currentHealth <= 0)
+        {
+            sts.StatsDie();
+        }
+    }
+    public override void EntityDie()
+    //从任何状态，当生命值降低到零时，进入死亡状态
+    {
+        base.EntityDie();
+
+        //进入死亡状态，此函数在PlayerStats内被其Die函数调用
+        stateMachine.ChangeState(deadState);
     }
     #endregion
 
