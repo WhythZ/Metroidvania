@@ -20,7 +20,8 @@ public class BringerAnimationTriggers : MonoBehaviour
             if (beHitEntity.GetComponent<Player>() != null)
             {
                 //攻击减少对方生命值并产生受击效果
-                beHitEntity.GetComponent<PlayerStats>().GetDamaged(bringer.sts.primaryAttackDamage.GetValue());
+                int _damage = bringer.sts.GetFinalAttackDamage(bringer.sts.primaryAttackDamage);
+                beHitEntity.GetComponent<PlayerStats>().GetDamagedBy(_damage);
             }
         }
     }

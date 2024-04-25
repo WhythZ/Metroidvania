@@ -57,7 +57,7 @@ public class HealthBar_UI : MonoBehaviour
     //与onHealthChanged事件叠加调用，不断更新实体的当前血量，以便于与滑块链接
     {
         //滑块的最大值，即实体的最大血量
-        slider.maxValue = mySts.OriginalMaxHealth.GetValue();
+        slider.maxValue = mySts.originalMaxHealth.GetValue();
         //滑块的当前值，即实体的当前血量
         slider.value = mySts.currentHealth;
     }

@@ -28,13 +28,15 @@ public class PlayerAnimationTriggers : MonoBehaviour
                 /*
                  * 待解决问题有一
                  * 如何拓展到伤害所有被击中的Enemy类而不仅仅是Bringer
+                 * 解决办法：直接链接到<Entity>，会自动向下链接到其继承的子类中的脚本
                  */
 
-            //对Bringer类实体造成伤害
-            if (beHitEntity.GetComponent<Bringer>() != null)
+            //对Enemy各子类实体造成伤害
+            if (beHitEntity.GetComponent<Enemy>() != null)
             {
-                //受到伤害的效果与数值变化
-                beHitEntity.GetComponent<BringerStats>().GetDamaged(player.sts.primaryAttackDamage.GetValue());
+                //敌人受到的伤害数值及其效果
+                int _damage = player.sts.GetFinalAttackDamage(player.sts.primaryAttackDamage);
+                beHitEntity.GetComponent<EnemyStats>().GetDamagedBy(_damage);
             }
         }
     }

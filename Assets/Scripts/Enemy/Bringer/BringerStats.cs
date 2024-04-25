@@ -13,21 +13,13 @@ public class BringerStats : EnemyStats
         bringer = GetComponent<Bringer>();
     }
 
-    public override void GetDamaged(int _damage)
+    public override void GetDamagedBy(int _damage)
     {
-        base.GetDamaged(_damage);
-
-        //受攻击的材质变化，使得有闪烁的动画效果
-        bringer.fx.StartCoroutine("FlashHitFX");
-
-        //受伤的击退效果
-        bringer.StartCoroutine("HitKnockback");
+        base.GetDamagedBy(_damage);
     }
 
     public override void StatsDie()
     {
         base.StatsDie();
-
-        bringer.EntityDie();
     }
 }

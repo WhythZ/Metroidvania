@@ -75,18 +75,13 @@ public class Sword_Controller : MonoBehaviour
 
         //将这把剑变成被碰撞的物体的子对象
         transform.parent = collision.transform;
-        
-            /*
-             * 待解决问题有二
-             * 如何拓展到伤害所有被击中的Enemy类而不仅仅是Bringer
-             * 被击中的怪物的击退方向（即玩家的面朝方向）会有问题
-             */
 
-        //对Bringer类怪物造成伤害
-        if(transform.parent.GetComponentInParent<Bringer>() != null)
+        //对Enemy各子类怪物造成伤害
+        if(transform.parent.GetComponentInParent<Enemy>() != null)
         {
-            //对Bringer怪物造成伤害
-            transform.parent.GetComponentInParent<BringerStats>().GetDamaged(PlayerManager.instance.player.sts.swordDamage.GetValue());
+            //对怪物造成伤害
+            int _damage = PlayerManager.instance.player.sts.GetFinalAttackDamage(PlayerManager.instance.player.sts.primaryAttackDamage) + PlayerManager.instance.player.sts.extraSwordDamage.GetValue();
+            transform.parent.GetComponentInParent<EnemyStats>().GetDamagedBy(_damage);
         }
     }
 

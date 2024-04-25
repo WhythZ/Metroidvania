@@ -5,13 +5,17 @@ using UnityEngine;
 
 public class EnemyStats : EntityStats
 {
+    Enemy enemy;
+
     protected override void Start()
     {
         base.Start();
+
+        enemy = GetComponent<Enemy>();
     }
 
-    public override void GetDamaged(int _damage)
+    public override void GetDamagedBy(int _damage)
     {
-        base.GetDamaged(_damage);
+        base.GetDamagedBy(_damage);
     }
 }

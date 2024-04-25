@@ -1875,12 +1875,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34470da3abfea18429f0d824d713104b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OriginalMaxHealth:
+  originalMaxHealth:
     baseValue: 100
     modifiers: 
   currentHealth: 0
   primaryAttackDamage:
     baseValue: 30
+    modifiers: 
+  criticPower:
+    baseValue: 150
+    modifiers: 
+  criticChance:
+    baseValue: 5
+    modifiers: 
+  strength:
+    baseValue: 0
+    modifiers: 
+  agility:
+    baseValue: 0
+    modifiers: 
+  vitality:
+    baseValue: 0
+    modifiers: 
+  armor:
+    baseValue: 0
+    modifiers: 
+  evasionChance:
+    baseValue: 5
     modifiers: 
 --- !u!1 &1023653451
 GameObject:
@@ -2407,15 +2428,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be6d818df344ce840bc697aedf807af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OriginalMaxHealth:
+  originalMaxHealth:
     baseValue: 100
     modifiers: 
   currentHealth: 0
   primaryAttackDamage:
-    baseValue: 20
+    baseValue: 10
     modifiers: 
-  swordDamage:
-    baseValue: 50
+  criticPower:
+    baseValue: 150
+    modifiers: 
+  criticChance:
+    baseValue: 5
+    modifiers: 
+  strength:
+    baseValue: 0
+    modifiers: 
+  agility:
+    baseValue: 0
+    modifiers: 
+  vitality:
+    baseValue: 0
+    modifiers: 
+  armor:
+    baseValue: 0
+    modifiers: 
+  evasionChance:
+    baseValue: 5
+    modifiers: 
+  extraSwordDamage:
+    baseValue: 0
     modifiers: 
 --- !u!1 &1231862097
 GameObject:

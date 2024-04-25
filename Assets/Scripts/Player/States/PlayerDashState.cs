@@ -44,6 +44,16 @@ public class PlayerDashState : PlayerState
             player.SetVelocity(player.facingDir * player.dashSpeed, 0);
         }
 
+        //当人物从GroundedState直接进入AirState时，给予跳跃次数为1
+        if (player.stateMachine.formerState == player.idleState || player.stateMachine.formerState == player.moveState)
+        {
+            //跳跃次数为2的话（其实是废话，但是为了以防万一）
+            if (player.jumpNum == 2)
+            {
+                player.jumpNum = 1;
+            }
+        }
+
         //冲刺时间结束时，若是在地面上，则转换到IdleState；而若是在空中冲刺，则切换到AirState下坠状态
         if (player.isGround)
         {

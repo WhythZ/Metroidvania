@@ -8,7 +8,7 @@ public class Stat
 //无继承，这是一个单纯表示一种自定义数值的类
 {
     //该数值的基础数值
-    [SerializeField] private int baseValue;
+    [SerializeField] private int baseValue = 0;
 
     //一个int数组，记录该Stat在不同情况下的不同数值
     public List<int> modifiers;
@@ -27,6 +27,11 @@ public class Stat
         }
 
         return finalValue;
+    }
+
+    public void SetDefaultValue(int _value)
+    {
+        baseValue = _value;
     }
 
     #region EditModifiers
