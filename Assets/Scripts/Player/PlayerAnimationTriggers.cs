@@ -35,8 +35,7 @@ public class PlayerAnimationTriggers : MonoBehaviour
             if (beHitEntity.GetComponent<Enemy>() != null)
             {
                 //敌人受到的伤害数值及其效果
-                int _damage = player.sts.GetFinalAttackDamage(player.sts.primaryAttackDamage);
-                beHitEntity.GetComponent<EnemyStats>().GetDamagedBy(_damage);
+                beHitEntity.GetComponent<EnemyStats>().GetTotalDamageFrom(PlayerManager.instance.player.sts);
             }
         }
     }

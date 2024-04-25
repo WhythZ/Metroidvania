@@ -9,20 +9,26 @@ public class PlayerStats : EntityStats
 
     #region Skill
     [Header("Skill Stats")]
-    //投掷剑技能的附加的额外伤害，故而飞剑的伤害是primaryAttackDamage的加成后（暴击判断等）加上这个额外数值
+    //投掷剑技能的附加的额外伤害，故而飞剑的伤害是的玩家原本的伤害（含暴击判断等）加上这个额外数值
     //这样的好处是不用为剑的伤害额外计算暴击率等信息了，后面可能要改，先暂时这样
-    public Stat extraSwordDamage;
+    public Stat swordExtraDamage;
     #endregion
 
     protected override void Start()
     {
         base.Start();
 
-        //和player = entity等效
+        #region SetDefault
+        //初始飞剑伤害额外为10
+        swordExtraDamage.SetDefaultValue(10);
+        #endregion
+
+        //和player=entity等效
         player = PlayerManager.instance.player;
     }
 
-    public override void GetDamagedBy(int _damage)
+    #region DamagedOverride
+    public override void GetTotalDamageFrom(EntityStats _entityAttackingYou)
     {
         //冲刺的时候不触发受击
         if (player.stateMachine.currentState == player.dashState)
@@ -31,13 +37,27 @@ public class PlayerStats : EntityStats
         }
         else
         {
-            base.GetDamagedBy(_damage);
+            base.GetTotalDamageFrom(_entityAttackingYou);
         }
-        
     }
+    public override void GetTotalDamageFrom(EntityStats _entityAttackingYou, Stat _skill)
+    {
+        //冲刺的时候不触发受击
+        if (player.stateMachine.currentState == player.dashState)
+        {
+            return;
+        }
+        else
+        {
+            base.GetTotalDamageFrom(_entityAttackingYou, _skill);
+        }
+    }
+    #endregion
 
+    #region Die
     public override void StatsDie()
     {
         base.StatsDie();
     }
+    #endregion
 }

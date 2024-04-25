@@ -1862,6 +1862,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashHitMat: {fileID: 2100000, guid: 45632edcda931704b856a07b8c40447d, type: 2}
+  magicalHitMat: {fileID: 2100000, guid: 58eb94208e0812a42bbdd5ab7480b334, type: 2}
   flashHitDuration: 0.1
 --- !u!114 &922534983
 MonoBehaviour:
@@ -1897,12 +1898,30 @@ MonoBehaviour:
   vitality:
     baseValue: 0
     modifiers: 
-  armor:
+  intelligence:
     baseValue: 0
     modifiers: 
   evasionChance:
     baseValue: 5
     modifiers: 
+  magicalResistance:
+    baseValue: 0
+    modifiers: 
+  physicalArmor:
+    baseValue: 0
+    modifiers: 
+  fireAttackDamage:
+    baseValue: 0
+    modifiers: 
+  iceAttackDamage:
+    baseValue: 0
+    modifiers: 
+  lightningAttackDamage:
+    baseValue: 0
+    modifiers: 
+  isIgnited: 0
+  isChilled: 0
+  isShocked: 0
 --- !u!1 &1023653451
 GameObject:
   m_ObjectHideFlags: 0
@@ -2370,6 +2389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashHitMat: {fileID: 2100000, guid: 45632edcda931704b856a07b8c40447d, type: 2}
+  magicalHitMat: {fileID: 2100000, guid: 58eb94208e0812a42bbdd5ab7480b334, type: 2}
   flashHitDuration: 0.1
 --- !u!61 &1165862735
 BoxCollider2D:
@@ -2450,13 +2470,31 @@ MonoBehaviour:
   vitality:
     baseValue: 0
     modifiers: 
-  armor:
+  intelligence:
     baseValue: 0
     modifiers: 
   evasionChance:
     baseValue: 5
     modifiers: 
-  extraSwordDamage:
+  magicalResistance:
+    baseValue: 0
+    modifiers: 
+  physicalArmor:
+    baseValue: 0
+    modifiers: 
+  fireAttackDamage:
+    baseValue: 0
+    modifiers: 
+  iceAttackDamage:
+    baseValue: 0
+    modifiers: 
+  lightningAttackDamage:
+    baseValue: 0
+    modifiers: 
+  isIgnited: 0
+  isChilled: 0
+  isShocked: 0
+  swordExtraDamage:
     baseValue: 0
     modifiers: 
 --- !u!1 &1231862097

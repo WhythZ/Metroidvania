@@ -13,9 +13,9 @@ public class BringerStats : EnemyStats
         bringer = GetComponent<Bringer>();
     }
 
-    public override void GetDamagedBy(int _damage)
+    public override void GetPhysicalDamagedBy(int _damage)
     {
-        base.GetDamagedBy(_damage);
+        base.GetPhysicalDamagedBy(_damage);
     }
 
     public override void StatsDie()

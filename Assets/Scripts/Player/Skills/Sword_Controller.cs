@@ -48,8 +48,8 @@ public class Sword_Controller : MonoBehaviour
         }
     }
 
-    //决定是否把剑返回给玩家
     public void ReturnTheSword()
+    //决定是否把剑返回给玩家
     {
         //固定住剑的位置，不然的话剑得碰到地板或者敌人才能被召唤回来
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
@@ -79,9 +79,8 @@ public class Sword_Controller : MonoBehaviour
         //对Enemy各子类怪物造成伤害
         if(transform.parent.GetComponentInParent<Enemy>() != null)
         {
-            //对怪物造成伤害
-            int _damage = PlayerManager.instance.player.sts.GetFinalAttackDamage(PlayerManager.instance.player.sts.primaryAttackDamage) + PlayerManager.instance.player.sts.extraSwordDamage.GetValue();
-            transform.parent.GetComponentInParent<EnemyStats>().GetDamagedBy(_damage);
+            //对怪物造成剑的技能伤害
+            transform.parent.GetComponentInParent<EnemyStats>().GetTotalDamageFrom(PlayerManager.instance.player.sts, PlayerManager.instance.player.sts.swordExtraDamage);
         }
     }
 

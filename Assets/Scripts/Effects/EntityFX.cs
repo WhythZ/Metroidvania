@@ -8,11 +8,14 @@ public class EntityFX : MonoBehaviour
     private SpriteRenderer sr;
 
     [Header("FlashFX")]
-    //记录用于动画效果的的材质
+    //记录初始的材质
     private Material originMat;
+    //记录用于受攻击动画效果的的材质
     [SerializeField] private Material flashHitMat;
+    //记录用于受法术攻击动画效果的材质
+    [SerializeField] private Material magicalHitMat;
     //材质更替后的停留时间
-    [SerializeField] private float flashHitDuration = 0.1f;
+    [SerializeField] private float changeMatDuration = 0.1f;
 
     private void Start()
     {
@@ -29,7 +32,18 @@ public class EntityFX : MonoBehaviour
         //使用受击材质
         sr.material = flashHitMat;
         //延迟一段时间
-        yield return new WaitForSeconds(flashHitDuration);
+        yield return new WaitForSeconds(changeMatDuration);
+        //回归原来的材质
+        sr.material = originMat;
+    }
+
+    private IEnumerator MagicalHitFX()
+    //这个函数需要使用如fx.StartCoroutine("MagicalHitFX");来调用，而不是直接用fx.MagicalHitFX()
+    {
+        //使用受击材质
+        sr.material = magicalHitMat;
+        //延迟一段时间
+        yield return new WaitForSeconds(changeMatDuration);
         //回归原来的材质
         sr.material = originMat;
     }
