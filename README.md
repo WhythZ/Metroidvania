@@ -1,12 +1,14 @@
+# License
+This repo adopts [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) license
 # RPG-Dev-2024
 ## Status
 Work In Progress
 ## About
-This repo is a ***metroidvania prototype*** developed by Unity for a SCUT curriculum 2024.
+This repo is a ***metroidvania prototype*** developed by Unity for a SCUT curriculum 2024
 
-I'm a super lover of RPGs, especially Souls, Metroidvanias, Survival games like Terraria and Minecraft and Core Keeper, SLGs like Stardew Valley, Roguelike/Roguelite games like Noita and Dead Cells and so on.
+I'm a super lover of RPGs, especially Souls, Metroidvanias, Survival games like Terraria and Minecraft and Core Keeper, SLGs like Stardew Valley, Roguelike/Roguelite games like Noita and Dead Cells and so on
 
-You might notice that I fancy ***Pixel Arts*** a lot, and that's why I prefer to develop a pixel 2D RPG. Hope you can enjoy the game and find something common with me through the aesthetic choice I've expressed in this game demo. 
+You might notice that I fancy ***Pixel Arts*** a lot, and that's why I prefer to develop a pixel 2D RPG. Hope you can enjoy the game and find something common with me through the aesthetic choice I've expressed in this game demo 
 ## Contents
 - You will play as a warrior with 5+ attack skills which can be acquired as the game moves on
 - The demo will contains four chapters including platform elements and 2+ boss fights
