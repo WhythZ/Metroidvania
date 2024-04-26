@@ -10,6 +10,11 @@ You might notice that I fancy ***Pixel Arts*** a lot, and that's why I prefer to
 ## Contents
 - You will play as a warrior with 5+ attack skills which can be acquired as the game moves on
 - The demo will contains four chapters including platform elements and 2+ boss fights
+## Deployment
+To deploy this project locally, follow the steps
+- Install the corresponding Unity version as `2022.3.17f1c1`
+- Create a new Unity 2D project, exit after successfully entering it
+- Replace by these files in the repo
 ## References
 The idea of the gameplay design mainly comes from the following games
 - Ender Lilies
@@ -20,7 +25,7 @@ The idea of the gameplay design mainly comes from the following games
 - Phoenotopia Awakening
 - All the other RPGs I've ever played and got impressed
 
-Where the assets come from
+Where do the assets come from
 - [Itch](https://itch.io/), [Unity](https://assetstore.unity.com/zh-CN), [OpenGameArt](https://opengameart.org/), [CraftPix](https://craftpix.net/), [Spriters-Resource](https://www.spriters-resource.com/) and [Twitter](https://x.com)
 - Soundtracks from the Internet
 
