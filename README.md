@@ -1,5 +1,5 @@
-# License
-This repo adopts [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) license
+# LICENSE
+This repo adopts [MIT License](https://spdx.org/licenses/MIT)
 # RPG-Dev-2024
 ## Status
 Work In Progress
