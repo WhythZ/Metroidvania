@@ -79,8 +79,10 @@ public class Sword_Controller : MonoBehaviour
         //对Enemy各子类怪物造成伤害
         if(transform.parent.GetComponentInParent<Enemy>() != null)
         {
-            //对怪物造成剑的技能伤害
-            transform.parent.GetComponentInParent<EnemyStats>().GetTotalDamageFrom(PlayerManager.instance.player.sts, PlayerManager.instance.player.sts.swordExtraDamage);
+            //对怪物造成剑的技能伤害，形式为飞剑的额外伤害加上人物的物理伤害，所以暴击时只计算人物的本体暴击伤害，飞剑本身的伤害值不计入暴击伤害的计算
+            int _swordExtraDamage = PlayerManager.instance.player.sts.swordExtraDamage.GetValue();
+            int _totalSwordDamage = _swordExtraDamage + PlayerManager.instance.player.sts.GetFinalPhysicalDamage();
+            transform.parent.GetComponentInParent<EnemyStats>().GetPhysicalDamagedBy(_totalSwordDamage);
         }
     }
 

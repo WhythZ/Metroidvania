@@ -28,29 +28,19 @@ public class PlayerStats : EntityStats
     }
 
     #region DamagedOverride
-    public override void GetTotalDamageFrom(EntityStats _entityAttackingYou)
+    public override void GetMagicalDamagedBy(int _damage)
     {
         //冲刺的时候不触发受击
         if (player.stateMachine.currentState == player.dashState)
-        {
             return;
-        }
-        else
-        {
-            base.GetTotalDamageFrom(_entityAttackingYou);
-        }
+        base.GetMagicalDamagedBy(_damage);
     }
-    public override void GetTotalDamageFrom(EntityStats _entityAttackingYou, Stat _skill)
+    public override void GetPhysicalDamagedBy(int _damage)
     {
         //冲刺的时候不触发受击
         if (player.stateMachine.currentState == player.dashState)
-        {
             return;
-        }
-        else
-        {
-            base.GetTotalDamageFrom(_entityAttackingYou, _skill);
-        }
+        base.GetPhysicalDamagedBy(_damage);
     }
     #endregion
 

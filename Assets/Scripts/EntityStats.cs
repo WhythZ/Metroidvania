@@ -21,9 +21,9 @@ public class EntityStats : MonoBehaviour
     [Header("Physical Attack Stats")]
     //实体的基础攻击伤害
     public Stat primaryAttackDamage;
-    //暴击伤害倍率（即乘在最终伤害上的百分比，默认150%，通过赋值函数实现）
+    //暴击伤害倍率（百分比，大于100）
     public Stat criticPower;
-    //暴击率
+    //暴击率（百分比）
     public Stat criticChance;
     #endregion
 
@@ -41,11 +41,11 @@ public class EntityStats : MonoBehaviour
 
     #region Defence
     [Header("Defence Stats")]
-    //闪避率
+    //闪避率（百分比）
     public Stat evasionChance;
-    //法术抵抗力，提供法术减伤（暂时非百分比）
+    //法术抵抗力，提供法术减伤（百分比）
     public Stat magicalResistance;
-    //护甲值，提供物理减伤（暂时非百分比）
+    //护甲值，提供物理减伤（百分比）
     public Stat physicalArmor;
     #endregion
 
@@ -95,15 +95,10 @@ public class EntityStats : MonoBehaviour
 
     #region TotalDamage
     public virtual void GetTotalDamageFrom(EntityStats _entityAttackingYou)
-    //把物理和法术伤害拆分来一起调用，目的是两者的伤害效果可以一起出现，也更清晰
+    //提供一种调用全部伤害的函数，当然，你也可以单独调用物理和法术伤害
     {
         this.GetMagicalDamagedBy(_entityAttackingYou.GetFinalMagicalDamage());
         this.GetPhysicalDamagedBy(_entityAttackingYou.GetFinalPhysicalDamage());
-    }
-    public virtual void GetTotalDamageFrom(EntityStats _entityAttackingYou, Stat _skill)
-    //受伤害函数的重载，用于特殊的技能伤害的情况，暂且简单地认为技能伤害为法术伤害，不计算物理伤害
-    {
-        this.GetMagicalDamagedBy(_entityAttackingYou.GetFinalMagicalDamage() + _skill.GetValue());
     }
     #endregion
 
@@ -134,6 +129,18 @@ public class EntityStats : MonoBehaviour
             }
         }
     }
+    public virtual int CheckResistance(EntityStats _targetStats, int _damage)
+    {
+        //记录自己的法术抵抗力（0~70）间，即伤害减免不能超过70%，即最终最少也要收到对方伤害的30%
+        int _resistance = _targetStats.GetFinalResistance();
+        _resistance = Mathf.Clamp(_resistance, 0, 70);
+        //计算减伤率（百分比）
+        float _resistancePercentage = _resistance * 0.01f;
+        //计算最终承受伤害（浮点数）
+        float _checkedFinalDamage = _damage * (1 - _resistancePercentage);
+        //转化为整型伤害
+        return Mathf.RoundToInt(_checkedFinalDamage);
+    }
     public virtual void ApplyAilmentsTo(bool _ignited, bool _chilled, bool _shocked)
     //应用魔法伤害，类似为持续性的debuff
     {
@@ -145,12 +152,6 @@ public class EntityStats : MonoBehaviour
         isIgnited = _ignited;
         isChilled = _chilled;
         isShocked = _shocked;
-    }
-    public virtual int CheckResistance(EntityStats _targetStats, int _damage)
-    {
-        //受到的伤害被法术抵抗力减免
-        int _finalDamage = _damage - _targetStats.GetFinalResistance();
-        return Mathf.Clamp(_finalDamage, 0, int.MaxValue);
     }
     #endregion
 
@@ -182,15 +183,19 @@ public class EntityStats : MonoBehaviour
             }
         }
     }
-    public virtual int CheckArmor(EntityStats _targetEntity, int _damage)
+    public virtual int CheckArmor(EntityStats _targetStats, int _damage)
     //用于造成伤害前检测一下护甲值对伤害的削弱
     {
-        //此处护甲值对伤害减免是非百分比形式的，后续可改为百分比减伤
-        int _finalDamage = _damage - _targetEntity.GetFinalArmor();
-        //若钳制对象（_totalDamage）小于Clamp内的第二个参数（钳制区间的最小值min），则返回min
-        //若大于钳制区间最大值max（此处为int,MaxValue即整形能容纳的最大数），则返回max，若在区间内则返回自身
-        //此处返回非负整数，因为伤害不能为负数（变成了治疗）
-        return Mathf.Clamp(_finalDamage, 0, int.MaxValue);
+        //记录自己的物理护甲（0~70）间，即伤害减免不能超过70%，即最终最少也要收到对方伤害的30%
+        int _armor = _targetStats.GetFinalArmor();
+        //若钳制对象（_armor）小于第二个参数（钳制区间的最小值min），则返回min；若大于钳制区间最大值max则返回max;若在区间内则返回自身
+        _armor = Mathf.Clamp(_armor, 0, 70);
+        //计算减伤率（百分比）
+        float _armorPercentage = _armor * 0.01f;
+        //计算最终承受伤害（浮点数）
+        float _checkedFinalDamage = _damage * (1 - _armorPercentage);
+        //转化为整型伤害
+        return Mathf.RoundToInt(_checkedFinalDamage);
     }
     #endregion
 
@@ -239,8 +244,12 @@ public class EntityStats : MonoBehaviour
     }
     public virtual float GetFinalCriticPower()
     {
+        //暴击伤害倍率
+        int _finalCriticPower = criticPower.GetValue() + 2 * strength.GetValue();
+        //保证倍率要大于100%，上限为int.MaxValue即整型边界
+        _finalCriticPower = Mathf.Clamp(_finalCriticPower, 100, int.MaxValue);
         //返回最终暴击伤害倍率的%号前部分
-        return criticPower.GetValue() + 2 * strength.GetValue();
+        return _finalCriticPower;
     }
     public virtual int GetFinalCriticChance()
     {
