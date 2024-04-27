@@ -14,9 +14,11 @@ public class InventoryStoragedItem
     public int stackSize;
 
     public InventoryStoragedItem(ItemData _newItemData)
-    //构造函数接收一个ItemData作为这个格子的物品类型
+    //构造函数，接收一个ItemData作为这个格子的物品类型
     {
         itemData = _newItemData;
+        //当这个物品栏格子被创建时，默认堆叠数量应该从1开始，而不是0
+        stackSize = 1;
     }
 
     //两个函数控制stackSize的值，和Stat中的modifiers很相似的用法

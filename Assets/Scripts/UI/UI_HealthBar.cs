@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class HealthBar_UI : MonoBehaviour
+public class UI_HealthBar : MonoBehaviour
 {
     #region Components
     //链接到实体的脚本

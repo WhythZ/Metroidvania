@@ -8,10 +8,17 @@ public class Inventory : MonoBehaviour
     //不同于PlayerManager的通过instance.player来调用，因为在那里instance代表的是PlayerManager而非Player类型对象
     public static Inventory instance;
 
+    [Header("Inventory")]
     //记录“物品栏物品”（一种类似Stat的自定义数据类型，而不是直接使用不好管理的ItemData）信息的列表
-    [SerializeField] public List<InventoryStoragedItem> inventoryItemsList;
+    public List<InventoryStoragedItem> inventoryItemsList;
     //使用字典来存储ItemData与InventoryItem一一对应的关系
     public Dictionary<ItemData,InventoryStoragedItem> inventoryItemsDictionary;
+
+    [Header("Inventory UI")]
+    //整体物品栏的位置
+    [SerializeField] private Transform inventorySlotParent;
+    //单个物品栏UI的数组
+    private UI_ItemSlot[] itemUISlotsList;
 
     private void Awake()
     {
@@ -27,6 +34,20 @@ public class Inventory : MonoBehaviour
         //初始化物品栏物品列表以及物品栏字典
         inventoryItemsList = new List<InventoryStoragedItem>();
         inventoryItemsDictionary = new Dictionary<ItemData,InventoryStoragedItem>();
+    
+        //注意这里是Components，有s，因为slot是列表，记录多个对象
+        itemUISlotsList = inventorySlotParent.GetComponentsInChildren<UI_ItemSlot>();
+    }
+
+    private void UpdateSlotUI()
+    //此函数在物品变化（Add与Remove两处）时被调用一次
+    {
+        //对物品栏列表内的物品进行遍历
+        for (int i = 0; i < inventoryItemsList.Count; i++)
+        {
+            //将物品栏列表内的物品一一赋予物品栏UI列表
+            itemUISlotsList[i].UpdateSlot(inventoryItemsList[i]);
+        }
     }
 
     #region ChangeInventory
@@ -43,15 +64,16 @@ public class Inventory : MonoBehaviour
         {
             //C#中创建自定义类新对象的方式
             InventoryStoragedItem _newInventoryStoragedItem = new InventoryStoragedItem(_newItemData);
-            //物品堆叠数增加
-            _newInventoryStoragedItem.AddStackSizeBy(1);
 
-            //物品栏新创建一个物品栏格子装填这个新物品
+            //物品栏新创建一个物品栏格子装填这个新物品，堆叠数在构造函数中被默认初始化为1
             inventoryItemsList.Add(_newInventoryStoragedItem);
 
-            //添加新的映射关系，以便下次被检测到，直接堆叠数增加即可
+            //添加新的映射关系，以便下次被检测到并直接将堆叠数进行增加
             inventoryItemsDictionary.Add(_newItemData, _newInventoryStoragedItem);
         }
+
+        //刷新物品栏UI
+        UpdateSlotUI();
     }
     public void RemoveItemTotally(ItemData _itemData)
     {
@@ -72,6 +94,9 @@ public class Inventory : MonoBehaviour
                 _InvItem.DecreaseStackSizeBy(1);
             }
         }
+
+        //刷新物品栏UI
+        UpdateSlotUI();
     }
     #endregion
 
