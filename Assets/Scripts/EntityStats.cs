@@ -17,16 +17,6 @@ public class EntityStats : MonoBehaviour
     public int currentHealth;
     #endregion
 
-    #region PhysicalAttack
-    [Header("Physical Attack Stats")]
-    //实体的基础攻击伤害
-    public Stat primaryAttackDamage;
-    //暴击伤害倍率（百分比，大于100）
-    public Stat criticPower;
-    //暴击率（百分比）
-    public Stat criticChance;
-    #endregion
-
     #region Attribute
     [Header("Attribute Stats")]
     //力量属性，增加10点攻击力，1%暴击率，2%暴击伤害（这些加成与modifiers的加成不是同一体系的）
@@ -39,14 +29,14 @@ public class EntityStats : MonoBehaviour
     public Stat intelligence;
     #endregion
 
-    #region Defence
-    [Header("Defence Stats")]
-    //闪避率（百分比）
-    public Stat evasionChance;
-    //法术抵抗力，提供法术减伤（百分比）
-    public Stat magicalResistance;
-    //护甲值，提供物理减伤（百分比）
-    public Stat physicalArmor;
+    #region PhysicalAttack
+    [Header("Physical Attack Stats")]
+    //实体的基础攻击伤害
+    public Stat primaryAttackDamage;
+    //暴击伤害倍率（百分比，大于100）
+    public Stat criticPower;
+    //暴击率（百分比）
+    public Stat criticChance;
     #endregion
 
     #region MagicalAttack
@@ -63,6 +53,16 @@ public class EntityStats : MonoBehaviour
     public bool isChilled;
     //处于眩晕状态
     public bool isShocked;
+    #endregion
+
+    #region Defence
+    [Header("Defence Stats")]
+    //闪避率（百分比）
+    public Stat evasionChance;
+    //法术抵抗力，提供法术减伤（百分比）
+    public Stat magicalResistance;
+    //护甲值，提供物理减伤（百分比）
+    public Stat physicalArmor;
     #endregion
 
     #region Events

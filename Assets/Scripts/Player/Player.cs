@@ -158,6 +158,47 @@ public class Player : Entity
         DashController();
     }
 
+/*    #region UI
+    private void DetectOpeningUI()
+    //按下对应按钮，打开对应UI界面
+    {
+        //获取Canvas
+        GameObject _canvas = GameObject.Find("Canvas");
+        //获取两个UI对象
+        GameObject _characterUI = GameObject.Find("UI_Character");
+        GameObject _optionsUI = GameObject.Find("UI_Options");
+
+        //按下I键打开或关闭角色UI界面
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            //activeSelf返回对象是否在Hierarchy内被激活
+            if(_characterUI.activeSelf)
+                _characterUI.SetActive(false);
+            else
+                _characterUI.SetActive(true);
+        }
+
+        //按下ESC键，若有激活的任意Canvas下UI，则关闭所有UI，反之激活Options的UI
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            //遍历Canvas的子对象
+            for (int i = 0; i < _canvas.transform.childCount; i++)
+            {
+                //若检测到激活的UI，则关闭
+                if(transform.GetChild(i).gameObject.activeSelf)
+                {
+                    transform.GetChild(i).gameObject.SetActive(false);
+                    //返回，不让有执行for外语句的机会
+                    return;
+                }
+            }
+
+            //若在上面的循环内没有触发关闭UI，则打开options的UI
+            _optionsUI.SetActive(true);
+        }
+    }
+    #endregion*/
+
     #region Dash
     private void DashController()
     {
