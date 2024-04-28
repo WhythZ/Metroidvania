@@ -37,13 +37,12 @@ public class UI_HealthBar : MonoBehaviour
         //使得每次onHealthChanged事件发生（被调用）时，调用更新血条UI的函数
         mySts.onHealthChanged += UpdateHealthUI;
         #endregion
-        
-        //实体生成的时候，调用一下血条UI的更新
-        UpdateHealthUI();
 
         //这里的Start函数必须要确保比初始化实体血量的Start函数后调用，否则UI会与实际血量不符合
         //若想调整调用顺序，可在Project Settings的Scripts Execution Order处修改
-        //Debug.Log("HealthBar_UI Start() Func Called");
+        //Debug.Log("UI_HealthBar Start() Func Called");
+        //实体生成的时候，调用一下血条UI的更新
+        UpdateHealthUI();
     }
 
     //出于节省系统性能考虑，最好选择不使用Update函数更新血量，而是使用事件，在每一次对生命值进行更新时（受到伤害），调用一次更新UI的函数
@@ -56,8 +55,8 @@ public class UI_HealthBar : MonoBehaviour
     private void UpdateHealthUI()
     //与onHealthChanged事件叠加调用，不断更新实体的当前血量，以便于与滑块链接
     {
-        //滑块的最大值，即实体的最大血量
-        slider.maxValue = mySts.originalMaxHealth.GetValue();
+        //滑块的最大值，即实体的最终最大血量
+        slider.maxValue = mySts.GetFinalMaxHealth();
         //滑块的当前值，即实体的当前血量
         slider.value = mySts.currentHealth;
     }

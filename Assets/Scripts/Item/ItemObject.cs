@@ -20,8 +20,8 @@ public class ItemObject : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     //判断主角是否与物品发生了碰撞，记得保证物品Object有Collider组件
     {
-        //若主角与物品的碰撞箱碰撞，则捡起物品
-        if(collision.GetComponent<Player>() != null)
+        //若主角与物品的碰撞箱碰撞，且背包有余位，则捡起物品
+        if(collision.GetComponent<Player>() != null && Inventory.instance.CanAddNewItem())
         {
             //通过instance调用物品栏，直接调用Inventory的instance即可
             //不同于PlayerManager的通过instance.player来调用，因为在那里instance代表的是PlayerManager而非Player类型对象

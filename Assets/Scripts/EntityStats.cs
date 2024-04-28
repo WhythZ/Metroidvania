@@ -32,7 +32,7 @@ public class EntityStats : MonoBehaviour
     #region PhysicalAttack
     [Header("Physical Attack Stats")]
     //实体的基础攻击伤害
-    public Stat primaryAttackDamage;
+    public Stat primaryPhysicalDamage;
     //暴击伤害倍率（百分比，大于100）
     public Stat criticPower;
     //暴击率（百分比）
@@ -85,6 +85,7 @@ public class EntityStats : MonoBehaviour
 
         //这里的Start函数必须要确保比更新血条UI的Start函数先调用，否则UI会与实际血量不符合
         //若想调整调用顺序，可在Project Settings的Scripts Execution Order处修改
+        //Debug.Log("EntityStats Start() Func Called");
         //初始时赋予实体其加成过后的最大生命值
         currentHealth = GetFinalMaxHealth();
 
@@ -213,13 +214,14 @@ public class EntityStats : MonoBehaviour
     #region CalculateFinalValues
     public virtual int GetFinalPhysicalDamage()
     {
-        //若是触发了暴击，则返回叠加了暴击倍率后的伤害
-        if(CanCrit())
-        {
-            Debug.Log(entity.name + " Crit");
+        //记录下来非暴击伤害
+        int _nonCritDamage = primaryPhysicalDamage.GetValue() + 10 * strength.GetValue() + 5 * agility.GetValue();
 
-            //注意这里后半部分别用递归，可能多次触发暴击倍率的相乘
-            int _nonCritDamage = this.primaryAttackDamage.GetValue() + 10 * strength.GetValue() + 5 * agility.GetValue();
+        //若是触发了暴击，则返回叠加了暴击倍率后的伤害
+        if (CanCrit())
+        {
+            Debug.Log(entity.name + " Physic Crit");
+
             //使用暴击倍率需要除以100变为浮点数形式，但最终还是要返回一个整型数据
             float _criticPower = GetFinalCriticPower() * 0.01f;
 
@@ -229,20 +231,32 @@ public class EntityStats : MonoBehaviour
         else
         {
             //返回非暴击的最终的攻击伤害值
-            return this.primaryAttackDamage.GetValue() + 10 * strength.GetValue() + 5 * agility.GetValue();
+            return _nonCritDamage;
         }
     }
     public virtual int GetFinalMagicalDamage()
     {
-        //返回总魔法伤害
-        return 10 * intelligence.GetValue() + fireAttackDamage.GetValue() + iceAttackDamage.GetValue() + lightningAttackDamage.GetValue();
+        //记录非暴击总魔法伤害
+        int _nonCritDamage = 10 * intelligence.GetValue() + fireAttackDamage.GetValue() + iceAttackDamage.GetValue() + lightningAttackDamage.GetValue();
+
+        if (CanCrit())
+        {
+            Debug.Log(entity.name + " Magic Crit");
+
+            float _criticPower = GetFinalCriticPower() * 0.01f;
+            return Mathf.RoundToInt(_criticPower * _nonCritDamage);
+        }
+        else
+        {
+            return _nonCritDamage;
+        }
     }
     public virtual int GetFinalMaxHealth()
     {
         //此函数返回实体的最终最大血量，即等于初始最大血量加上别的加成
         return originalMaxHealth.GetValue() + 20 * vitality.GetValue();
     }
-    public virtual float GetFinalCriticPower()
+    public virtual int GetFinalCriticPower()
     {
         //暴击伤害倍率
         int _finalCriticPower = criticPower.GetValue() + 2 * strength.GetValue();
@@ -296,4 +310,45 @@ public class EntityStats : MonoBehaviour
         return false;
     }
     #endregion
+
+    #region StatTypeMapping
+    public int GetValueOfStatType(StatType _statType)
+    //返回对应的数值
+    {
+        if (_statType == StatType.health) { return GetFinalMaxHealth(); }
+        if (_statType == StatType.strength) { return strength.GetValue(); }
+        if (_statType == StatType.agility) { return agility.GetValue(); }
+        if (_statType == StatType.vitality) { return vitality.GetValue(); }
+        if (_statType == StatType.intelligence) { return intelligence.GetValue(); }
+        if (_statType == StatType.physicalDamage) { return GetFinalPhysicalDamage(); }
+        if (_statType == StatType.critChance) { return GetFinalCriticChance(); }
+        if (_statType == StatType.critPower) { return GetFinalCriticPower(); }
+        if (_statType == StatType.magicalDamage) { return GetFinalMagicalDamage(); }
+        if (_statType == StatType.evasion) { return GetFinalEvasionChance(); }
+        if (_statType == StatType.armor) { return GetFinalArmor(); }
+        if (_statType == StatType.resistance) { return GetFinalResistance(); }
+
+        //注意这里返回空，不然会报错：并非所有的代码路径都返回值
+        return 0;
+    }
+    #endregion
 }
+
+#region StatTypeEnum
+public enum StatType
+//在Hierarchy给对象上的脚本内的变量赋值的时候，若变量 数据类型是StatType，则可以直接选取此结构内的各成员作为值赋予变量
+{
+    health,
+    strength,
+    agility,
+    vitality,
+    intelligence,
+    physicalDamage,
+    critChance,
+    critPower,
+    magicalDamage,
+    evasion,
+    armor,
+    resistance
+}
+#endregion

@@ -20,7 +20,7 @@ public class UI_ItemSlot : MonoBehaviour
         itemText = GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    public void UpdateSlot(InventoryStoragedItem _newItem)
+    public void UpdateItemSlotUI(InventoryStoragedItem _newItem)
     //在Inventory中被调用更新
     {
         //接受输入的物品栏内物品
