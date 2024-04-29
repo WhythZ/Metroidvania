@@ -30,4 +30,7 @@ public class BringerAnimationTriggers : MonoBehaviour
 
     //关闭可以被弹反眩晕的状态
     private void CloseCounterAttackWindow() => bringer.CloseCounterAttackWindow();
+
+    //敌人死亡，需要进行销毁
+    private void BringerDead() => Destroy(bringer.gameObject);
 }

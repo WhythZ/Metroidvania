@@ -30,8 +30,7 @@ public class Bringer : Enemy
         battleState = new BringerBattleState(this, stateMachine, "Move", this);
         attackState = new BringerAttackState(this, stateMachine, "Attack", this);
         stunnedState = new BringerStunnedState(this, stateMachine, "Stunned", this);
-        //死亡状态在Awake处声明的AnimBoolName无意义，但是得有，所以随便输个Idle
-        deadState = new BringerDeadState(this, stateMachine, "Idle", this);
+        deadState = new BringerDeadState(this, stateMachine, "Dead", this);
         #endregion
     }
 
@@ -57,7 +56,7 @@ public class Bringer : Enemy
         KeepDirectionSame();
     }
 
-    #region Stunned
+    #region StunnedOverride
     public override bool WhetherCanBeStunned()
     //这个状态转换在这里而不是在attackState里，是因为反正CounterAttackWindow只能在attackState的动画里被调用，在这里或那里切换状态都没差啦
     //同时，在Bringer脚本内还能重写这个函数

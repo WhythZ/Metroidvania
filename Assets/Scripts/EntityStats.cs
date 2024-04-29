@@ -98,8 +98,15 @@ public class EntityStats : MonoBehaviour
     public virtual void GetTotalDamageFrom(EntityStats _entityAttackingYou)
     //提供一种调用全部伤害的函数，当然，你也可以单独调用物理和法术伤害
     {
-        this.GetMagicalDamagedBy(_entityAttackingYou.GetFinalMagicalDamage());
-        this.GetPhysicalDamagedBy(_entityAttackingYou.GetFinalPhysicalDamage());
+        //若是基础伤害为0，则不应进行最终值的获取（其中还要进行暴击判定，判定若是成功了还会返回暴击效果，这是不需要的，因为暴击与否都是0伤害）
+        if (GetNonCritMagicalDamage() > 0)
+        {
+            this.GetMagicalDamagedBy(_entityAttackingYou.GetFinalMagicalDamage());
+        }
+        if(GetNonCritPhysicalDamage() > 0)
+        {
+            this.GetPhysicalDamagedBy(_entityAttackingYou.GetFinalPhysicalDamage());
+        }
     }
     #endregion
 
@@ -215,7 +222,7 @@ public class EntityStats : MonoBehaviour
     public virtual int GetFinalPhysicalDamage()
     {
         //记录下来非暴击伤害
-        int _nonCritDamage = primaryPhysicalDamage.GetValue() + 10 * strength.GetValue() + 5 * agility.GetValue();
+        int _nonCritDamage = GetNonCritPhysicalDamage();
 
         //若是触发了暴击，则返回叠加了暴击倍率后的伤害
         if (CanCrit())
@@ -234,10 +241,15 @@ public class EntityStats : MonoBehaviour
             return _nonCritDamage;
         }
     }
+    public virtual int GetNonCritPhysicalDamage()
+    //得到不进行暴击判定的原始伤害，用于给UI赋值，不然UI那边刷新数据时还可能触发暴击，导致面板伤害偏高
+    {
+        return primaryPhysicalDamage.GetValue() + 10 * strength.GetValue() + 5 * agility.GetValue();
+    }
     public virtual int GetFinalMagicalDamage()
     {
         //记录非暴击总魔法伤害
-        int _nonCritDamage = 10 * intelligence.GetValue() + fireAttackDamage.GetValue() + iceAttackDamage.GetValue() + lightningAttackDamage.GetValue();
+        int _nonCritDamage = GetNonCritMagicalDamage();
 
         if (CanCrit())
         {
@@ -250,6 +262,10 @@ public class EntityStats : MonoBehaviour
         {
             return _nonCritDamage;
         }
+    }
+    public virtual int GetNonCritMagicalDamage()
+    {
+        return 10 * intelligence.GetValue() + fireAttackDamage.GetValue() + iceAttackDamage.GetValue() + lightningAttackDamage.GetValue();
     }
     public virtual int GetFinalMaxHealth()
     {
@@ -320,10 +336,10 @@ public class EntityStats : MonoBehaviour
         if (_statType == StatType.agility) { return agility.GetValue(); }
         if (_statType == StatType.vitality) { return vitality.GetValue(); }
         if (_statType == StatType.intelligence) { return intelligence.GetValue(); }
-        if (_statType == StatType.physicalDamage) { return GetFinalPhysicalDamage(); }
+        if (_statType == StatType.physicalDamage) { return GetNonCritPhysicalDamage(); }
         if (_statType == StatType.critChance) { return GetFinalCriticChance(); }
         if (_statType == StatType.critPower) { return GetFinalCriticPower(); }
-        if (_statType == StatType.magicalDamage) { return GetFinalMagicalDamage(); }
+        if (_statType == StatType.magicalDamage) { return GetNonCritMagicalDamage(); }
         if (_statType == StatType.evasion) { return GetFinalEvasionChance(); }
         if (_statType == StatType.armor) { return GetFinalArmor(); }
         if (_statType == StatType.resistance) { return GetFinalResistance(); }

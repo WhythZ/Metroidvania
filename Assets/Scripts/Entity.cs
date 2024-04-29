@@ -15,7 +15,7 @@ public class Entity : MonoBehaviour
     public BoxCollider2D cd {  get; private set; }
     #endregion
 
-    #region CollisionInfo
+    #region Collision
     [Header("Basic Collision Info")]
     //攻击碰撞范围（实体前方的一个圆）
     public Transform attackCheck;
@@ -37,7 +37,7 @@ public class Entity : MonoBehaviour
     [SerializeField] protected float wallCheckDistance;
     #endregion
 
-    #region MovementInfo
+    #region Movement
     [Header("Basic Movement Info")]
     //初始移动速度倍率
     public float moveSpeed = 10;
@@ -47,7 +47,7 @@ public class Entity : MonoBehaviour
     protected bool facingRight = true;
     #endregion
 
-    #region KnockbackInfo
+    #region Knockback
     [Header("Knockback Info")]
     //实体被攻击后的击退效果向量，即含有x和y两个效果分量
     [SerializeField] protected Vector2 knockbackDirVector;
@@ -59,7 +59,7 @@ public class Entity : MonoBehaviour
     protected bool isKnocked = false;
     #endregion
 
-    #region StatesInfo
+    #region States
     //用于记录上一个状态的Animator内的parameter的名称，比如可以用于敌人死亡时保留上一个状态的动画
     public string lastAnimBoolName {  get; private set; }
     #endregion

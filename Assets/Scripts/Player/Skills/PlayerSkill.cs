@@ -7,7 +7,7 @@ public class PlayerSkill : MonoBehaviour
 //这里继承的是MonoBehaviour，所以Update一直在刷新
 {
     //每个技能类的冷却时长
-    [SerializeField] protected float cooldown;
+    public float cooldown;
     //技能冷却的计时器
     protected float cooldownTimer;
 

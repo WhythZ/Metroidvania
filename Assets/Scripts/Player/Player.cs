@@ -40,13 +40,13 @@ public class Player : Entity
     public PlayerStats sts {  get; private set; }
     #endregion
 
-    #region MovementInfo
+    #region Movement
     [Header("Player Movement Info")]
     //人物在空中的移动速度是moveSpeed的小于一倍
     public float airMoveSpeedRate = 0.9f;
     #endregion
 
-    #region JumpInfo
+    #region Jump
     [Header("Jump Info")]
     //初始跳跃力
     public float jumpForce = 15;
@@ -54,7 +54,7 @@ public class Player : Entity
     public int jumpNum = 2;
     #endregion
 
-    #region SkillInfo
+    #region Skills
     //使得代码更简洁，不用PlayerSkillManager.instance.xxx，直接player.skill.instance.xxx即可
     public PlayerSkillManager skill {  get; private set; }
     //记录是否已经投掷出去了剑，防止无限投掷，在GroundedState中（即投掷能力的入口处）检测是否已经创建过剑Prefab
@@ -62,7 +62,7 @@ public class Player : Entity
     public GameObject assignedSword {  get; private set; }
     #endregion
 
-    #region DashInfo
+    #region Dash
     [Header("Dash Info")]
     //冲刺时间默认0.2秒，即移动速度乘上dashSpeed倍率的持续时长
     public float dashDuration = 0.2f;
@@ -89,7 +89,7 @@ public class Player : Entity
     public float counterAttackDuration = 0.3f;
     #endregion
 
-    #region WallSlideInfo
+    #region WallSlide
     [Header("WallSlide Info")]
     //滑墙的速度倍率
     public float slideSpeed = 0.9f;
@@ -157,47 +157,6 @@ public class Player : Entity
         //控制人物的冲刺状态
         DashController();
     }
-
-/*    #region UI
-    private void DetectOpeningUI()
-    //按下对应按钮，打开对应UI界面
-    {
-        //获取Canvas
-        GameObject _canvas = GameObject.Find("Canvas");
-        //获取两个UI对象
-        GameObject _characterUI = GameObject.Find("UI_Character");
-        GameObject _optionsUI = GameObject.Find("UI_Options");
-
-        //按下I键打开或关闭角色UI界面
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            //activeSelf返回对象是否在Hierarchy内被激活
-            if(_characterUI.activeSelf)
-                _characterUI.SetActive(false);
-            else
-                _characterUI.SetActive(true);
-        }
-
-        //按下ESC键，若有激活的任意Canvas下UI，则关闭所有UI，反之激活Options的UI
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            //遍历Canvas的子对象
-            for (int i = 0; i < _canvas.transform.childCount; i++)
-            {
-                //若检测到激活的UI，则关闭
-                if(transform.GetChild(i).gameObject.activeSelf)
-                {
-                    transform.GetChild(i).gameObject.SetActive(false);
-                    //返回，不让有执行for外语句的机会
-                    return;
-                }
-            }
-
-            //若在上面的循环内没有触发关闭UI，则打开options的UI
-            _optionsUI.SetActive(true);
-        }
-    }
-    #endregion*/
 
     #region Dash
     private void DashController()

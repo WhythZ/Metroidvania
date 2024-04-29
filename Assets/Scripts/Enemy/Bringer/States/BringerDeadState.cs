@@ -16,7 +16,8 @@ public class BringerDeadState : EnemyState
     {
         base.Enter();
 
-        //因为本游戏设计的敌人死亡没有特殊动画，而是采取像是马里奥那样的滴人死亡后向上跳一下然后落出地图的效果
+        #region AbandonedDesign
+        /*//因为本游戏设计的敌人死亡没有特殊动画，而是采取像是马里奥那样的滴人死亡后向上跳一下然后落出地图的效果
         //进入死亡状态时，强制将上一个状态的AnimBoolName设置为真，即保留了上个状态的动画
         bringer.anim.SetBool(bringer.lastAnimBoolName, true);
         
@@ -27,19 +28,15 @@ public class BringerDeadState : EnemyState
         bringer.cd.enabled = false;
 
         //给敌人设置一个向上的速度的持续时间，事件结束后就会因为重力下坠出去
-        stateTimer = 0.1f;
+        stateTimer = 0.1f;*/
+        #endregion
     }
 
     public override void Update()
     {
         base.Update();
 
-        //不知为何，这样之后怪物会一直向上飞
-/*        //在时间结束前向上一段距离
-        if(stateTimer > 0)
-        {
-            //赋予一个向上的速度
-            bringer.SetVelocity(0, 15);
-        }*/
+        //别动
+        bringer.SetVelocity(0, 0);
     }
 }

@@ -33,7 +33,7 @@ public class Enemy : Entity
     [SerializeField] protected LayerMask whatIsPlayer;
     #endregion
 
-    #region BattleInfo
+    #region Battle
     [Header("Battle Info")]
     //进入攻击距离（新建一个距离检测）之后，可以进入攻击状态了；沿用Player的图层
     public bool enterAttackRegion;
@@ -54,8 +54,8 @@ public class Enemy : Entity
     public bool shouldEnterBattle = false;
     #endregion
 
-    #region StunnedInfo
-    [Header("StunnedInfo")]
+    #region Stunned
+    [Header("Stunned Info")]
     //怪物被主角格挡弹反后进入眩晕，此处为眩晕时长；弹反的击退调用普通攻击击退StartCoroutine("HitKnockback");即可
     public float stunnedDuration = 1f;
     //可以被弹反的信号，受专属函数控制，为AnimationTrigger脚本提供接口
@@ -104,7 +104,7 @@ public class Enemy : Entity
     }
     #endregion
 
-    #region StunnedInfo
+    #region Stunned
     public void OpenCounterAttackWindow()
     {
         //开启能被弹反眩晕的状态
@@ -128,7 +128,7 @@ public class Enemy : Entity
     }
     #endregion
 
-    #region AttackInfo
+    #region Attack
     public virtual void AttackController()
     {
         //计时器开始计时
