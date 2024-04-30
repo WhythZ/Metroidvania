@@ -164,19 +164,14 @@ public class Player : Entity
         //计时器开始计时
         //dashCooldownTimer -= Time.deltaTime;
 
-        //不能从攻击状态冲刺
-        if(stateMachine.currentState != primaryAttack)
+        //不能从攻击，瞄准与投掷状态冲刺
+        if (stateMachine.currentState != primaryAttack && stateMachine.currentState != aimSwordState && stateMachine.currentState != throwSwordState)
         {
-            //冲刺可以从任意非攻击状态进入开始，故而放在此处Update里赋予其高优先级；只要按下左shift，且冷却时间结束，便进入冲刺状态；
+            //冲刺可以从任意允许的状态进入开始，故而放在此处Update里赋予其高优先级；只要按下左shift，且冷却时间结束，便进入冲刺状态；
             //注意这里使用了PlayerSkillManager
             if (Input.GetKeyDown(KeyCode.LeftShift) && skill.dashSkill.WhetherCanUseSkill() && canDash)
             {
-                //瞄准与投掷状态不能冲刺
-                if(stateMachine.currentState != aimSwordState && stateMachine.currentState != throwSwordState)
-                {
-                    //dashCooldownTimer = dashCooldown;
-                    stateMachine.ChangeState(dashState);
-                }
+                stateMachine.ChangeState(dashState);
             }
         }
     }
