@@ -73,8 +73,6 @@ public class EntityStats : MonoBehaviour
     protected virtual void Start()
     {
         #region SetDefault
-        //设置默认最大生命值
-        originalMaxHealth.SetDefaultValue(100);
         //设置默认暴击伤害倍率为150%
         criticPower.SetDefaultValue(150);
         //初始暴击率为5%
@@ -217,7 +215,7 @@ public class EntityStats : MonoBehaviour
         //throw new NotImplementedException();
     }
     #endregion
-    
+
     #region CalculateFinalValues
     public virtual int GetFinalPhysicalDamage()
     {

@@ -21,6 +21,10 @@ public class PlayerPrimaryAttack : PlayerState
     {
         base.Enter();
 
+        //此音效转移至PlayerAnimationTriggers.cs的AttackDamageTrigger()函数处触发
+        //触发攻击音效
+        //Audio_Manager.instance.StartPlaySFX(7);
+
         #region ComboCounter
         //如果超出了连招最大个数，则归1（即下一次攻击回归第一招攻击）
         //如果攻击之间间隔太久（超出comboRefreshDuration），则会重新从第一招开始攻击

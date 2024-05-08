@@ -19,8 +19,8 @@ public class PlayerStats : EntityStats
         base.Start();
 
         #region SetDefault
-        //初始飞剑伤害额外为10
-        swordExtraDamage.SetDefaultValue(10);
+        //初始飞剑额外伤害
+        swordExtraDamage.SetDefaultValue(swordExtraDamage.GetValue());
         #endregion
 
         //和player=entity等效
