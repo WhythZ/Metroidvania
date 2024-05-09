@@ -17,6 +17,9 @@ public class UI_StatToolTip : MonoBehaviour
 
         //激活这个窗口
         gameObject.SetActive(true);
+
+        //UI音效
+        Audio_Manager.instance.PlaySFX(5, null);
     }
 
     public void HideStatToolTip()
@@ -25,5 +28,8 @@ public class UI_StatToolTip : MonoBehaviour
         //清空文本
         statDescription.text = "";
         gameObject.SetActive(false);
+
+        //UI音效结束
+        //Audio_Manager.instance.StopSFX(5);
     }
 }

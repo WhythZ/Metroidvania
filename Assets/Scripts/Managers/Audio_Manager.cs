@@ -24,6 +24,13 @@ public class Audio_Manager : MonoBehaviour
     public int bgmIndex;
     #endregion
 
+    #region CD
+    //储存唱片
+    [SerializeField] AudioSource[] cds;
+    //当前是否在播放cd
+    public bool isPlayCD;
+    #endregion
+
     private void Awake()
     {
         //确保管理器仅有一个
@@ -35,14 +42,18 @@ public class Audio_Manager : MonoBehaviour
 
     private void Update()
     {
-        //管理bgm的播放
-        if (!isPlayBGM)
-            StopAllBGM();
-        else
+        //当未在播放cd的时候才能播放bgm
+        if (!isPlayCD)
         {
-            //若应当播放的bgm没有播放，开始播放（没有此if会导致一直从头开始播放哦~）
-            if (!bgm[bgmIndex].isPlaying)
-                PlayBGM(bgmIndex);
+            //管理bgm的播放
+            if (!isPlayBGM)
+                StopAllBGM();
+            else
+            {
+                //若应当播放的bgm没有播放，开始播放（没有此if会导致一直从头开始播放哦~）
+                if (!bgm[bgmIndex].isPlaying)
+                    PlayBGM(bgmIndex);
+            }
         }
     }
 
@@ -58,7 +69,7 @@ public class Audio_Manager : MonoBehaviour
         if(_sfxIndex < sfx.Length)
         {
             //一个小trick,随机化播放目标音效的音高
-            sfx[_sfxIndex].pitch = UnityEngine.Random.Range(0.85f, 1.1f);
+            //sfx[_sfxIndex].pitch = UnityEngine.Random.Range(0.85f, 1.1f);
 
             //播放音效
             sfx[_sfxIndex].Play();
@@ -77,14 +88,13 @@ public class Audio_Manager : MonoBehaviour
         {
             //bgmIndex才是真正确定当前播放bgm的变量
             bgmIndex = _index;
-
             //播放前应当先停止播放其他所有背景音乐
             StopAllBGM();
             //播放背景音乐
             bgm[bgmIndex].Play();
         }
     }
-    public void StartPlayRandomBGM()
+    public void PlayRandomBGM()
     //随机播放bgm
     {
         bgmIndex = UnityEngine.Random.Range(0, bgm.Length);
@@ -97,6 +107,50 @@ public class Audio_Manager : MonoBehaviour
         {
             bgm[i].Stop();
         }
+    }
+    #endregion
+
+    #region CD
+    public void PlayCD(int _cdIndex)
+    //开始播放cd
+    {
+        if(_cdIndex < cds.Length)
+        {
+            //不允许播放bgm
+            isPlayBGM = false;
+            //关闭bgm
+            StopAllBGM();
+            //关闭其它cd
+            StopAllCD();
+
+            //播放cd
+            cds[_cdIndex].Play();
+        }
+    }
+    public void PlayRandomCD()
+    //播放任意cd
+    {
+        //不允许播放bgm
+        isPlayBGM = false;
+        //关闭bgm
+        StopAllBGM();
+        //关闭其它cd
+        StopAllCD();
+
+        //随机抽取cd编号并播放
+        int _cdIndex = UnityEngine.Random.Range(0, cds.Length);
+        cds[_cdIndex].Play();
+    }
+    public void StopAllCD()
+    //关闭所有cd，并继续之前的bgm
+    {
+        for (int i = 0; i < cds.Length; i++)
+        {
+            cds[i].Stop();
+        }
+
+        //继续播放bgm
+        isPlayBGM = true;
     }
     #endregion
 }

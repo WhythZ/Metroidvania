@@ -40,6 +40,13 @@ public class Player : Entity
     public PlayerStats sts {  get; private set; }
     #endregion
 
+    #region Interact
+    [Header("Interact Info")]
+    //可交互物体检测碰撞范围（实体前方的一个圆）
+    public Transform interactCheck;
+    public float interactCheckRadius;
+    #endregion
+
     #region Movement
     [Header("Player Movement Info")]
     //人物在空中的移动速度是moveSpeed的小于一倍
@@ -156,7 +163,49 @@ public class Player : Entity
         stateMachine.currentState.Update();
         //控制人物的冲刺状态
         DashController();
+        //玩家与可交互物体间的交互检测
+        InteractCollisionCheck();
     }
+
+
+    #region CollisionOverride
+    public override void OnDrawGizmos()
+    {
+        base.OnDrawGizmos();
+
+        //交互物体检测范围的圆
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(interactCheck.position, interactCheckRadius);
+    }
+    public void InteractCollisionCheck()
+    {
+        //利用可交互物体检测范围检测并记录唱片机
+        Collider2D[] collidersInInteractZone = Physics2D.OverlapCircleAll(interactCheck.position, interactCheckRadius);
+
+        foreach (var _object in collidersInInteractZone)
+        {
+            /*if (_object.GetComponent<CDPlayer>() != null)
+            {
+                //碰到唱片机的音效
+                Audio_Manager.instance.PlaySFX(7, null);
+
+                //允许播放cd
+                Audio_Manager.instance.isPlayCD = true;
+                //随机播放cd
+                Audio_Manager.instance.PlayRandomCD();
+            }
+            if (_object.GetComponent<CDPlayer>() == null)
+            {
+                //离开唱片机的音效
+                Audio_Manager.instance.PlaySFX(7, null);
+                //关闭cd播放状态
+                Audio_Manager.instance.isPlayCD = false;
+                //关闭cd
+                Audio_Manager.instance.StopAllCD();
+            }*/
+        }
+    }
+    #endregion
 
     #region Dash
     private void DashController()
