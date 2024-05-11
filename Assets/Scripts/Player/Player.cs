@@ -99,6 +99,14 @@ public class Player : Entity
     public float wallJumpReverseSpeedDuration = 0.1f;
     #endregion
 
+    #region CDPlayer
+    [Header("CDPlayer")]
+    //生成随身听所用的随身听预制体
+    public GameObject cdPlayerPrefab;
+    //用于存储生成后的随身听对象，用于防止生成多个随身听预制体
+    public GameObject assignedCDPlayer {  get; private set; }
+    #endregion
+
     protected override void Awake()
     {
         base.Awake();
@@ -156,6 +164,8 @@ public class Player : Entity
         stateMachine.currentState.Update();
         //控制人物的冲刺状态
         DashController();
+        //控制人物的随身听
+        CDPlayerController();
     }
 
     #region Dash
@@ -174,19 +184,6 @@ public class Player : Entity
                 stateMachine.ChangeState(dashState);
             }
         }
-    }
-    #endregion
-
-    #region Sword
-    public void AssignNewSword(GameObject _newSword)
-    {
-        //记录一下新建了一个剑Prefab，在CreateSword()函数中被调用一次
-        assignedSword = _newSword;
-    }
-    public void ClearAssignedSword()
-    {
-        //销毁多余的剑Prefab
-        Destroy(assignedSword);
     }
     #endregion
 
@@ -230,6 +227,49 @@ public class Player : Entity
 
         //进入死亡状态，此函数在PlayerStats内被其Die函数调用
         stateMachine.ChangeState(deadState);
+    }
+    #endregion
+
+    #region Sword
+    public void AssignNewSword(GameObject _newSword)
+    {
+        //记录一下新建了一个剑Prefab，在CreateSword()函数中被调用一次
+        assignedSword = _newSword;
+    }
+    public void ClearAssignedSword()
+    {
+        //销毁多余的剑Prefab
+        Destroy(assignedSword);
+    }
+    #endregion
+
+    #region CDPlayer
+    private void CDPlayerController()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            //若按下召唤键，之前生成过随身听，则清除现在的随身听；此条if一定要在另一个if的前面，不然刚生成的prefab会立刻被清除掉
+            if (assignedCDPlayer != null)
+            {
+                //音效
+                Audio_Manager.instance.PlaySFX(7, null);
+
+                //防止生成多个随身听
+                Destroy(assignedCDPlayer);
+            }
+            //若按下召唤键，之前没生成过随身听，则创建一个新的
+            if(assignedCDPlayer == null)
+            {
+                //音效
+                Audio_Manager.instance.PlaySFX(7, null);
+
+                //初始化并生成一个随身听
+                GameObject _newCDPlayer = Instantiate(cdPlayerPrefab, transform.position, transform.rotation);
+
+                //记录一下，创建了一个新的随身听，防止无限召唤
+                assignedCDPlayer = _newCDPlayer;
+            }
+        }
     }
     #endregion
 

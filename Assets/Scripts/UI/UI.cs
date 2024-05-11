@@ -11,6 +11,8 @@ public class UI : MonoBehaviour
     public static UI instance;
 
     #region ToolTip
+    //物品栏物品的详细信息窗口
+    public UI_ItemToolTip itemToolTip;
     //人物属性的详细信息窗口
     public UI_StatToolTip statToolTip;
     //按键提示
@@ -42,6 +44,7 @@ public class UI : MonoBehaviour
 
         //防止TooTip在不需要的时候打开
         statToolTip.gameObject.SetActive(false);
+        itemToolTip.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -63,8 +66,8 @@ public class UI : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            //在这两个界面按ESC应该退出，切换到游戏内UI
-            if (characterUI.activeSelf || skillsUI.activeSelf)
+            //在这几个界面按ESC应该退出，切换到游戏内UI
+            if (characterUI.activeSelf || skillsUI.activeSelf || cdPlayerUI.activeSelf)
             {
                 SwitchToUI(inGameUI);
                 //结束函数

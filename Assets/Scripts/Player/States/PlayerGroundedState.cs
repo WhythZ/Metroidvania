@@ -31,7 +31,13 @@ public class PlayerGroundedState : PlayerState
 
         //在地面的状态时（包括Idle和Move），若按空格且在地面上时，则进入跳跃状态
         if(Input.GetKeyDown(KeyCode.Space) && player.isGround)
+        {
+            //在主要UI显示的时候，不能进行此运动
+            if (UI.instance.ActivatedStateOfMainUIs() == true)
+                return;
+
             stateMachine.ChangeState(player.jumpState);
+        }
 
         //在地面上按下J键或者鼠标左键进入攻击状态
         if((Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.Mouse0)) && player.isGround)

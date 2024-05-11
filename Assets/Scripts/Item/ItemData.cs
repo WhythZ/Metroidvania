@@ -9,6 +9,11 @@ public class ItemData : ScriptableObject
 {
     //物品的名称
     public string itemName;
+    //物品的类型
+    public string itemType;
+    //物品的描述
+    [TextArea]
+    public string itemDescription;
     //物品的贴图
     public Sprite itemIcon;
 }

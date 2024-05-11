@@ -62,14 +62,14 @@ public class SwordSkill : PlayerSkill
     //由于下列都是剑临时体临时使用的变量对象，故在这里创建局部变量
     {
         //初始化剑的Unity内对象、位置、旋转
-        GameObject newSword = Instantiate(swordPrefab, PlayerManager.instance.player.transform.position, transform.rotation);
+        GameObject _newSword = Instantiate(swordPrefab, PlayerManager.instance.player.transform.position, transform.rotation);
         //链接到剑的控制器
-        Sword_Controller newSwordController = newSword.GetComponent<Sword_Controller>();
+        Sword_Controller newSwordController = _newSword.GetComponent<Sword_Controller>();
         //初始化剑的发射方向、刚体重力
         newSwordController.SetupSword(finalAimDir, swordGravity);
 
         //记录一下，创建了一个新的剑，防止无限投掷
-        PlayerManager.instance.player.AssignNewSword(newSword);
+        PlayerManager.instance.player.AssignNewSword(_newSword);
 
         //创建了剑出来之后，关闭辅助瞄准轨迹点线
         ActivateDots(false);

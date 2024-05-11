@@ -1,9 +1,10 @@
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.EventSystems;
 //字体相关与UI相关的包记得要导入
 
-public class UI_ItemSlot : MonoBehaviour
+public class UI_ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 //这是单个的物品栏格子UI，与InventoryStoragedItem一一对应
 {
     //Image是UI相关的图像，而不是Sprite
@@ -46,4 +47,18 @@ public class UI_ItemSlot : MonoBehaviour
             }
         }
     }
+
+    #region ItemToolTip
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (item.itemData != null)
+            UI.instance.itemToolTip.ShowItemToolTip(item.itemData);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (item.itemData != null)
+            UI.instance.itemToolTip.HideItemToolTip();
+    }
+    #endregion
 }
