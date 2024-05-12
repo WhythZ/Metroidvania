@@ -36,8 +36,11 @@ public class CDPlayer : MonoBehaviour
 
             //若离开时唱片机UI是开启的，则关闭
             //此处有点莫名其妙的bug...?
-            if (UI.instance.cdPlayerUI.activeSelf)
-                UI.instance.SwitchToUI(UI.instance.inGameUI);
+            if (UI.instance.cdPlayerUI != null)
+            {
+                if (UI.instance.cdPlayerUI.activeSelf)
+                    UI.instance.SwitchToUI(UI.instance.inGameUI);
+            }
         }
     }
 }
