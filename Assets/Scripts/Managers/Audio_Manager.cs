@@ -66,7 +66,7 @@ public class Audio_Manager : MonoBehaviour
             return;
 
         //若编号存在于列表内（编号从0开始哦）
-        if(_sfxIndex < sfx.Length)
+        if(_sfxIndex < sfx.Length && sfx[_sfxIndex] != null)
         {
             //一个小trick,随机化播放目标音效的音高
             //sfx[_sfxIndex].pitch = UnityEngine.Random.Range(0.85f, 1.1f);
