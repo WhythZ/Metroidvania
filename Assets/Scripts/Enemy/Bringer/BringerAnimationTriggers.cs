@@ -14,7 +14,7 @@ public class BringerAnimationTriggers : MonoBehaviour
     private void AttackDamageTrigger()
     {
         //´¥·¢¹¥»÷ÒôÐ§
-        Audio_Manager.instance.PlaySFX(0, bringer.transform);
+        AudioManager.instance.PlaySFX(0, bringer.transform);
 
         Collider2D[] collidersInAttackZone = Physics2D.OverlapCircleAll(bringer.attackCheck.position, bringer.attackCheckRadius);
 

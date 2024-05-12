@@ -102,7 +102,7 @@ public class UI : MonoBehaviour
         {
             _menu.SetActive(true);
             //UI«–ªªµƒ“Ù–ß
-            Audio_Manager.instance.PlaySFX(8, null);
+            AudioManager.instance.PlaySFX(8, null);
         }
     }
     public void SwitchWithKeyToUI(GameObject _menu)

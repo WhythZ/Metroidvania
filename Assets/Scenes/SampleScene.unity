@@ -2294,6 +2294,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 121885793}
   m_CullTransparentMesh: 1
+--- !u!1 &136486423
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 136486424}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &136486424
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136486423}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.2496161, y: -4.4111958, z: 0.18670917}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1839972578}
+  - {fileID: 1703577721}
+  - {fileID: 1059391117}
+  - {fileID: 1236191093}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &137994389
 GameObject:
   m_ObjectHideFlags: 0
@@ -9019,6 +9054,9 @@ MonoBehaviour:
   inventorySlotParent: {fileID: 1485011955}
   statSlotParent: {fileID: 159903312}
   inventoryItemsList: []
+  assetNames: []
+  itemDataBase: []
+  loadedItems: []
 --- !u!1 &564886816
 GameObject:
   m_ObjectHideFlags: 0
@@ -9603,7 +9641,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SICK HACK
+  m_text: Yuurei
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b0b5bfcb27e933644b85d3c7d28d0c57, type: 2}
   m_sharedMaterial: {fileID: 997478871241681131, guid: b0b5bfcb27e933644b85d3c7d28d0c57, type: 2}
@@ -9970,7 +10008,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1236191093}
   - {fileID: 880481646}
   m_Father: {fileID: 1165862730}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -15234,9 +15271,9 @@ RectTransform:
   - {fileID: 1455725434}
   - {fileID: 870146962}
   - {fileID: 1076381358}
+  - {fileID: 538186232}
   - {fileID: 1839918943}
   - {fileID: 1034931283}
-  - {fileID: 538186232}
   - {fileID: 909524398}
   - {fileID: 1470589733}
   - {fileID: 228990871}
@@ -15997,6 +16034,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1165862731}
+  currency: 0
 --- !u!4 &1059391117
 Transform:
   m_ObjectHideFlags: 0
@@ -16006,11 +16044,11 @@ Transform:
   m_GameObject: {fileID: 1059391115}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.859616, y: 2.2808042, z: 0.18670917}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1165862730}
+  m_Father: {fileID: 136486424}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1063607676
 GameObject:
@@ -17833,7 +17871,6 @@ Transform:
   - {fileID: 479812192}
   - {fileID: 623272760}
   - {fileID: 1829188693}
-  - {fileID: 1059391117}
   - {fileID: 554303433}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -18777,11 +18814,11 @@ Transform:
   m_GameObject: {fileID: 1236191092}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.7625713, y: 2.0885272, z: -1.7500064}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 623272760}
+  m_Father: {fileID: 136486424}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1236191094
 MonoBehaviour:
@@ -25875,6 +25912,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1689532721}
   m_CullTransparentMesh: 1
+--- !u!1 &1703577720
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1703577721}
+  - component: {fileID: 1703577722}
+  m_Layer: 0
+  m_Name: SavesManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1703577721
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703577720}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 121.12959, y: 64.41599, z: 0.042204767}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 136486424}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1703577722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703577720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09e4ad7549bf0064cbe83541d55248c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveFileName: data.whythz
 --- !u!1 &1714990927
 GameObject:
   m_ObjectHideFlags: 0
@@ -27624,15 +27706,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1839972576}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.48830098, y: -4.316904, z: -1.2825948}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.7613151, y: 0.09429169, z: -1.469304}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2044527630}
   - {fileID: 1086415828}
   - {fileID: 1226792588}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 136486424}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1858734878
 GameObject:
@@ -37016,6 +37098,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1485011955}
     m_Modifications:
+    - target: {fileID: 449585582076597183, guid: bb29c0eb28bab4b468ef971097ef40a3, type: 3}
+      propertyPath: item.itemData
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 449585582076597183, guid: bb29c0eb28bab4b468ef971097ef40a3, type: 3}
+      propertyPath: item.stackSize
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 591411579174267304, guid: bb29c0eb28bab4b468ef971097ef40a3, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
@@ -37176,7 +37266,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 717250078}
   - {fileID: 276211919}
-  - {fileID: 1839972578}
+  - {fileID: 136486424}
   - {fileID: 260801157}
   - {fileID: 239297975}
   - {fileID: 114407564}

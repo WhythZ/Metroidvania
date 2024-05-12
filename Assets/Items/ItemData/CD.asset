@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: CD
   m_EditorClassIdentifier: 
   itemName: CD
-  itemType: CD
+  itemType: 2
   itemDescription: A piece of CD from a gorgeous pixel world
   itemIcon: {fileID: 21300000, guid: 3c71ddc92a192a84eae7c69b26e62670, type: 3}

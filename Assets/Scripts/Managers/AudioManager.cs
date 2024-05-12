@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class Audio_Manager : MonoBehaviour
+public class AudioManager : MonoBehaviour
 {
     //静态的全局可调用的实例
-    public static Audio_Manager instance;
+    public static AudioManager instance;
 
     #region SFX
     //储存音效（sound effect）的列表

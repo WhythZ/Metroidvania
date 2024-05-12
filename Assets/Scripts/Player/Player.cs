@@ -252,7 +252,7 @@ public class Player : Entity
             if (assignedCDPlayer != null)
             {
                 //音效
-                Audio_Manager.instance.PlaySFX(7, null);
+                AudioManager.instance.PlaySFX(7, null);
 
                 //防止生成多个随身听
                 Destroy(assignedCDPlayer);
@@ -261,7 +261,7 @@ public class Player : Entity
             if(assignedCDPlayer == null)
             {
                 //音效
-                Audio_Manager.instance.PlaySFX(7, null);
+                AudioManager.instance.PlaySFX(7, null);
 
                 //初始化并生成一个随身听
                 GameObject _newCDPlayer = Instantiate(cdPlayerPrefab, transform.position, transform.rotation);

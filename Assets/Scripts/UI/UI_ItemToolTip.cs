@@ -13,14 +13,14 @@ public class UI_ItemToolTip : MonoBehaviour
     //传入物品信息
     {
         itemNameText.text = _item.itemName;
-        itemTypeText.text = _item.itemType;
+        itemTypeText.text = _item.itemType.ToString();
         itemDescriptionText.text = _item.itemDescription;
 
         //显示这个ToolTip
         gameObject.SetActive(true);
 
         //UI音效
-        Audio_Manager.instance.PlaySFX(5, null);
+        AudioManager.instance.PlaySFX(5, null);
     }
 
     public void HideItemToolTip()

@@ -19,7 +19,7 @@ public class UI_StatToolTip : MonoBehaviour
         gameObject.SetActive(true);
 
         //UI“Ù–ß
-        Audio_Manager.instance.PlaySFX(5, null);
+        AudioManager.instance.PlaySFX(5, null);
     }
 
     public void HideStatToolTip()

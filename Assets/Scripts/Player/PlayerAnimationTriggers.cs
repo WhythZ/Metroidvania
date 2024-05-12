@@ -19,7 +19,7 @@ public class PlayerAnimationTriggers : MonoBehaviour
     //此事件在攻击动画进行到造成伤害的那一帧执行
     {
         //触发攻击音效
-        Audio_Manager.instance.PlaySFX(0, null);
+        AudioManager.instance.PlaySFX(0, null);
 
         //建立一个临时数组，储存此时在人物攻击检测圈内的所有实体
         Collider2D[] collidersInAttackZone = Physics2D.OverlapCircleAll(player.attackCheck.position, player.attackCheckRadius);
