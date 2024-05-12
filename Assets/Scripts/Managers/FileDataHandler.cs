@@ -78,4 +78,14 @@ public class FileDataHandler
             Debug.LogError("Error On Trying To Save GameData To File " + _fullPath + "\n" + e);
         }
     }
+
+    public void DeleteSavedGameData()
+    {
+        string _fullPath = Path.Combine(dataFileDirPath, dateFileName);
+
+        if(File.Exists(_fullPath))
+        {
+            File.Delete(_fullPath);
+        }
+    }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 //注意这个using
 using System.Linq;
+using System.IO;
 
 public class SavesManager : MonoBehaviour
 {
@@ -13,12 +14,18 @@ public class SavesManager : MonoBehaviour
 
     //储存所有相关接口，方便批量处理；注意列表（以List<DataType>方式创建）和数组（以DataType[]方式创建）的区别，前者可对元素进行增删操作等
     public List<ISavesManager> savesManagers;
-
     //存档处理器
     private FileDataHandler dataHandler;
-
     //存档名称
     [SerializeField] private string saveFileName;
+
+    //使得我们可以在Unity内SaveManager脚本处右键选择"Delete Saved File"清除存档，便于测试
+    [ContextMenu("Delete Saved File")]
+    public void DeleteSavedGameDate()
+    {
+        dataHandler = new FileDataHandler(Application.persistentDataPath, saveFileName);
+        dataHandler.DeleteSavedGameData();
+    }
 
     private void Awake()
     {
@@ -99,4 +106,15 @@ public class SavesManager : MonoBehaviour
         return new List<ISavesManager>(_savesManagers);
     }
     #endregion
+
+    public bool WhetherHasSavedGameData()
+    //检测是否有已保存的游戏数据
+    {
+        if(dataHandler.LoadGameData() != null)
+        {
+            return true;
+        }
+
+        return false;
+    }
 }

@@ -30,6 +30,11 @@ public class UI : MonoBehaviour
     public GameObject cdPlayerUI;
     #endregion
 
+    #region FadeScreen
+    public GameObject fadeScreen;
+    public GameObject deathText;
+    #endregion
+
     private void Awake()
     {
         if (instance != null)
@@ -42,9 +47,10 @@ public class UI : MonoBehaviour
         //初始状态打开的是游戏内界面UI
         SwitchToUI(inGameUI);
 
-        //防止TooTip在不需要的时候打开
+        //防止在不需要的时候打开
         statToolTip.gameObject.SetActive(false);
         itemToolTip.gameObject.SetActive(false);
+        deathText.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -89,8 +95,8 @@ public class UI : MonoBehaviour
         //遍历Canvas的子对象
         for (int i = 0; i < transform.childCount; i++)
         {
-            //保证按键提示UI可以正常显示
-            if(transform.GetChild(i).gameObject != interactToolTipUI)
+            //保证按键提示UI可以正常显示；要防止fadeScreen被直接关闭而不能激活屏幕fade的相关动画
+            if (transform.GetChild(i).gameObject != interactToolTipUI && transform.GetChild(i).gameObject != fadeScreen)
             {
                 //关闭所有子对象
                 transform.GetChild(i).gameObject.SetActive(false);
@@ -129,8 +135,8 @@ public class UI : MonoBehaviour
         //遍历Canvas的子对象
         for (int i = 0; i < transform.childCount; i++)
         {
-            //检测除了inGameUI和按键提示UI之外的UI
-            if (transform.GetChild(i).gameObject != interactToolTipUI && transform.GetChild(i).gameObject != inGameUI)
+            //检测除了inGameUI、按键提示UI、黑屏UI之外的UI
+            if (transform.GetChild(i).gameObject != interactToolTipUI && transform.GetChild(i).gameObject != inGameUI && transform.GetChild(i).gameObject != fadeScreen)
             {
                 if(transform.GetChild(i).gameObject.activeSelf)
                     return true;
@@ -150,6 +156,13 @@ public class UI : MonoBehaviour
     {
         //是否显示按键提示UI
         interactToolTipUI.SetActive(isShowInteractToolTip);
+    }
+    #endregion
+
+    #region DeathText
+    public void PlayDeathText()
+    {
+        deathText.SetActive(true);
     }
     #endregion
 }

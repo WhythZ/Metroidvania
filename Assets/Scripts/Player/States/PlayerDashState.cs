@@ -13,6 +13,9 @@ public class PlayerDashState : PlayerState
     {
         base.Enter();
 
+        //冲刺音效
+        AudioManager.instance.PlaySFX(4, null);
+
         //冲刺时间，只调用一次，故放在Enter
         stateTimer = player.dashDuration;
 

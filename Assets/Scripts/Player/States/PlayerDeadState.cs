@@ -11,6 +11,12 @@ public class PlayerDeadState : PlayerState
     public override void Enter()
     {
         base.Enter();
+
+        //ËÀÍö´¥·¢ÆÁÄ»µÄ½¥³ö
+        UI.instance.fadeScreen.GetComponent<UI_FadeScreen>().FadeOut();
+
+        //´¥·¢ËÀÍöÎÄ×Ö
+        UI.instance.PlayDeathText();
     }
 
     public override void Exit()

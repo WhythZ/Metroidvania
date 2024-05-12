@@ -15,7 +15,7 @@ public class PlayerMoveState : PlayerGroundedState
         base.Enter();
 
         //播放走路音效
-        //Audio_Manager.instance.PlaySFX(1, null);
+        //AudioManager.instance.PlaySFX(1, null);
     }
 
     public override void Exit()
@@ -23,7 +23,7 @@ public class PlayerMoveState : PlayerGroundedState
         base.Exit();
 
         //结束走路音效
-        //Audio_Manager.instance.StopSFX(1);
+        //AudioManager.instance.StopSFX(1);
     }
 
     public override void Update()
