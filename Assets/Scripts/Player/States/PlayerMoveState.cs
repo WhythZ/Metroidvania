@@ -13,7 +13,7 @@ public class PlayerMoveState : PlayerGroundedState
     public override void Enter()
     {
         base.Enter();
-
+        
         //播放走路音效
         //AudioManager.instance.PlaySFX(1, null);
     }

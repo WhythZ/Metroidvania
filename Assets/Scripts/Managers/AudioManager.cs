@@ -13,6 +13,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource[] sfx;
     //音效播放的检测半径，太远的音效不予播放
     [SerializeField] float sfxMinPlayRadius;
+    //是否可以播放音效
+    private bool canPlaySFX;
     #endregion
 
     #region BGM
@@ -38,6 +40,9 @@ public class AudioManager : MonoBehaviour
             Destroy(instance.gameObject);
         else
             instance = this;
+
+        //在进入场景0.1秒后才允许播放音效，防止开始时的SwitchToUI(ingameUI)的音效在开始就被触发
+        Invoke("AllowPlaySFX", 0.1f);
     }
 
     private void Update()
@@ -61,6 +66,10 @@ public class AudioManager : MonoBehaviour
     public void PlaySFX(int _sfxIndex, Transform _sfxSource)
     //传入音效编号以及音效的来源位置，若第二参数填null，则距离对音效播放的限制作废，适用于玩家自己的音效
     {
+        //进入场景时，0.1秒后才允许播放音效
+        if (!canPlaySFX)
+            return;
+
         //若存在妄图播放的音效但太过遥远，则不播放
         if (_sfxSource != null && Vector2.Distance(PlayerManager.instance.player.transform.position, _sfxSource.position) >= sfxMinPlayRadius)
             return;
@@ -77,6 +86,8 @@ public class AudioManager : MonoBehaviour
     }
     //停止音效
     public void StopSFX(int _sfxIndex) => sfx[_sfxIndex].Stop();
+    //允许播放音效
+    public void AllowPlaySFX() => canPlaySFX = true;
     #endregion
 
     #region BGM

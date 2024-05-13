@@ -4,7 +4,7 @@ using UnityEngine;
 
 //这样才使得该类可见
 [System.Serializable]
-public class InventoryStoragedItem
+public class StoragedItem
 //此处不需继承，可以发现，这个数据类型和Stat这个类的结构很相似，都是含有所谓baseValue和modifiers的类
 //这个类代表的是人物物品栏内的一处格子，而ItemData则代表着一种物品的类型，ItemObject则是代表物品在游戏内的显示与碰撞相关的层面
 {
@@ -13,7 +13,7 @@ public class InventoryStoragedItem
     //表示此处格子的物品堆叠数量
     public int stackSize;
 
-    public InventoryStoragedItem(ItemData _newItemData)
+    public StoragedItem(ItemData _newItemData)
     //构造函数，接收一个ItemData作为这个格子的物品类型
     {
         itemData = _newItemData;

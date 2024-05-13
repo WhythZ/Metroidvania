@@ -19,8 +19,11 @@ public class GameManager : MonoBehaviour
 
     public void RestartScene()
     {
-        //开始的时候加载游戏存档，由于SavesManager组件是一直存在的Prefab，所以重新加载场景的时候其Start函数不会被调用，故需要在这里调用一次
-        SavesManager.instance.LoadGame();
+        //自动保存
+        SavesManager.instance.SaveGame();
+
+        //结束死亡音效
+        AudioManager.instance.StopSFX(10);
 
         //获取当前激活的场景
         Scene _scene = SceneManager.GetActiveScene();
@@ -36,5 +39,14 @@ public class GameManager : MonoBehaviour
 
         //加载游戏开始界面
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void SwitchToMainScene()
+    {
+        //自动保存一下，否则数据会不一致
+        SavesManager.instance.SaveGame();
+
+        //加载游戏开始界面
+        SceneManager.LoadScene("MainScene");
     }
 }

@@ -51,6 +51,8 @@ public class SavesManager : MonoBehaviour
     {
         //新建一个游戏存档的数据
         gameData = new GameData();
+
+        Debug.Log("New Game Created!");
     }
     public void LoadGame()
     {
@@ -73,6 +75,8 @@ public class SavesManager : MonoBehaviour
                 _savesManager.LoadData(gameData);
             }
         }
+
+        Debug.Log("Game Loaded!");
     }
     public void SaveGame()
     //储存游戏

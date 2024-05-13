@@ -2177,8 +2177,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a666e9e38f9a7604688bc3bb99c36443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemImageInSlot: {fileID: 0}
-  itemText: {fileID: 0}
   item:
     itemData: {fileID: 0}
     stackSize: 0
@@ -2902,8 +2900,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a666e9e38f9a7604688bc3bb99c36443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemImageInSlot: {fileID: 0}
-  itemText: {fileID: 0}
   item:
     itemData: {fileID: 0}
     stackSize: 0
@@ -4615,8 +4611,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a666e9e38f9a7604688bc3bb99c36443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemImageInSlot: {fileID: 0}
-  itemText: {fileID: 0}
   item:
     itemData: {fileID: 0}
     stackSize: 0
@@ -7033,8 +7027,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a666e9e38f9a7604688bc3bb99c36443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemImageInSlot: {fileID: 0}
-  itemText: {fileID: 0}
   item:
     itemData: {fileID: 0}
     stackSize: 0
@@ -10287,8 +10279,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a666e9e38f9a7604688bc3bb99c36443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemImageInSlot: {fileID: 0}
-  itemText: {fileID: 0}
   item:
     itemData: {fileID: 0}
     stackSize: 0
@@ -11635,8 +11625,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 24}
-  m_SizeDelta: {x: 709.696, y: 100}
+  m_AnchoredPosition: {x: 0, y: 42}
+  m_SizeDelta: {x: 229.006, y: 100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &824946524
 MonoBehaviour:
@@ -12099,8 +12089,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a666e9e38f9a7604688bc3bb99c36443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemImageInSlot: {fileID: 0}
-  itemText: {fileID: 0}
   item:
     itemData: {fileID: 0}
     stackSize: 0
@@ -12263,7 +12251,7 @@ Transform:
   m_GameObject: {fileID: 868663194}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.63, y: 0.4000001, z: 3.5114853}
+  m_LocalPosition: {x: 3.06, y: 0.4000001, z: 3.5114853}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13072,7 +13060,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCheck: {fileID: 868663195}
-  attackCheckRadius: 3.69
+  attackCheckRadius: 3.21
   groundCheck_1: {fileID: 79101703}
   groundCheck_2: {fileID: 335906781}
   groundCheckDistance: 0.48
@@ -13386,8 +13374,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a666e9e38f9a7604688bc3bb99c36443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemImageInSlot: {fileID: 0}
-  itemText: {fileID: 0}
   item:
     itemData: {fileID: 0}
     stackSize: 0
@@ -15216,8 +15202,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a666e9e38f9a7604688bc3bb99c36443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemImageInSlot: {fileID: 0}
-  itemText: {fileID: 0}
   item:
     itemData: {fileID: 0}
     stackSize: 0
@@ -15310,8 +15294,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a666e9e38f9a7604688bc3bb99c36443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemImageInSlot: {fileID: 0}
-  itemText: {fileID: 0}
   item:
     itemData: {fileID: 0}
     stackSize: 0
@@ -17848,8 +17830,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a666e9e38f9a7604688bc3bb99c36443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemImageInSlot: {fileID: 0}
-  itemText: {fileID: 0}
   item:
     itemData: {fileID: 0}
     stackSize: 0
@@ -19903,8 +19883,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a666e9e38f9a7604688bc3bb99c36443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemImageInSlot: {fileID: 0}
-  itemText: {fileID: 0}
   item:
     itemData: {fileID: 0}
     stackSize: 0
@@ -21597,8 +21575,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a666e9e38f9a7604688bc3bb99c36443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemImageInSlot: {fileID: 0}
-  itemText: {fileID: 0}
   item:
     itemData: {fileID: 0}
     stackSize: 0
@@ -24269,8 +24245,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a666e9e38f9a7604688bc3bb99c36443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemImageInSlot: {fileID: 0}
-  itemText: {fileID: 0}
   item:
     itemData: {fileID: 0}
     stackSize: 0
@@ -25999,8 +25973,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a666e9e38f9a7604688bc3bb99c36443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemImageInSlot: {fileID: 0}
-  itemText: {fileID: 0}
   item:
     itemData: {fileID: 0}
     stackSize: 0
@@ -26316,8 +26288,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a666e9e38f9a7604688bc3bb99c36443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemImageInSlot: {fileID: 0}
-  itemText: {fileID: 0}
   item:
     itemData: {fileID: 0}
     stackSize: 0
@@ -33410,8 +33380,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a666e9e38f9a7604688bc3bb99c36443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemImageInSlot: {fileID: 0}
-  itemText: {fileID: 0}
   item:
     itemData: {fileID: 0}
     stackSize: 0

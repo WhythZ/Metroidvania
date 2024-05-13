@@ -24,13 +24,13 @@ public class Inventory : MonoBehaviour, ISavesManager
 
     [Header("Inventory Items")]
     //记录“物品栏物品”（一种类似Stat的自定义数据类型，而不是直接使用不好管理的ItemData）信息的列表
-    public List<InventoryStoragedItem> inventoryItemsList;
+    public List<StoragedItem> inventoryItemsList;
     //使用字典来存储ItemData与InventoryItem一一对应的关系
-    public Dictionary<ItemData,InventoryStoragedItem> inventoryItemsDictionary;
+    public Dictionary<ItemData,StoragedItem> inventoryItemsDictionary;
 
     [Header("ItemData Base")]
     //从存档加载到物品栏的物品列表
-    public List<InventoryStoragedItem> loadedItems;
+    public List<StoragedItem> loadedItems;
 
     private void Awake()
     {
@@ -43,11 +43,9 @@ public class Inventory : MonoBehaviour, ISavesManager
 
     private void Start()
     {
-        Debug.Log("Inventory.cs Start()");
-
         //初始化物品栏物品列表以及物品栏字典
-        inventoryItemsList = new List<InventoryStoragedItem>();
-        inventoryItemsDictionary = new Dictionary<ItemData,InventoryStoragedItem>();
+        inventoryItemsList = new List<StoragedItem>();
+        inventoryItemsDictionary = new Dictionary<ItemData,StoragedItem>();
     
         //注意这里是Components，有s，因为左值是列表，记录多个对象
         itemSlotsUIList = inventorySlotParent.GetComponentsInChildren<UI_ItemSlot>();
@@ -61,7 +59,7 @@ public class Inventory : MonoBehaviour, ISavesManager
     {
         if(loadedItems.Count > 0)
         {
-            foreach(InventoryStoragedItem _item in  loadedItems)
+            foreach(StoragedItem _item in  loadedItems)
             {
                 for(int i = 0; i < _item.stackSize; i++)
                 {
@@ -110,7 +108,7 @@ public class Inventory : MonoBehaviour, ISavesManager
     public void AddItem(ItemData _newItemData)
     {
         //若原来在物品栏字典内有这个物品了，那么就在此基础上增加一个堆叠数量即可（注意是否有堆叠上限）
-        if(inventoryItemsDictionary.TryGetValue(_newItemData, out InventoryStoragedItem _value))
+        if(inventoryItemsDictionary.TryGetValue(_newItemData, out StoragedItem _value))
         {
             //一次加上一个
             _value.AddStackSizeBy(1);
@@ -121,13 +119,13 @@ public class Inventory : MonoBehaviour, ISavesManager
             if(CanAddNewItem())
             {
                 //C#中创建自定义类新对象的方式
-                InventoryStoragedItem _newInventoryStoragedItem = new InventoryStoragedItem(_newItemData);
+                StoragedItem _newStoragedItem = new StoragedItem(_newItemData);
 
                 //物品栏新创建一个物品栏格子装填这个新物品，堆叠数在构造函数中被默认初始化为1
-                inventoryItemsList.Add(_newInventoryStoragedItem);
+                inventoryItemsList.Add(_newStoragedItem);
 
                 //添加新的映射关系，以便下次被检测到并直接将堆叠数进行增加
-                inventoryItemsDictionary.Add(_newItemData, _newInventoryStoragedItem);
+                inventoryItemsDictionary.Add(_newItemData, _newStoragedItem);
             }
         }
 
@@ -137,7 +135,7 @@ public class Inventory : MonoBehaviour, ISavesManager
     public void RemoveItemTotally(ItemData _itemData)
     {
         //若存在这个需要被删除的物品，则删除这个物品的全部，不需计数
-        if(inventoryItemsDictionary.TryGetValue(_itemData, out InventoryStoragedItem _InvItem))
+        if(inventoryItemsDictionary.TryGetValue(_itemData, out StoragedItem _InvItem))
         {
             //若此格子处物品为0或者1，则销毁这个物品格子
             if(_InvItem.stackSize <= 1)
@@ -168,7 +166,7 @@ public class Inventory : MonoBehaviour, ISavesManager
             {
                 if(_item != null && _item.itemID == _pair.Key)
                 {
-                    InventoryStoragedItem _itemToLoad = new InventoryStoragedItem(_item);
+                    StoragedItem _itemToLoad = new StoragedItem(_item);
                     _itemToLoad.stackSize = _pair.Value;
                 
                     loadedItems.Add(_itemToLoad);
@@ -182,7 +180,7 @@ public class Inventory : MonoBehaviour, ISavesManager
         _data.inventory.Clear();
 
         //写入新的物品栏数据
-        foreach(KeyValuePair<ItemData, InventoryStoragedItem> _pair in inventoryItemsDictionary)
+        foreach(KeyValuePair<ItemData, StoragedItem> _pair in inventoryItemsDictionary)
         {
             _data.inventory.Add(_pair.Key.itemID, _pair.Value.stackSize);
         }

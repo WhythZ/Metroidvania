@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class UI_MainMenu : MonoBehaviour
 {
-    [SerializeField] private string nextSceneName = "MainScene";
-
     //用于储存Continue Game的按钮，在没有存档的时候隐藏这个按钮
     [SerializeField] private GameObject continueButton;
 
@@ -39,7 +37,7 @@ public class UI_MainMenu : MonoBehaviour
     //继续游戏的函数，沿用保存好的存档；函数用于绑定给Button
     {
         //加载游戏场景
-        SceneManager.LoadScene(nextSceneName);
+        SceneManager.LoadScene("MainScene");
     }
 
     public void NewGame()
@@ -49,7 +47,7 @@ public class UI_MainMenu : MonoBehaviour
         SavesManager.instance.DeleteSavedGameDate();
 
         //加载游戏场景
-        SceneManager.LoadScene(nextSceneName);
+        SceneManager.LoadScene("MainScene");
     }
 
     public void ExitGame()
