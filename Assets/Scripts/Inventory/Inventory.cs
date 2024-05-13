@@ -43,6 +43,8 @@ public class Inventory : MonoBehaviour, ISavesManager
 
     private void Start()
     {
+        Debug.Log("Inventory.cs Start()");
+
         //初始化物品栏物品列表以及物品栏字典
         inventoryItemsList = new List<InventoryStoragedItem>();
         inventoryItemsDictionary = new Dictionary<ItemData,InventoryStoragedItem>();
@@ -157,7 +159,7 @@ public class Inventory : MonoBehaviour, ISavesManager
     }
     #endregion
 
-    #region InterfacesOfSavesManager
+    #region ISavesManager
     public void LoadData(GameData _data)
     {
         foreach(KeyValuePair<string, int> _pair in _data.inventory)
@@ -174,7 +176,6 @@ public class Inventory : MonoBehaviour, ISavesManager
             }
         }
     }
-
     public void SaveData(ref GameData _data)
     {
         //清除原来的数据，因为物品栏字典中的映射可能会发生变化

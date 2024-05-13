@@ -34,7 +34,7 @@ public class PlayerManager : MonoBehaviour, ISavesManager
     //读取玩家持有的货币数量
     public int GetCurrency() => currency;
 
-    #region InterfacesOfSavesManager
+    #region ISavesManager
     public void LoadData(GameData _data)
     //加载游戏时候执行的操作
     {

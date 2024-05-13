@@ -12,11 +12,14 @@ public class PlayerDeadState : PlayerState
     {
         base.Enter();
 
+        //自动保存
+        SavesManager.instance.SaveGame();
+
         //死亡触发屏幕的渐出
-        UI.instance.fadeScreen.GetComponent<UI_FadeScreen>().FadeOut();
+        UI_MainScene.instance.fadeScreen.GetComponent<UI_FadeScreen>().FadeOut();
 
         //触发死亡文字
-        UI.instance.PlayDeathText();
+        UI_MainScene.instance.PlayDeathText();
     }
 
     public override void Exit()

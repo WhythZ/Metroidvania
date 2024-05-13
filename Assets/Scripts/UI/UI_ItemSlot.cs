@@ -17,6 +17,8 @@ public class UI_ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     private void Start()
     {
+        Debug.Log("UI_ItemSlot.cs Start()");
+
         itemImageInSlot = GetComponent<Image>();
         itemText = GetComponentInChildren<TextMeshProUGUI>();
     }
@@ -52,13 +54,13 @@ public class UI_ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (item.itemData != null)
-            UI.instance.itemToolTip.ShowItemToolTip(item.itemData);
+            UI_MainScene.instance.itemToolTip.ShowItemToolTip(item.itemData);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         if (item.itemData != null)
-            UI.instance.itemToolTip.HideItemToolTip();
+            UI_MainScene.instance.itemToolTip.HideItemToolTip();
     }
     #endregion
 }

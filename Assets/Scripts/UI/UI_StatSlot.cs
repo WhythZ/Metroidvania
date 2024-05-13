@@ -8,7 +8,7 @@ public class UI_StatSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 //对于后面两个父类，alt+enter键选择“实现接口”即可使用（会分别多出一个函数）
 {
     //获取UI组件
-    private UI ui;
+    private UI_MainScene ui;
 
     #region SlotContent
     //需要显示的属性的名字，Hierarchy内对象的名字，也会一并赋值给UI内显示的该数值名字，即statNameText
@@ -40,7 +40,7 @@ public class UI_StatSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private void Start()
     {
         //开始时获取UI组件
-        ui = GetComponentInParent<UI>();
+        ui = GetComponentInParent<UI_MainScene>();
 
         //开始时更新一次数据值
         UpdateStatValueSlotUI();

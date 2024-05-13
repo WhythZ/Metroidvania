@@ -23,7 +23,7 @@ public class CDPlayer : MonoBehaviour
         if (collision.GetComponent<Player>()  != null)
         {
             //表示人物处于可触发交互界面的区域内，显示按键提示
-            UI.instance.SetWhetherShowInteractToolTip(true);
+            UI_MainScene.instance.SetWhetherShowInteractToolTip(true);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -32,14 +32,14 @@ public class CDPlayer : MonoBehaviour
         if (collision.GetComponent<Player>() != null)
         {
             //关闭按键提示
-            UI.instance.SetWhetherShowInteractToolTip(false);
+            UI_MainScene.instance.SetWhetherShowInteractToolTip(false);
 
             //若离开时唱片机UI是开启的，则关闭
             //此处有点莫名其妙的bug...?
-            if (UI.instance.cdPlayerUI != null)
+            if (UI_MainScene.instance.cdPlayerUI != null)
             {
-                if (UI.instance.cdPlayerUI.activeSelf)
-                    UI.instance.SwitchToUI(UI.instance.inGameUI);
+                if (UI_MainScene.instance.cdPlayerUI.activeSelf)
+                    UI_MainScene.instance.SwitchToUI(UI_MainScene.instance.inGameUI);
             }
         }
     }

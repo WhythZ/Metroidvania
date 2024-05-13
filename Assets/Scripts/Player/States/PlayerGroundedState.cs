@@ -33,7 +33,7 @@ public class PlayerGroundedState : PlayerState
         if(Input.GetKeyDown(KeyCode.Space) && player.isGround)
         {
             //在主要UI显示的时候，不能进行此运动
-            if (UI.instance.ActivatedStateOfMainUIs() == true)
+            if (UI_MainScene.instance.ActivatedStateOfMainUIs() == true)
                 return;
 
             stateMachine.ChangeState(player.jumpState);
@@ -43,7 +43,7 @@ public class PlayerGroundedState : PlayerState
         if((Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.Mouse0)) && player.isGround)
         {
             //在主要UI显示的时候，不能进行此运动
-            if (UI.instance.ActivatedStateOfMainUIs() == true)
+            if (UI_MainScene.instance.ActivatedStateOfMainUIs() == true)
                 return;
 
             player.stateMachine.ChangeState(player.primaryAttack);
@@ -53,7 +53,7 @@ public class PlayerGroundedState : PlayerState
         if((Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.Mouse1)) && player.isGround)
         {
             //在主要UI显示的时候，不能进行此运动
-            if (UI.instance.ActivatedStateOfMainUIs() == true)
+            if (UI_MainScene.instance.ActivatedStateOfMainUIs() == true)
                 return;
 
             player.stateMachine.ChangeState(player.counterAttackState);
@@ -65,7 +65,7 @@ public class PlayerGroundedState : PlayerState
         if (Input.GetKeyDown(KeyCode.Mouse2) && player.isGround && !player.assignedSword)
         {
             //在主要UI显示的时候，不能进行此运动
-            if (UI.instance.ActivatedStateOfMainUIs() == true)
+            if (UI_MainScene.instance.ActivatedStateOfMainUIs() == true)
                 return;
 
             player.stateMachine.ChangeState(player.aimSwordState);
@@ -75,7 +75,7 @@ public class PlayerGroundedState : PlayerState
         if (PlayerManager.instance.player.assignedSword && Input.GetKeyDown(KeyCode.Mouse2))
         {
             //在主要UI显示的时候，不能进行此运动
-            if (UI.instance.ActivatedStateOfMainUIs() == true)
+            if (UI_MainScene.instance.ActivatedStateOfMainUIs() == true)
                 return;
 
             //调用玩家丢出去的剑对象的返回函数
