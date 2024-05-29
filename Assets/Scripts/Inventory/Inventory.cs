@@ -190,7 +190,7 @@ public class Inventory : MonoBehaviour, ISavesManager
         //记录物品ID相关映射的数据库
         List<ItemData> itemDataBase = new List<ItemData>();
         //路径是你ItemData存放的文件夹那个地方
-        string[] _assetNames = AssetDatabase.FindAssets("", new[] { "Assets/Items/ItemData" });
+        string[] _assetNames = AssetDatabase.FindAssets("", new[] { "Assets/ItemData" });
     
         foreach(string _SOName in _assetNames)
         {

@@ -1,7 +1,7 @@
-# LICENSE
-This repo adopts [MIT License](https://spdx.org/licenses/MIT)
-
 # RPG-Dev-2024
+
+## LICENSE
+This repo adopts [MIT License](https://spdx.org/licenses/MIT)
 
 ## Status
 Work In Progress
