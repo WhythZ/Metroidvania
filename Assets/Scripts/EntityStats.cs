@@ -94,7 +94,7 @@ public class EntityStats : MonoBehaviour
 
     #region TotalDamage
     public virtual void GetTotalDamageFrom(EntityStats _entityAttackingYou)
-    //提供一种调用全部伤害的函数，当然，你也可以单独调用物理和法术伤害
+    //提供一种调用全部伤害的函数，当然，建议单独调用物理和法术伤害
     {
         //若是基础伤害为0，则不应进行最终值的获取（其中还要进行暴击判定，判定若是成功了还会返回暴击效果，这是不需要的，因为暴击与否都是0伤害）
         if (GetNonCritMagicalDamage() > 0)

@@ -21,11 +21,19 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -284854784, guid: ba54371ceab99ed419a9838665bb2754, type: 3}
+      value: {fileID: 1870372337, guid: 60ec1e60ce4cb454eba579f91378596b, type: 3}
+    - time: 0.1
+      value: {fileID: 1071924165, guid: 60ec1e60ce4cb454eba579f91378596b, type: 3}
     - time: 0.2
-      value: {fileID: 61621517, guid: ba54371ceab99ed419a9838665bb2754, type: 3}
+      value: {fileID: -2118271420, guid: 60ec1e60ce4cb454eba579f91378596b, type: 3}
     - time: 0.3
-      value: {fileID: -1775362664, guid: ba54371ceab99ed419a9838665bb2754, type: 3}
+      value: {fileID: -1892102700, guid: 60ec1e60ce4cb454eba579f91378596b, type: 3}
+    - time: 0.4
+      value: {fileID: 589249541, guid: 60ec1e60ce4cb454eba579f91378596b, type: 3}
+    - time: 0.5
+      value: {fileID: 610832070, guid: 60ec1e60ce4cb454eba579f91378596b, type: 3}
+    - time: 0.6
+      value: {fileID: -841632294, guid: 60ec1e60ce4cb454eba579f91378596b, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -48,15 +56,19 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -284854784, guid: ba54371ceab99ed419a9838665bb2754, type: 3}
-    - {fileID: 61621517, guid: ba54371ceab99ed419a9838665bb2754, type: 3}
-    - {fileID: -1775362664, guid: ba54371ceab99ed419a9838665bb2754, type: 3}
+    - {fileID: 1870372337, guid: 60ec1e60ce4cb454eba579f91378596b, type: 3}
+    - {fileID: 1071924165, guid: 60ec1e60ce4cb454eba579f91378596b, type: 3}
+    - {fileID: -2118271420, guid: 60ec1e60ce4cb454eba579f91378596b, type: 3}
+    - {fileID: -1892102700, guid: 60ec1e60ce4cb454eba579f91378596b, type: 3}
+    - {fileID: 589249541, guid: 60ec1e60ce4cb454eba579f91378596b, type: 3}
+    - {fileID: 610832070, guid: 60ec1e60ce4cb454eba579f91378596b, type: 3}
+    - {fileID: -841632294, guid: 60ec1e60ce4cb454eba579f91378596b, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.4
+    m_StopTime: 0.70000005
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -76,14 +88,14 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.2
+  - time: 0.3
     functionName: AttackDamageTrigger
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.3
+  - time: 0.6
     functionName: AnimationTrigger
     data: 
     objectReferenceParameter: {fileID: 0}

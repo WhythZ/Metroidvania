@@ -42,4 +42,4 @@ Where do I learn the game development skill
 
 ## Contact
 - jichenzong at outlook dot com
-- [WhythZ](https://space.bilibili.com/25804487?spm_id_from=333.1007.0.0)
+- Bilibili [WhythZ](https://space.bilibili.com/25804487?spm_id_from=333.1007.0.0)
