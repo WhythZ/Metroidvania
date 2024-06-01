@@ -13,6 +13,8 @@ public class GameData
 
     //储存激活的存档点的字典
     public SerializableDictionary<string, bool> checkpointsDict;
+    //储存里玩家最近的存档点id
+    public string closestCheckPointID;
 
     public GameData()
     //构造函数
@@ -21,6 +23,8 @@ public class GameData
         this.currency = 0;
 
         this.inventory = new SerializableDictionary<string, int>();
+        
         this.checkpointsDict = new SerializableDictionary<string, bool>();
+        this.closestCheckPointID = string.Empty;
     }
 }

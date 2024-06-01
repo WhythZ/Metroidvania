@@ -7,7 +7,7 @@ public class CheckPoint : MonoBehaviour
     [SerializeField] private Animator anim;
 
     //代表特定存档点的标识
-    public string ID;
+    public string id;
 
     //记录这个存档点是否被激活过
     public bool isActive;
@@ -17,7 +17,7 @@ public class CheckPoint : MonoBehaviour
     [ContextMenu("Generate CheckPoint ID")]
     private void GenerateID()
     {
-        ID = System.Guid.NewGuid().ToString();
+        id = System.Guid.NewGuid().ToString();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

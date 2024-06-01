@@ -10,6 +10,7 @@ public class SavesManager : MonoBehaviour
     public static SavesManager instance;
 
     //游戏数据
+    //潜在问题：不同脚本加载顺序的不同会导致读取存储数据不同步，有人说可以把此处GameData设置为public来解决，不清楚有没有用
     private GameData gameData;
 
     //储存所有相关接口，方便批量处理；注意列表（以List<DataType>方式创建）和数组（以DataType[]方式创建）的区别，前者可对元素进行增删操作等

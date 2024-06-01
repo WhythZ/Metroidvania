@@ -12,7 +12,7 @@ public class Enemy : Entity
     #endregion
 
     #region EnemyMove
-    [Header("EnemyMove Info")]
+    [Header("Enemy Move Info")]
     //怪物站立了一段时间后自动开始移动
     public float pauseTime = 0.5f;
 

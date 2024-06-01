@@ -58,17 +58,52 @@ public class GameManager : MonoBehaviour, ISavesManager
     }
     #endregion
 
+    #region CheckPoints
+    public CheckPoint FindClosestCheckPoint()
+    //返回和玩家距离最近的已激活存档点
+    {
+        float _closestDistance = Mathf.Infinity;
+        CheckPoint _closestCP = null;
+
+        foreach (var _cp in checkpointsList)
+        {
+            float _distanceToCP = Vector2.Distance(PlayerManager.instance.player.transform.position, _cp.transform.position);
+        
+            if(_distanceToCP<_closestDistance && _cp.isActive)
+            {
+                _closestDistance = _distanceToCP;
+                _closestCP = _cp;
+            }
+        }
+
+        return _closestCP;
+    }
+    #endregion
+
     #region ISaveManager
     public void LoadData(GameData _data)
     {
-        foreach(KeyValuePair<string, bool> _pair in _data.checkpointsDict)
+        #region CheckPoint
+        //读取存档点的列表，包括激活与否的信息
+        foreach (KeyValuePair<string, bool> _pair in _data.checkpointsDict)
         {
             foreach(CheckPoint _checkpoint in checkpointsList)
             {
-                if(_checkpoint.ID == _pair.Key && _pair.Value == true)
+                if(_checkpoint.id == _pair.Key && _pair.Value == true)
                     _checkpoint.ActivateCheckPoint();
             }
         }
+        //通过存储的id锁定距离玩家最近的已激活存档点
+        foreach(CheckPoint _cp in checkpointsList)
+        {
+            //把玩家定位在此处
+            if(_data.closestCheckPointID == _cp.id)
+            {
+                //生成位置在其上方一点，防止卡在地底下
+                GameObject.Find("Player").transform.position = _cp.transform.position + new Vector3(0, 3, 0);
+            }
+        }
+        #endregion
     }
 
     public void SaveData(ref GameData _data)
@@ -76,10 +111,18 @@ public class GameManager : MonoBehaviour, ISavesManager
         //以防万一，先清除再存储
         _data.checkpointsDict.Clear();
 
-        foreach(CheckPoint _checkpoint in checkpointsList)
+        #region CheckPoint
+        //储存存档点的列表，包括激活与否的信息
+        foreach (CheckPoint _checkpoint in checkpointsList)
         {
-            _data.checkpointsDict.Add(_checkpoint.ID, _checkpoint.isActive);
+            _data.checkpointsDict.Add(_checkpoint.id, _checkpoint.isActive);
         }
+        //储存保存游戏的时候距离玩家最近的已激活存档点，而不是直接存储一个CheckPoint类型的数据，只有字符串等基本数据类型才能被存储在存档文本文件里
+        if(FindClosestCheckPoint() != null)
+            _data.closestCheckPointID = FindClosestCheckPoint().id;
+        if (FindClosestCheckPoint() == null)
+            _data.closestCheckPointID = "";
+        #endregion
     }
     #endregion
 }
