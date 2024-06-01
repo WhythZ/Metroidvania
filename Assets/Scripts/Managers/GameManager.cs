@@ -58,6 +58,17 @@ public class GameManager : MonoBehaviour, ISavesManager
     }
     #endregion
 
+    #region Pause
+    public void PauseGame(bool _pause)
+    //暂停游戏
+    {
+        if (_pause)
+            Time.timeScale = 0;
+        else
+            Time.timeScale = 1;
+    }
+    #endregion
+
     #region CheckPoints
     public CheckPoint FindClosestCheckPoint()
     //返回和玩家距离最近的已激活存档点

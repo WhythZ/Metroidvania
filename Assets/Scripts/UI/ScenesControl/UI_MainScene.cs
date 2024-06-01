@@ -72,7 +72,7 @@ public class UI_MainScene : MonoBehaviour, ISavesManager
         CheckWhtherShowInteractToolTip();
     }
 
-    #region UIController
+    #region UIControl
     public void UIWithKeyController()
     //综合的按键控制
     {
@@ -121,6 +121,17 @@ public class UI_MainScene : MonoBehaviour, ISavesManager
             //UI切换的音效
             AudioManager.instance.PlaySFX(8, null);
         }
+
+        #region GamePause
+        //打开UI时暂停游戏
+        if(GameManager.instance != null)
+        {
+            if (_menu == inGameUI)
+                GameManager.instance.PauseGame(false);
+            else
+                GameManager.instance.PauseGame(true);
+        }
+        #endregion
     }
     public void SwitchWithKeyToUI(GameObject _menu)
     //使用按键控制的进入或者退出UI界面

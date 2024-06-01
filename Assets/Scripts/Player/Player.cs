@@ -158,6 +158,12 @@ public class Player : Entity
 
     protected override void Update()
     {
+        #region GamePause
+        //游戏处于暂停状态的时候，不执行下面的任何语句
+        if (Time.timeScale == 0)
+            return;
+        #endregion
+
         base.Update();
 
         //此处是通过MonoBehavior的Update函数来不断调用PlayerState类中的Update函数，不断刷新人物状态

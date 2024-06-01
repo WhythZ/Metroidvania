@@ -204,8 +204,6 @@ public class Entity : MonoBehaviour
 
     #region Die
     protected virtual void DieDetect()
-    //游戏设计想避免设置所有敌人的不同的死亡状态动画，而是以统一的一种死亡方式替代
-    //所以只有玩家有单独的死亡动画，其他敌人都是在当前状态的动画死亡（实际在状态机内也有deadState，但无动画罢了）
     {
         //用于死亡检测的override
     }

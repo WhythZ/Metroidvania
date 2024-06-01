@@ -211,8 +211,6 @@ public class EntityStats : MonoBehaviour
     {
         //这里是状态机转化到deadState的调用
         entity.EntityDie();
-
-        //throw new NotImplementedException();
     }
     #endregion
 
