@@ -1,6 +1,9 @@
 //已删除掉了不需要的using
-using UnityEditor;
 using UnityEngine;
+//防止在build的时候报错
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 //使得可以在Unity内右键相应的路径内，创建出此类的相关对象文件
 [CreateAssetMenu(fileName ="New Item Data", menuName ="Item Data/New Item")]

@@ -23,6 +23,8 @@ To deploy this project locally, follow the steps
 - Create a new Unity 2D project, exit after successfully entering it
 - Replace by these files in the repo
 
+The game save will be in the directory `C:\Users\username\AppData\LocalLow\DefaultCompany\Metroidvania\data.whythz`
+
 ## References
 The idea of the gameplay design mainly comes from the following games
 - Ender Lilies

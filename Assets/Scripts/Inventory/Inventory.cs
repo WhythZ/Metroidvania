@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class Inventory : MonoBehaviour, ISavesManager
 //这个脚本赋值给Player下的Inventory，不仅仅是管理CharacterUI内的Inventory的Slots，还使用着相同的方法管理着CharacterUI内的数据的更新
@@ -29,6 +32,8 @@ public class Inventory : MonoBehaviour, ISavesManager
     public Dictionary<ItemData,StoragedItem> inventoryItemsDictionary;
 
     [Header("ItemData Base")]
+    //用于防止build时报错所用到的新代码
+    public List<ItemData> itemDataBase;
     //从存档加载到物品栏的物品列表
     public List<StoragedItem> loadedItems;
 
@@ -157,12 +162,36 @@ public class Inventory : MonoBehaviour, ISavesManager
     }
     #endregion
 
+    #region DataBase
+    //该代码仅在使用Unity编辑器时候起作用，但是意味着你需要在每次添加新物品时都要右键该脚本，选择"Fill ItemDataBase"
+#if UNITY_EDITOR
+    //防止build报错的新代码
+    [ContextMenu("Fill ItemDataBase")]
+    private void FillItemDataBase() => itemDataBase = new List<ItemData>(GetItemDataBase());
+    private List<ItemData> GetItemDataBase()
+    {
+        //记录物品ID相关映射的数据库
+        List<ItemData> itemDataBase = new List<ItemData>();
+        //路径是你ItemData存放的文件夹那个地方
+        string[] _assetNames = AssetDatabase.FindAssets("", new[] { "Assets/ItemData" });
+
+        foreach (string _SOName in _assetNames)
+        {
+            var _SOPath = AssetDatabase.GUIDToAssetPath(_SOName);
+            var _itemData = AssetDatabase.LoadAssetAtPath<ItemData>(_SOPath);
+            itemDataBase.Add(_itemData);
+        }
+        return itemDataBase;
+    }
+#endif
+    #endregion
+
     #region ISavesManager
     public void LoadData(GameData _data)
     {
         foreach(KeyValuePair<string, int> _pair in _data.inventory)
         {
-            foreach(var _item in GetItemDataBase())
+            foreach(var _item in itemDataBase)
             {
                 if(_item != null && _item.itemID == _pair.Key)
                 {
@@ -185,21 +214,5 @@ public class Inventory : MonoBehaviour, ISavesManager
             _data.inventory.Add(_pair.Key.itemID, _pair.Value.stackSize);
         }
     }
-    private List<ItemData> GetItemDataBase()
-    {
-        //记录物品ID相关映射的数据库
-        List<ItemData> itemDataBase = new List<ItemData>();
-        //路径是你ItemData存放的文件夹那个地方
-        string[] _assetNames = AssetDatabase.FindAssets("", new[] { "Assets/ItemData" });
-    
-        foreach(string _SOName in _assetNames)
-        {
-            var _SOPath = AssetDatabase.GUIDToAssetPath(_SOName);
-            var _itemData = AssetDatabase.LoadAssetAtPath<ItemData>(_SOPath);
-            itemDataBase.Add(_itemData);
-        }
-
-        return itemDataBase;
-    }
-    #endregion
+#endregion
 }
