@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour, ISavesManager
             if(_data.closestCheckPointID == _cp.id)
             {
                 //生成位置在其上方一点，防止卡在地底下
-                GameObject.Find("Player").transform.position = _cp.transform.position + new Vector3(0, 3, 0);
+                GameObject.Find("Player").transform.position = _cp.transform.position + new Vector3(0, 2, 0);
             }
         }
         #endregion

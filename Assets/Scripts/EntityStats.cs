@@ -108,13 +108,12 @@ public class EntityStats : MonoBehaviour
     }
     #endregion
 
-    #region MagicalDamaged
+    #region Magical Damaged
     public virtual void GetMagicalDamagedBy(int _damage)
     {
         //如果触发了闪避，则直接返回，不受伤
         if (CanEvade())
         {
-            Debug.Log(entity.name + " Evade");
             return;
         }
         else
@@ -124,6 +123,10 @@ public class EntityStats : MonoBehaviour
 
             //受攻击的材质变化，使得有针对魔法伤害的闪烁的动画效果
             entity.fx.StartCoroutine("MagicalHitFX");
+
+            //弹出伤害数值文本效果，玩家不弹
+            if (entity.GetComponent<Player>() == null)
+                entity.fx.CreatPopUpText(_damage.ToString(), Color.white);
 
             //魔法伤害不需要击退，其实是防止有复合伤害时的击退距离更长
             //entity.StartCoroutine("HitKnockback");
@@ -168,7 +171,6 @@ public class EntityStats : MonoBehaviour
         //如果触发了闪避，则直接返回，不受伤
         if(CanEvade())
         {
-            Debug.Log(entity.name + " Evade");
             return;
         }
         else
@@ -178,6 +180,10 @@ public class EntityStats : MonoBehaviour
 
             //受攻击的材质变化，使得有闪烁的动画效果
             entity.fx.StartCoroutine("FlashHitFX");
+
+            //弹出伤害数值文本效果，玩家不弹
+            if (entity.GetComponent<Player>() == null)
+                entity.fx.CreatPopUpText(_damage.ToString(), Color.white);
 
             //受伤的击退效果
             entity.StartCoroutine("HitKnockback");
@@ -223,8 +229,6 @@ public class EntityStats : MonoBehaviour
         //若是触发了暴击，则返回叠加了暴击倍率后的伤害
         if (CanCrit())
         {
-            Debug.Log(entity.name + " Physic Crit");
-
             //使用暴击倍率需要除以100变为浮点数形式，但最终还是要返回一个整型数据
             float _criticPower = GetFinalCriticPower() * 0.01f;
 
@@ -249,8 +253,6 @@ public class EntityStats : MonoBehaviour
 
         if (CanCrit())
         {
-            Debug.Log(entity.name + " Magic Crit");
-
             float _criticPower = GetFinalCriticPower() * 0.01f;
             return Mathf.RoundToInt(_criticPower * _nonCritDamage);
         }
@@ -317,6 +319,9 @@ public class EntityStats : MonoBehaviour
         //通过随机数的方式，判断是否可以闪避
         if (UnityEngine.Random.Range(0, 100) <= GetFinalEvasionChance())
         {
+            //文字弹出效果，玩家和怪物都弹
+            entity.fx.CreatPopUpText("Miss", Color.yellow);
+
             return true;
         }
         return false;

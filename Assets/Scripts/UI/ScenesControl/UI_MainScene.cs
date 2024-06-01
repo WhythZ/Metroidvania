@@ -12,6 +12,7 @@ public class UI_MainScene : MonoBehaviour, ISavesManager
     public static UI_MainScene instance;
 
     #region ToolTip
+    [Header("ToolTip")]
     //物品栏物品的详细信息窗口
     public UI_ItemToolTip itemToolTip;
     //人物属性的详细信息窗口
@@ -19,10 +20,11 @@ public class UI_MainScene : MonoBehaviour, ISavesManager
     //按键提示
     [SerializeField] private GameObject interactToolTipUI;
     //是否显示按键提示
-    private bool isShowInteractToolTip; 
+    private bool isShowInteractToolTip;
     #endregion
 
     #region UIMenus
+    [Header("Menus")]
     //记录各UI，以便使用按键切换
     public GameObject inGameUI;
     public GameObject characterUI;
@@ -32,9 +34,16 @@ public class UI_MainScene : MonoBehaviour, ISavesManager
     #endregion
 
     #region FadeScreen
+    [Header("FadeScreen")]
     public GameObject fadeScreen;
     public GameObject deathText;
     public GameObject reSpawnButton;
+    #endregion
+
+    #region Settings
+    [Header("Settings")]
+    //储存音量大小设置的列表
+    [SerializeField] private UI_VolumeSlider[] volumeSettings;
     #endregion
 
     private void Awake()
@@ -207,10 +216,24 @@ public class UI_MainScene : MonoBehaviour, ISavesManager
     #region ISaveManager
     public void LoadData(GameData _data)
     {
+        foreach (KeyValuePair<string, float> _pair in _data.volumeSettings)
+        {
+            foreach (UI_VolumeSlider _slider in volumeSettings)
+            {
+                if (_slider.parameter == _pair.Key)
+                    _slider.LoadSlider(_pair.Value);
+            }
+        }
     }
 
     public void SaveData(ref GameData _data)
     {
+        _data.volumeSettings.Clear();
+
+        foreach (UI_VolumeSlider _slider in volumeSettings)
+        {
+            _data.volumeSettings.Add(_slider.parameter, _slider.slider.value);
+        }    
     }
     #endregion
 }

@@ -25,10 +25,14 @@ public class PlayerSkill : MonoBehaviour
             UseSkill();
             //恢复冷却时间，然后返回可以使用技能的信号true
             cooldownTimer = cooldown;
+            
             return true;
         }
         else
         {
+            //调用文字弹出效果，提示技能处于冷却
+            PlayerManager.instance.player.fx.CreatPopUpText("Cooldown", Color.white);
+
             return false;
         }
     }

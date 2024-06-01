@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class EntityFX : MonoBehaviour
@@ -7,7 +8,11 @@ public class EntityFX : MonoBehaviour
     //链接到实体的Animator内的渲染器Component
     private SpriteRenderer sr;
 
-    [Header("FlashFX")]
+    [Header("PopUpText")]
+    //决定哪些实体会有这个效果，答案是玩家
+    [SerializeField] private GameObject popUpTextPrefab;
+
+    [Header("Flash")]
     //记录初始的材质
     private Material originMat;
     //记录用于受攻击动画效果的的材质
@@ -26,6 +31,24 @@ public class EntityFX : MonoBehaviour
         originMat = sr.material;
     }
 
+    #region PopUpText
+    public void CreatPopUpText(string _text, Color _color)
+    //控制弹出这个文字效果的函数，接收需要弹出的内容及其颜色
+    {
+        //调整文字效果相对召唤者的生成位置，在范围内随机
+        float _randomX = Random.Range(-1, 1);
+        float _randomY = Random.Range(0.4f, 1f);
+        Vector3 _positionOffset = new Vector3(_randomX, _randomY, 0);
+
+        //调用预制体
+        GameObject _newText = Instantiate(popUpTextPrefab, transform.position + _positionOffset, Quaternion.identity);
+
+        _newText.GetComponent<TextMeshPro>().color = _color;
+        _newText.GetComponent<TextMeshPro>().text = _text;
+    }
+    #endregion
+
+    #region Attack
     private IEnumerator FlashHitFX()
     //这个函数需要使用如fx.StartCoroutine("FlashHitFX");来调用，而不是直接用fx.FlashHitFX()
     {
@@ -66,4 +89,5 @@ public class EntityFX : MonoBehaviour
         //并确保人物颜色恢复为白色
         sr.color= Color.white;
     }
+    #endregion
 }

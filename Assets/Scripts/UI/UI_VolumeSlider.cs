@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class UI_VolumeSlider : MonoBehaviour
 {
     //控制音量的滑块
-    private Slider slider;
+    public Slider slider;
     //链接到AudioMixer参数，此参数在我们的设置下是与AudioMixer的Volume值相关联的
     //这个值在Hierarchy内手动填写，注意名字要与我们设置参数时的名字一致，如"Volume_SFX"
     public string parameter;
@@ -23,6 +23,17 @@ public class UI_VolumeSlider : MonoBehaviour
         slider = GetComponent<Slider>();
         //防止滑块拖到最底端的时候，AudioMixer的Volume反弹回0，即音频音量反而变成最大
         slider.minValue = 0.001f;
+    }
+
+    public void LoadSlider(float _value)
+    //加载存档时加载之前调节过的音量
+    {
+        //这里是参考上面的slider.minValue = 0.001f;的数值
+        //这里要有等于号，不然把音量拉到最底（如得到0.0010000123f）会直接不记录该数值
+        if (_value >= 0.001f)
+        {
+            slider.value = _value;
+        }
     }
 
     public void LinkSliderValueToAudioMixer(float _value)
