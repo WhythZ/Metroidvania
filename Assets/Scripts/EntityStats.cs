@@ -29,24 +29,22 @@ public class EntityStats : MonoBehaviour
     public Stat intelligence;
     #endregion
 
-    #region PhysicalAttack
-    [Header("Physical Attack Stats")]
-    //实体的基础攻击伤害
-    public Stat primaryPhysicalDamage;
+    #region Attack
+    [Header("Attack Stats")]
     //暴击伤害倍率（百分比，大于100）
     public Stat criticPower;
     //暴击率（百分比）
     public Stat criticChance;
-    #endregion
-
-    #region MagicalAttack
-    [Header("Magical Attack Stats")]
+    
+    //实体的基础物理攻击伤害
+    public Stat primaryPhysicalDamage;
     //火焰伤害
     public Stat fireAttackDamage;
     //冰冻伤害
     public Stat iceAttackDamage;
     //闪电伤害
     public Stat lightningAttackDamage;
+    
     //处于燃烧状态
     public bool isIgnited;
     //处于冰冻状态
@@ -59,10 +57,10 @@ public class EntityStats : MonoBehaviour
     [Header("Defence Stats")]
     //闪避率（百分比）
     public Stat evasionChance;
-    //法术抵抗力，提供法术减伤（百分比）
-    public Stat magicalResistance;
     //护甲值，提供物理减伤（百分比）
     public Stat physicalArmor;
+    //法术抵抗力，提供法术减伤（百分比）
+    public Stat magicalResistance;
     #endregion
 
     #region Events
@@ -72,15 +70,6 @@ public class EntityStats : MonoBehaviour
 
     protected virtual void Start()
     {
-        #region SetDefault
-        //设置默认暴击伤害倍率为150%
-        criticPower.SetDefaultValue(150);
-        //初始暴击率为5%
-        criticChance.SetDefaultValue(5);
-        //初始闪避率为5%
-        evasionChance.SetDefaultValue(5);
-        #endregion
-
         //这里的Start函数必须要确保比更新血条UI的Start函数先调用，否则UI会与实际血量不符合
         //若想调整调用顺序，可在Project Settings的Scripts Execution Order处修改
         //Debug.Log("EntityStats Start() Func Called");
@@ -108,7 +97,7 @@ public class EntityStats : MonoBehaviour
     }
     #endregion
 
-    #region Magical Damaged
+    #region MagicalDamaged
     public virtual void GetMagicalDamagedBy(int _damage)
     {
         //如果触发了闪避，则直接返回，不受伤

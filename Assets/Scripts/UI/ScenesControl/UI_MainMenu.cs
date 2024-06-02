@@ -18,10 +18,30 @@ public class UI_MainMenu : MonoBehaviour
         AudioManager.instance.isPlayBGM = true;
         AudioManager.instance.bgmIndex = 0;
 
+        /*待解决：从场景MainScene内通过退出游戏按钮进入到MainMenu时，会出现以下bug
+         * 1. MainMenu按钮的音效无法正常播放（但是除了音效，按钮的其他功能都正常），但是场景的bgm却可以正常播放
+         * 2. fadeScreen的FadeIn动画无法正常播放，而是会卡住，导致一致黑屏（即处在其动画播放的第一帧）
+         */
+
+        //在进入场景0.1秒后激发函数，暂缓fadeScreen的bug，但是注意这是缓兵之计
+        Invoke("ActivateFadeScreen", 0.1f);
+
+        //没有存档的时候隐藏继续游戏的按钮
+        CheckButtons();
+    }
+
+    #region FadeScreen
+    private void ActivateFadeScreen()
+    {
         //播放开始时候的渐入动画，以及保证黑屏组件的激活状态
         fadeScreen.SetActive(true);
         fadeScreen.GetComponent<UI_FadeScreen>().FadeIn();
+    }
+    #endregion
 
+    #region Buttons
+    private void CheckButtons()
+    {
         if (SavesManager.instance.WhetherHasSavedGameData() == false)
         {
             //没有存档的时候隐藏继续游戏的按钮
@@ -32,7 +52,6 @@ public class UI_MainMenu : MonoBehaviour
             continueButton.SetActive(true);
         }
     }
-
     public void ContinueGame()
     //继续游戏的函数，沿用保存好的存档；函数用于绑定给Button
     {
@@ -55,4 +74,5 @@ public class UI_MainMenu : MonoBehaviour
         Debug.Log("Game Exited");
         //Application.Quit();
     }
+    #endregion
 }

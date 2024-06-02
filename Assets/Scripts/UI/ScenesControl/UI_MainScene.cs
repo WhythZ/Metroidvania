@@ -4,6 +4,8 @@ using System.Xml.Serialization;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+//管理场景的using
+using UnityEngine.SceneManagement;
 
 public class UI_MainScene : MonoBehaviour, ISavesManager
 //此脚本放在Canvas上，用于控制各UI的切换

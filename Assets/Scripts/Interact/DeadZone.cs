@@ -9,8 +9,8 @@ public class DeadZone : MonoBehaviour
     {
         if (collision.GetComponent<EntityStats>() != null)
         {
-            //处死实体
-            collision.GetComponent<EntityStats>().StatsDie();
+            //利用数值处死实体，而不是使用StatsDie处死，会触发黑屏异常bug，应该是实际死亡需要触发两个Die函数的原因，单纯StatsDie不完整
+            collision.GetComponent<EntityStats>().GetPhysicalDamagedBy(999999);
         }
         else
         {

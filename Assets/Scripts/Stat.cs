@@ -13,6 +13,7 @@ public class Stat
     //一个int数组，记录该Stat在不同情况下的不同数值
     public List<int> modifiers;
 
+    #region GetValue
     public int GetValue()
     //对外提供接口，使可以获取最终输出的数值
     {
@@ -28,11 +29,18 @@ public class Stat
 
         return finalValue;
     }
+    #endregion
 
-    public void SetDefaultValue(int _value)
+    #region SetValue
+    public void SetValue(int _value)
     {
         baseValue = _value;
     }
+    /*public void SetDefaultValue(int _value)
+    {
+        baseValue = _value;
+    }*/
+    #endregion
 
     #region EditModifiers
     public void AddModifier(int _modifier)

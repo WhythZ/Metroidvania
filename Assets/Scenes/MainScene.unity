@@ -14677,7 +14677,7 @@ MonoBehaviour:
   knockbackDirVector: {x: 0, y: 0}
   knockbackDuration: 0.07
   airMoveSpeedRate: 0.9
-  jumpForce: 17
+  jumpForce: 13
   jumpNum: 2
   dashDuration: 0.4
   dashSpeed: 17
@@ -14689,7 +14689,7 @@ MonoBehaviour:
   counterAttackDuration: 0.3
   slideSpeed: 0.9
   biggerSlideSpeed: 0.99
-  wallJumpReverseSpeedDuration: 0.15
+  wallJumpReverseSpeedDuration: 0.18
   cdPlayerPrefab: {fileID: 5265299229322244034, guid: cd88d315c5a44cd45ad56f79a8ff68f9, type: 3}
 --- !u!50 &1165862733
 Rigidbody2D:
