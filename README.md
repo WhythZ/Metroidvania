@@ -14,8 +14,8 @@ I'm a super lover of RPGs, especially Souls, Metroidvanias, Survival games like 
 You might notice that I fancy ***Pixel Arts*** a lot, and that's why I prefer to develop a pixel 2D RPG. Hope you can enjoy the game and find something common with me through the aesthetic choice I've expressed in this game demo 
 
 ## Contents
-- You will play as a warrior with 3+ attack skills which can be acquired as the game moves on
-- The demo will contains four chapters including platform elements and 2+ boss fights
+- You will play as a warrior with 3+ attack skills and different methods of movement
+- The demo will contains several chapters with platform design element and 2+ boss fights
 
 ## Deployment
 To deploy this project locally, follow the steps
@@ -23,25 +23,18 @@ To deploy this project locally, follow the steps
 - Create a new Unity 2D project, exit after successfully entering it
 - Replace by these files in the repo
 
-The game save will be in the directory `C:\Users\username\AppData\LocalLow\DefaultCompany\Metroidvania\data.whythz`
+The game save will be stored in the directory
+```
+C:\Users\username\AppData\LocalLow\DefaultCompany\Metroidvania\data.whythz
+```
 
 ## References
-The idea of the gameplay design mainly comes from the following games
-- Ender Lilies
-- Hollow Knight
-- Celeste
-- Dark Souls I
-- Katana Zero
-- Phoenotopia Awakening
-- All the other RPGs I've ever played and got impressed
+The idea of the gameplay and art design mainly comes from the games such as: `Ender Lilies`, `Hollow Knight`, `Celeste`, `Dark Souls I`, `Katana Zero`, `Phoenotopia Awakening`, etc.
 
-Where do the assets come from
-- [Itch](https://itch.io/), [Unity](https://assetstore.unity.com/zh-CN), [OpenGameArt](https://opengameart.org/), [CraftPix](https://craftpix.net/), [Spriters-Resource](https://www.spriters-resource.com/) and [Twitter](https://x.com)
-- Soundtracks from the Internet
+The game assets mainly come from: [Itch](https://itch.io/), [Unity](https://assetstore.unity.com/zh-CN), [OpenGameArt](https://opengameart.org/), [CraftPix](https://craftpix.net/), [Spriters-Resource](https://www.spriters-resource.com/) and [Twitter](https://x.com). The soundtracks all come from the OST of my loved games and anime.
 
-Where do I learn the game development skill
-- Courses on [Udemy](https://www.udemy.com/course/2d-rpg-alexdev/) and [Bilibili](https://www.bilibili.com/)
+I learn the game development mainly from the video courses from [Udemy](https://www.udemy.com/course/2d-rpg-alexdev/) and [Bilibili](https://www.bilibili.com/) and the official manual from [Unity](https://docs.unity.cn/2021.3/Documentation/Manual/UnityManual.html).
 
-## Contact
+## Contacts
 - jichenzong at outlook dot com
-- Bilibili [WhythZ](https://space.bilibili.com/25804487?spm_id_from=333.1007.0.0)
+- [WhythZ](https://space.bilibili.com/25804487?spm_id_from=333.1007.0.0)

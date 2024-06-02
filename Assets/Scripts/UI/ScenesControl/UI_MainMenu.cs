@@ -16,7 +16,7 @@ public class UI_MainMenu : MonoBehaviour
     {
         //开始菜单的场景bgm
         AudioManager.instance.isPlayBGM = true;
-        AudioManager.instance.bgmIndex = 1;
+        AudioManager.instance.bgmIndex = 0;
 
         //播放开始时候的渐入动画，以及保证黑屏组件的激活状态
         fadeScreen.SetActive(true);

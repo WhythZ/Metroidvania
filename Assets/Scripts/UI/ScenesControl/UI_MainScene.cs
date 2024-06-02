@@ -56,7 +56,7 @@ public class UI_MainScene : MonoBehaviour, ISavesManager
     {
         //游戏主场景的bgm
         AudioManager.instance.isPlayBGM = true;
-        AudioManager.instance.bgmIndex = 0;
+        AudioManager.instance.bgmIndex = 4;
 
         //初始状态打开的是游戏内界面UI
         SwitchToUI(inGameUI);
