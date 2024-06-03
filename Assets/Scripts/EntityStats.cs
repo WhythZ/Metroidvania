@@ -54,9 +54,9 @@ public class EntityStats : MonoBehaviour
     [Header("Ailments")]
     //处于燃烧状态，持续一段时间掉血
     public bool isIgnited;
-    //处于冰冻状态（待实现效果：速度减少40%；护甲减少20%）
+    //处于冰冻状态（待实现效果：速度减少40%）
     public bool isChilled;
-    //处于眩晕状态（待实现效果：眩晕一段时间；被命中必定暴击）
+    //处于眩晕状态（待实现效果：降低防御和抵抗力）
     public bool isShocked;
     
     //状态持续时长及其计时器
@@ -496,6 +496,9 @@ public class EntityStats : MonoBehaviour
         if (_statType == StatType.critChance) { return GetFinalCriticChance(); }
         if (_statType == StatType.critPower) { return GetFinalCriticPower(); }
         if (_statType == StatType.magicalDamage) { return GetNonCritMagicalDamage(); }
+        if (_statType == StatType.fireDamage) { return fireAttackDamage.GetValue(); }
+        if (_statType == StatType.iceDamage) { return iceAttackDamage.GetValue(); }
+        if (_statType == StatType.lightningDamage) { return lightningAttackDamage.GetValue(); }
         if (_statType == StatType.evasion) { return GetFinalEvasionChance(); }
         if (_statType == StatType.armor) { return GetFinalArmor(); }
         if (_statType == StatType.resistance) { return GetFinalResistance(); }
@@ -519,6 +522,9 @@ public enum StatType
     critChance,
     critPower,
     magicalDamage,
+    fireDamage,
+    iceDamage,
+    lightningDamage,
     evasion,
     armor,
     resistance
