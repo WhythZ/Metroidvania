@@ -74,21 +74,21 @@ public class GameData
         this.vitality = 0;
         this.intelligence = 0;
 
-        this.originalMaxHealth = 100;
+        this.originalMaxHealth = 200;
 
         this.criticPower = 150;
         this.criticChance = 5;
 
         this.primaryPhysicalDamage = 20;
-        this.fireAttackDamage = 0;
+        this.fireAttackDamage = 5;
         this.iceAttackDamage = 0;
         this.lightningAttackDamage = 0;
 
         this.swordDamage = 10;
 
         this.evasionChance = 5;
-        this.physicalArmor = 0;
-        this.magicalResistance = 0;
+        this.physicalArmor = 10;
+        this.magicalResistance = 10;
         #endregion
 
         #region Inventory

@@ -2,12 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class EntityStats : MonoBehaviour
 //这个类负责控制实体的统计数据
 {
-    Entity entity;
+    #region Components
+    private Entity entity;
+    private EntityFX fx;
+    #endregion
 
     #region Health
     [Header("Health Stats")]
@@ -47,12 +51,26 @@ public class EntityStats : MonoBehaviour
     #endregion
 
     #region Ailments
-    //处于燃烧状态
+    [Header("Ailments")]
+    //处于燃烧状态，持续一段时间掉血
     public bool isIgnited;
-    //处于冰冻状态
+    //处于冰冻状态（待实现效果：速度减少40%；护甲减少20%）
     public bool isChilled;
-    //处于眩晕状态
+    //处于眩晕状态（待实现效果：眩晕一段时间；被命中必定暴击）
     public bool isShocked;
+    
+    //状态持续时长及其计时器
+    [SerializeField] private float ignitedDuration = 3f;
+    [SerializeField] private float chilledDuration = 3f;
+    [SerializeField] private float shockedDuration = 3f;
+    private float ignitedTimer;
+    private float chilledTimer;
+    private float shockedTimer;
+
+    //处于灼烧状态时，每隔多长时间受到一次灼烧伤害
+    public float ignitedDamageCooldown = 0.5f;
+    private float ignitedDamageTimer;
+
     #endregion
 
     #region Defence
@@ -78,12 +96,66 @@ public class EntityStats : MonoBehaviour
         //初始时赋予实体其加成过后的最大生命值
         currentHealth = GetFinalMaxHealth();
 
+        #region Components
         //链接实体脚本，会自动检测链接到其子类脚本
         entity = GetComponent<Entity>();
         //Debug.Log(entity.name);
 
+        //链接到效果脚本
+        fx = GetComponent<EntityFX>();
+        #endregion
+
         //初始时清空所有负面buff
         GetAilments(false, false, false);
+    }
+
+    protected virtual void Update()
+    {
+        #region Ailments
+        if (isIgnited)
+        {   
+            //启用计时器的刷新
+            ignitedTimer -= Time.deltaTime;
+            ignitedDamageTimer -= Time.deltaTime;
+
+            //退出燃烧状态
+            if(ignitedTimer < 0)
+            {
+                isIgnited = false;
+            }
+
+            //灼烧伤害的施加
+            if(ignitedDamageTimer < 0)
+            {
+                //Debug.Log(this.name + " Take Fire Damage");
+                //百分比烧血
+                int _ignitedDamage = Mathf.RoundToInt(originalMaxHealth.GetValue() * 0.02f);
+                //这里使用的函数仅对数值产生影响，而且其内还会触发各种效果，同时不会进行Ailments的检测，减少无效运算
+                this.GetMagicalDamagedBy(_ignitedDamage);
+
+                //重置冷却时长，达到每隔一段时间进行灼烧的效果
+                ignitedDamageTimer = ignitedDamageCooldown;
+            }
+        }
+        if(isChilled)
+        {
+            chilledTimer -= Time.deltaTime;
+
+            if(chilledTimer < 0)
+            {
+                isChilled = false;
+            }
+        }
+        if(isShocked)
+        {
+            shockedTimer -= Time.deltaTime;
+
+            if(shockedTimer < 0)
+            {
+                isShocked = false;
+            }
+        }
+        #endregion
     }
 
     #region TotalDamage
@@ -126,28 +198,75 @@ public class EntityStats : MonoBehaviour
     #region Ailments
     public virtual void CheckAilmentsFrom(EntityStats _entity)
     {
-        //存储攻击自己的实体的魔法伤害数据
+        //存储攻击自己的实体的魔法元素伤害数据
         int _fireDmg = _entity.fireAttackDamage.GetValue();
         int _iceDmg = _entity.iceAttackDamage.GetValue();
         int _lightDmg = _entity.lightningAttackDamage.GetValue();
-        //选出最大的数据，其施加其对应的debuff，因为只能施加一种debuff，故选取伤害最大的
+
+        //选出最大的数据，其施加其对应的元素伤害debuff，因为只能施加一种debuff，故选取伤害最大的
         bool _canApplyIgnite = _fireDmg > _iceDmg && _fireDmg > _lightDmg;
         bool _canApplyChill = _iceDmg > _fireDmg && _iceDmg > _lightDmg;
         bool _canApplyShock = _lightDmg > _fireDmg && _lightDmg > _iceDmg;
-        //施加负面效果
+
+        //若出现相等数值的情况，循环随机数选取一个伤害大于零的元素伤害
+        if (!_canApplyIgnite && !_canApplyChill && !_canApplyShock)
+        {
+            //没伤害直接退出，不用检测了
+            if (_fireDmg <= 0 && _iceDmg <= 0 && _lightDmg <= 0)
+                return;
+
+            //生成随机数
+            int _random = UnityEngine.Random.Range(0, 100);
+            if(_random <= 33 && _fireDmg > 0)
+            {
+                _canApplyIgnite = true;
+            }
+            else if(_random <= 66 && _iceDmg > 0)
+            {
+                _canApplyChill = true;
+            }
+            else if(_lightDmg > 0)
+            {
+                _canApplyShock = true;
+            }
+        }
+
+        //施加debuff
         GetAilments(_canApplyIgnite, _canApplyChill, _canApplyShock);
     }
     public virtual void GetAilments(bool _ignited, bool _chilled, bool _shocked)
     //应用魔法伤害，类似为持续性的debuff
     {
         //如果先前有debuff了，暂时设计为不能再度施加新debuff
-        if (isIgnited || isChilled || _shocked)
+        if (isIgnited || isChilled || isShocked)
             return;
 
-        //赋予debuff状态
-        isIgnited = _ignited;
-        isChilled = _chilled;
-        isShocked = _shocked;
+        //赋予debuff状态及其效果
+        if(_ignited)
+        {
+            isIgnited = _ignited;
+            //刷新计时器
+            ignitedTimer = ignitedDuration;
+
+            //调用状态效果
+            fx.InvokeIgnitedFXFor(ignitedDuration);
+        }
+        if (_chilled)
+        {
+            isChilled = _chilled;
+            chilledTimer = chilledDuration;
+
+            //调用状态效果
+            fx.InvokeChilledFXFor(chilledDuration);
+        }
+        if(_shocked)
+        {
+            isShocked = _shocked;
+            shockedTimer = shockedDuration;
+
+            //调用状态效果
+            fx.InvokeShockedFXFor(shockedDuration);
+        }
     }
     #endregion
 
@@ -168,7 +287,7 @@ public class EntityStats : MonoBehaviour
 
             //弹出伤害数值文本效果，玩家不弹
             if (entity.GetComponent<Player>() == null)
-                entity.fx.CreatPopUpText(_damage.ToString(), Color.white);
+                entity.fx.CreatPopUpText(_damage.ToString(), Color.cyan);
 
             //魔法伤害不需要击退，其实是防止有复合伤害时的击退距离更长
             //entity.StartCoroutine("HitKnockback");

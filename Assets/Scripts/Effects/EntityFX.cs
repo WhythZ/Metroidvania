@@ -8,11 +8,14 @@ public class EntityFX : MonoBehaviour
     //链接到实体的Animator内的渲染器Component
     private SpriteRenderer sr;
 
-    [Header("PopUpText")]
+    #region PopUpText
+    [Header("Pop Up Text")]
     //决定哪些实体会有这个效果，答案是玩家
     [SerializeField] private GameObject popUpTextPrefab;
+    #endregion
 
-    [Header("Flash")]
+    #region Attack
+    [Header("Attack Material")]
     //记录初始的材质
     private Material originMat;
     //记录用于受攻击动画效果的的材质
@@ -21,6 +24,19 @@ public class EntityFX : MonoBehaviour
     [SerializeField] private Material magicalHitMat;
     //材质更替后的停留时间
     [SerializeField] private float changeMatDuration = 0.1f;
+    #endregion
+
+    #region Ailments
+    [Header("Ailments Color")]
+    [SerializeField] private Color ignitedColor;
+    [SerializeField] private Color chilledColor;
+    [SerializeField] private Color shockedColor;
+
+    [Header("Ailments Particle")]
+    [SerializeField] private ParticleSystem ignitedFX;
+    [SerializeField] private ParticleSystem chilledFX;
+    [SerializeField] private ParticleSystem shockedFX;
+    #endregion
 
     private void Start()
     {
@@ -36,8 +52,8 @@ public class EntityFX : MonoBehaviour
     //控制弹出这个文字效果的函数，接收需要弹出的内容及其颜色
     {
         //调整文字效果相对召唤者的生成位置，在范围内随机
-        float _randomX = Random.Range(-1, 1);
-        float _randomY = Random.Range(0.4f, 1f);
+        float _randomX = Random.Range(-1.5f, 1.5f);
+        float _randomY = Random.Range(0.5f, 2f);
         Vector3 _positionOffset = new Vector3(_randomX, _randomY, 0);
 
         //调用预制体
@@ -48,7 +64,24 @@ public class EntityFX : MonoBehaviour
     }
     #endregion
 
-    #region Attack
+    private void CancelColorChange()
+    //调用示例bringer.fx.Invoke("CancelColorChange", 0);此为延迟零秒后调用此函数
+    {
+        //此函数用于取消MonoBehaviour中的所有InvokeRepeating，包括那个被Invoke的RedBlink函数
+        CancelInvoke();
+        //并确保人物颜色恢复为白色
+        sr.color = Color.white;
+
+        //取消所有粒子效果
+        ignitedFX.gameObject.SetActive(false);
+        chilledFX.gameObject.SetActive(false);
+        shockedFX.gameObject.SetActive(false);
+        ignitedFX.Stop();
+        chilledFX.Stop();
+        shockedFX.Stop();
+    }
+
+    #region AttackFX
     private IEnumerator FlashHitFX()
     //这个函数需要使用如fx.StartCoroutine("FlashHitFX");来调用，而不是直接用fx.FlashHitFX()
     {
@@ -80,14 +113,42 @@ public class EntityFX : MonoBehaviour
         else
             sr.color = Color.red;
     }
+    #endregion
 
-    private void CancelRedBlink()
-    //调用示例bringer.fx.Invoke("CancelRedBlink", 0);此为延迟零秒后调用此函数
+    #region AilmentsFX
+    public void InvokeIgnitedFXFor(float _duration)
+    //调用燃烧效果多长时间
     {
-        //此函数用于取消MonoBehaviour中的所有InvokeRepeating，包括上面那个被Invoke的RedBlink函数
-        CancelInvoke();
-        //并确保人物颜色恢复为白色
-        sr.color= Color.white;
+        //调用粒子效果
+        ignitedFX.gameObject.SetActive(true);
+        ignitedFX.Play();
+
+        //调用颜色效果
+        sr.color = ignitedColor;
+        //经历_duration时间过后结束效果
+        Invoke("CancelColorChange", _duration);
+    }
+    public void InvokeChilledFXFor(float _duration)
+    {
+        //调用粒子效果
+        chilledFX.gameObject.SetActive(true);
+        chilledFX.Play();
+
+        //调用颜色效果
+        sr.color = chilledColor;
+        //经历_duration时间过后结束效果
+        Invoke("CancelColorChange", _duration);
+    }
+    public void InvokeShockedFXFor(float _duration)
+    {
+        //调用粒子效果
+        shockedFX.gameObject.SetActive(true);
+        shockedFX.Play();
+
+        //调用颜色效果
+        sr.color = shockedColor;
+        //经历_duration时间过后结束效果
+        Invoke("CancelColorChange", _duration);
     }
     #endregion
 }

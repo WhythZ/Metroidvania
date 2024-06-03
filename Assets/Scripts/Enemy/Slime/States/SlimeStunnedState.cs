@@ -27,7 +27,7 @@ public class SlimeStunnedState : EnemyState
         base.Exit();
 
         //离开时取消红色闪光；第二个参数是零延迟调用此函数的意思
-        slime.fx.Invoke("CancelRedBlink", 0);
+        slime.fx.Invoke("CancelColorChange", 0);
     }
 
     public override void Update()
