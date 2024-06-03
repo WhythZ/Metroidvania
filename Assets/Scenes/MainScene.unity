@@ -14679,8 +14679,8 @@ MonoBehaviour:
   airMoveSpeedRate: 0.9
   jumpForce: 13
   jumpNum: 2
-  dashDuration: 0.4
-  dashSpeed: 17
+  dashDuration: 0.35
+  dashSpeed: 15
   runIntoAttackInertiaDuration: 0.15
   attackMovement:
   - {x: 2, y: 1.5}
@@ -14807,14 +14807,14 @@ MonoBehaviour:
   intelligence:
     baseValue: 0
     modifiers: 
-  primaryPhysicalDamage:
-    baseValue: 20
-    modifiers: 
   criticPower:
     baseValue: 150
     modifiers: 
   criticChance:
     baseValue: 5
+    modifiers: 
+  primaryPhysicalDamage:
+    baseValue: 20
     modifiers: 
   fireAttackDamage:
     baseValue: 0
@@ -14831,14 +14831,14 @@ MonoBehaviour:
   evasionChance:
     baseValue: 5
     modifiers: 
-  magicalResistance:
-    baseValue: 0
-    modifiers: 
   physicalArmor:
     baseValue: 0
     modifiers: 
-  swordExtraDamage:
+  magicalResistance:
     baseValue: 0
+    modifiers: 
+  swordDamage:
+    baseValue: 10
     modifiers: 
 --- !u!4 &1167865374 stripped
 Transform:
@@ -20366,14 +20366,14 @@ MonoBehaviour:
   intelligence:
     baseValue: 0
     modifiers: 
-  primaryPhysicalDamage:
-    baseValue: 15
-    modifiers: 
   criticPower:
     baseValue: 150
     modifiers: 
   criticChance:
     baseValue: 5
+    modifiers: 
+  primaryPhysicalDamage:
+    baseValue: 15
     modifiers: 
   fireAttackDamage:
     baseValue: 0
@@ -20390,10 +20390,10 @@ MonoBehaviour:
   evasionChance:
     baseValue: 5
     modifiers: 
-  magicalResistance:
+  physicalArmor:
     baseValue: 0
     modifiers: 
-  physicalArmor:
+  magicalResistance:
     baseValue: 0
     modifiers: 
 --- !u!114 &1545825525

@@ -44,7 +44,9 @@ public class EntityStats : MonoBehaviour
     public Stat iceAttackDamage;
     //闪电伤害
     public Stat lightningAttackDamage;
-    
+    #endregion
+
+    #region Ailments
     //处于燃烧状态
     public bool isIgnited;
     //处于冰冻状态
@@ -79,26 +81,79 @@ public class EntityStats : MonoBehaviour
         //链接实体脚本，会自动检测链接到其子类脚本
         entity = GetComponent<Entity>();
         //Debug.Log(entity.name);
+
+        //初始时清空所有负面buff
+        GetAilments(false, false, false);
     }
 
     #region TotalDamage
-    public virtual void GetTotalDamageFrom(EntityStats _entityAttackingYou)
-    //提供一种调用全部伤害的函数，当然，建议单独调用物理和法术伤害
+    public virtual void GetTotalNormalDmgFrom(EntityStats _attackingEntity, bool _doPhysic, bool _doMagic)
+    //提供一种调用全部伤害的函数，所有触发伤害都调用此函数，不建议单独调用
+    //第二、第三参数位要传入是否只触发单独一类伤害或者两者一起触发的布尔值
     {
-        //若是基础伤害为0，则不应进行最终值的获取（其中还要进行暴击判定，判定若是成功了还会返回暴击效果，这是不需要的，因为暴击与否都是0伤害）
-        if (GetNonCritMagicalDamage() > 0)
+        //若是对方基础伤害为0，则不应进行最终值的获取（其中还要进行暴击判定，判定若是成功了还会返回暴击效果，这是不需要的，因为暴击与否都是0伤害）
+        if (_attackingEntity.GetNonCritMagicalDamage() > 0 && _doMagic)
         {
-            this.GetMagicalDamagedBy(_entityAttackingYou.GetFinalMagicalDamage());
+            //数值伤害的施加
+            this.GetMagicalDamagedBy(_attackingEntity.GetFinalMagicalDamage());
+
+            //负面效果的施加
+            CheckAilmentsFrom(_attackingEntity); 
         }
-        if(GetNonCritPhysicalDamage() > 0)
+        if(_attackingEntity.GetNonCritPhysicalDamage() > 0 && _doPhysic)
         {
-            this.GetPhysicalDamagedBy(_entityAttackingYou.GetFinalPhysicalDamage());
+            this.GetPhysicalDamagedBy(_attackingEntity.GetFinalPhysicalDamage());
         }
+    }
+    public virtual void GetTotalSkillDmgFrom(EntityStats _attackingEntity, int _skillDmg, bool _isMagical)
+    //技能的伤害（物理、魔法）的伤害的，传入造成伤害者和造成的伤害大小、伤害的类型（是魔法的话还要进行debuff施加判定）
+    //技能伤害与对方原有伤害类型数值（非暴击）进行叠加，吃技能伤害时不会发生暴击
+    {
+        if(_isMagical)
+        {
+            this.GetMagicalDamagedBy(_attackingEntity.GetNonCritMagicalDamage() + _skillDmg);
+
+            //debuff施加
+            CheckAilmentsFrom(_attackingEntity);
+        }
+        if(!_isMagical)
+        {
+            this.GetPhysicalDamagedBy(_attackingEntity.GetFinalPhysicalDamage() + _skillDmg); 
+        }
+    }
+    #endregion
+
+    #region Ailments
+    public virtual void CheckAilmentsFrom(EntityStats _entity)
+    {
+        //存储攻击自己的实体的魔法伤害数据
+        int _fireDmg = _entity.fireAttackDamage.GetValue();
+        int _iceDmg = _entity.iceAttackDamage.GetValue();
+        int _lightDmg = _entity.lightningAttackDamage.GetValue();
+        //选出最大的数据，其施加其对应的debuff，因为只能施加一种debuff，故选取伤害最大的
+        bool _canApplyIgnite = _fireDmg > _iceDmg && _fireDmg > _lightDmg;
+        bool _canApplyChill = _iceDmg > _fireDmg && _iceDmg > _lightDmg;
+        bool _canApplyShock = _lightDmg > _fireDmg && _lightDmg > _iceDmg;
+        //施加负面效果
+        GetAilments(_canApplyIgnite, _canApplyChill, _canApplyShock);
+    }
+    public virtual void GetAilments(bool _ignited, bool _chilled, bool _shocked)
+    //应用魔法伤害，类似为持续性的debuff
+    {
+        //如果先前有debuff了，暂时设计为不能再度施加新debuff
+        if (isIgnited || isChilled || _shocked)
+            return;
+
+        //赋予debuff状态
+        isIgnited = _ignited;
+        isChilled = _chilled;
+        isShocked = _shocked;
     }
     #endregion
 
     #region MagicalDamaged
     public virtual void GetMagicalDamagedBy(int _damage)
+    //这里是数值的伤害的施加，而debuff的判定（需要传入敌方Stats）不放在这里，因为有些纯魔法攻击不会产生debuff
     {
         //如果触发了闪避，则直接返回，不受伤
         if (CanEvade())
@@ -107,9 +162,7 @@ public class EntityStats : MonoBehaviour
         }
         else
         {
-            //受到的伤害由自身抵抗力减免后作用在生命值上
-            currentHealth -= CheckResistance(this, _damage);
-
+            #region AttackedFX
             //受攻击的材质变化，使得有针对魔法伤害的闪烁的动画效果
             entity.fx.StartCoroutine("MagicalHitFX");
 
@@ -119,6 +172,10 @@ public class EntityStats : MonoBehaviour
 
             //魔法伤害不需要击退，其实是防止有复合伤害时的击退距离更长
             //entity.StartCoroutine("HitKnockback");
+            #endregion
+
+            //受到的伤害由自身抵抗力减免后作用在生命值上
+            currentHealth -= CheckResistance(this, _damage);
 
             //被攻击时，调用一下血条UI的更新
             if (onHealthChanged != null)
@@ -139,18 +196,6 @@ public class EntityStats : MonoBehaviour
         //转化为整型伤害
         return Mathf.RoundToInt(_checkedFinalDamage);
     }
-    public virtual void ApplyAilmentsTo(bool _ignited, bool _chilled, bool _shocked)
-    //应用魔法伤害，类似为持续性的debuff
-    {
-        //如果先前有debuff了，暂时设计为不能再度施加新debuff
-        if(isIgnited || isChilled || _shocked)
-            return;
-
-        //赋予debuff状态
-        isIgnited = _ignited;
-        isChilled = _chilled;
-        isShocked = _shocked;
-    }
     #endregion
 
     #region PhysicalDamaged
@@ -164,9 +209,7 @@ public class EntityStats : MonoBehaviour
         }
         else
         {
-            //被攻击时，调用对方的攻击数值，在自己的当前生命值上减掉
-            currentHealth -= CheckArmor(this, _damage);
-
+            #region AttackedFX
             //受攻击的材质变化，使得有闪烁的动画效果
             entity.fx.StartCoroutine("FlashHitFX");
 
@@ -176,6 +219,10 @@ public class EntityStats : MonoBehaviour
 
             //受伤的击退效果
             entity.StartCoroutine("HitKnockback");
+            #endregion
+
+            //被攻击时，调用对方的攻击数值，在自己的当前生命值上减掉
+            currentHealth -= CheckArmor(this, _damage);
 
             //被攻击时，调用一下血条UI的更新
             if (onHealthChanged != null)
@@ -200,16 +247,7 @@ public class EntityStats : MonoBehaviour
     }
     #endregion
 
-    #region Die
-    public virtual void StatsDie()
-    //实体死亡函数，主要是用于重写
-    {
-        //这里是状态机转化到deadState的调用
-        entity.EntityDie();
-    }
-    #endregion
-
-    #region CalculateFinalValues
+    #region FinalValues
     public virtual int GetFinalPhysicalDamage()
     {
         //记录下来非暴击伤害
@@ -287,6 +325,15 @@ public class EntityStats : MonoBehaviour
     {
         //返回最终护甲值
         return physicalArmor.GetValue() + 2 * vitality.GetValue();
+    }
+    #endregion
+
+    #region StatsDie
+    public virtual void StatsDie()
+    //实体死亡函数，主要是用于重写
+    {
+        //这里是状态机转化到deadState的调用
+        entity.EntityDie();
     }
     #endregion
 

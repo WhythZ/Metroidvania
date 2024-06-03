@@ -13,9 +13,4 @@ public class EnemyStats : EntityStats
 
         enemy = GetComponent<Enemy>();
     }
-
-    public override void GetPhysicalDamagedBy(int _damage)
-    {
-        base.GetPhysicalDamagedBy(_damage);
-    }
 }

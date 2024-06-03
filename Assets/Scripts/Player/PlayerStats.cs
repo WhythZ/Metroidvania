@@ -9,9 +9,8 @@ public class PlayerStats : EntityStats, ISavesManager
 
     #region Skill
     [Header("Skill Stats")]
-    //投掷剑技能的附加的额外伤害，故而飞剑的伤害是的玩家原本的伤害（含暴击判断等）加上这个额外数值
-    //这样的好处是不用为剑的伤害额外计算暴击率等信息了，后面可能要改，先暂时这样
-    public Stat swordExtraDamage;
+    //投掷剑技能的基础伤害
+    public Stat swordDamage;
     #endregion
 
     protected override void Start()
@@ -51,13 +50,6 @@ public class PlayerStats : EntityStats, ISavesManager
     }
     #endregion
 
-    #region DieOverride
-    public override void StatsDie()
-    {
-        base.StatsDie();
-    }
-    #endregion
-
     #region ISaveManager
     public void LoadData(GameData _data)
     {
@@ -76,7 +68,7 @@ public class PlayerStats : EntityStats, ISavesManager
 
         //各项攻击力（未经加成）
         this.primaryPhysicalDamage.SetValue(_data.primaryPhysicalDamage);
-        this.swordExtraDamage.SetValue(_data.swordExtraDamage);
+        this.swordDamage.SetValue(_data.swordDamage);
         this.fireAttackDamage.SetValue(_data.fireAttackDamage);
         this.iceAttackDamage.SetValue(_data.iceAttackDamage);
         this.lightningAttackDamage.SetValue(_data.lightningAttackDamage);
@@ -110,7 +102,7 @@ public class PlayerStats : EntityStats, ISavesManager
         _data.lightningAttackDamage = this.lightningAttackDamage.GetValue();
 
         //技能攻击力（未经加成）
-        _data.swordExtraDamage = this.swordExtraDamage.GetValue();
+        _data.swordDamage = this.swordDamage.GetValue();
 
         //闪避与防御（未经加成）
         _data.evasionChance = this.evasionChance.GetValue();

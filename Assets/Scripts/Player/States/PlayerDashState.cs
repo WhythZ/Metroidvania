@@ -38,7 +38,11 @@ public class PlayerDashState : PlayerState
         if (stateTimer > 0 && xInput != 0)
         {
             //冲刺时候要求竖直速度为零
-            player.SetVelocity(xInput * player.dashSpeed, 0);
+            //player.SetVelocity(xInput * player.dashSpeed, 0);
+
+            //上面那个写法会导致冲刺的时候可以改变冲刺方向，这样不舒服，所以改成下面这样
+            //当然，你若觉得这样不错，那就用上面那个吧
+            player.SetVelocity(player.facingDir * player.dashSpeed, 0);
         }
         //在水平速度为零的时候朝面朝方向冲刺
         if (stateTimer > 0 && xInput == 0)

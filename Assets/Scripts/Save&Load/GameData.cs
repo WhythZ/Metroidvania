@@ -34,7 +34,7 @@ public class GameData
     public int lightningAttackDamage;
 
     //技能攻击力（未经加成）
-    public int swordExtraDamage;
+    public int swordDamage;
 
     //闪避与防御（未经加成）
     public int evasionChance;
@@ -84,7 +84,7 @@ public class GameData
         this.iceAttackDamage = 0;
         this.lightningAttackDamage = 0;
 
-        this.swordExtraDamage = 20;
+        this.swordDamage = 10;
 
         this.evasionChance = 5;
         this.physicalArmor = 0;
