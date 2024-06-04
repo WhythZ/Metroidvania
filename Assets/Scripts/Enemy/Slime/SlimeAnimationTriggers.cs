@@ -34,6 +34,12 @@ public class SlimeAnimationTriggers : MonoBehaviour
     //关闭可以被弹反眩晕的状态
     private void CloseCounterAttackWindow() => slime.CloseCounterAttackWindow();
 
-    //敌人死亡，需要进行销毁
-    private void SlimeDead() => Destroy(slime.gameObject);
+    //敌人死亡
+    private void SlimeDead()
+    {
+        //销毁实体
+        Destroy(slime.gameObject);
+
+        //死亡后会发生的事情写在这
+    }
 }

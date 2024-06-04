@@ -15,7 +15,7 @@ public class EntityFX : MonoBehaviour
     #endregion
 
     #region Attack
-    [Header("Attack Material")]
+    [Header("Damaged Material")]
     //记录初始的材质
     private Material originMat;
     //记录用于受攻击动画效果的的材质
@@ -24,6 +24,8 @@ public class EntityFX : MonoBehaviour
     [SerializeField] private Material magicalHitMat;
     //材质更替后的停留时间
     [SerializeField] private float changeMatDuration = 0.1f;
+    [Header("Hit FX")]
+    [SerializeField] private GameObject hitFX00;
     #endregion
 
     #region Ailments
@@ -64,6 +66,7 @@ public class EntityFX : MonoBehaviour
     }
     #endregion
 
+    #region Clear
     private void CancelColorChange()
     //调用示例bringer.fx.Invoke("CancelColorChange", 0);此为延迟零秒后调用此函数
     {
@@ -80,8 +83,25 @@ public class EntityFX : MonoBehaviour
         chilledFX.Stop();
         shockedFX.Stop();
     }
+    #endregion
 
-    #region AttackFX
+    #region HitFX
+    public void CreatHitFX00(Transform _target)
+    //传入敌人位置，受击效果产生在敌人身上
+    {
+        //随机的位移与旋转，使得效果看起来不一样
+        float _xPosition = UnityEngine.Random.Range(-0.5f, 0.5f);
+        float _yPosition = UnityEngine.Random.Range(-0.5f, 0.5f);
+        //float _zRotation = UnityEngine.Random.Range(-90, 90);
+
+        //生成预制体
+        GameObject _newHitFX = Instantiate(hitFX00, _target.position, Quaternion.identity);
+        _newHitFX.transform.position = new Vector2(_xPosition, _yPosition);
+        //_newHitFX.transform.Rotate(new Vector3(0, 0, _zRotation));
+    }
+    #endregion
+
+    #region DamagedFX
     private IEnumerator FlashHitFX()
     //这个函数需要使用如fx.StartCoroutine("FlashHitFX");来调用，而不是直接用fx.FlashHitFX()
     {

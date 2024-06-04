@@ -217,25 +217,6 @@ public class Player : Entity
     }
     #endregion
 
-    #region DieOverride
-    protected override void DieDetect()
-    {
-        //若人物血量小于等于零，触发PlayerStats处的死亡函数
-        if(sts.currentHealth <= 0)
-        {
-            sts.StatsDie();
-        }
-    }
-    public override void EntityDie()
-    //从任何状态，当生命值降低到零时，进入死亡状态
-    {
-        base.EntityDie();
-
-        //进入死亡状态，此函数在PlayerStats内被其Die函数调用
-        stateMachine.ChangeState(deadState);
-    }
-    #endregion
-
     #region Sword
     public void AssignNewSword(GameObject _newSword)
     {
@@ -275,6 +256,18 @@ public class Player : Entity
                 //记录一下，创建了一个新的随身听，防止无限召唤
                 assignedCDPlayer = _newCDPlayer;
             }
+        }
+    }
+    #endregion
+
+    #region DieOverride
+    protected override void DieDetect()
+    {
+        //若人物血量小于等于零，触发PlayerStats处的死亡函数
+        if (sts.currentHealth <= 0)
+        {
+            //进入死亡状态
+            stateMachine.ChangeState(deadState);
         }
     }
     #endregion

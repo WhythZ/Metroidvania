@@ -110,14 +110,8 @@ public class Slime : Enemy
 
         if (sts.currentHealth <= 0)
         {
-            sts.StatsDie();
+            stateMachine.ChangeState(deadState);
         }
-    }
-    public override void EntityDie()
-    {
-        base.EntityDie();
-
-        stateMachine.ChangeState(deadState);
     }
     #endregion
 }

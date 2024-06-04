@@ -206,10 +206,5 @@ public class Entity : MonoBehaviour
     {
         //用于死亡检测的override
     }
-    public virtual void EntityDie()
-    //实体的死亡
-    {
-        //用于override
-    }
     #endregion
 }

@@ -447,15 +447,6 @@ public class EntityStats : MonoBehaviour
     }
     #endregion
 
-    #region StatsDie
-    public virtual void StatsDie()
-    //实体死亡函数，主要是用于重写
-    {
-        //这里是状态机转化到deadState的调用
-        entity.EntityDie();
-    }
-    #endregion
-
     #region ChanceAnalyze
     private bool CanCrit()
     //判断是否可以暴击

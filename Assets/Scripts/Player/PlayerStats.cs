@@ -21,15 +21,20 @@ public class PlayerStats : EntityStats, ISavesManager
         player = PlayerManager.instance.player;
     }
 
-    #region ChangePlayerStat
+    #region EditPlayerStat
     public void EditPlayerStat(StatType _statType, int _modify)
-    //用于在游进程戏中对人物进行加点处理，原则上只对能力属性值Attributes进行加点
+    //用于在游进程戏中对人物数值进行修改
     {
-        //即在这项属性原来的值的基础上加上_modify的值，不论正负
-        if (_statType == StatType.strength) { this.strength.SetValue(this.strength.GetValue() + _modify); }
-        if (_statType == StatType.agility) { this.agility.SetValue(this.agility.GetValue() + _modify); }
-        if (_statType == StatType.vitality) { this.vitality.SetValue(this.vitality.GetValue() + _modify); }
-        if (_statType == StatType.intelligence) { this.intelligence.SetValue(this.intelligence.GetValue() + _modify); }
+        //能力属性值
+        if (_statType == StatType.strength) { this.strength.SetValue(_modify); }
+        if (_statType == StatType.agility) { this.agility.SetValue(_modify); }
+        if (_statType == StatType.vitality) { this.vitality.SetValue(_modify); }
+        if (_statType == StatType.intelligence) { this.intelligence.SetValue(_modify); }
+        
+        //魔法伤害的细化值
+        if (_statType == StatType.fireDamage) { this.fireAttackDamage.SetValue(_modify); }
+        if (_statType == StatType.iceDamage) { this.iceAttackDamage.SetValue(_modify); }
+        if (_statType == StatType.lightningDamage) { this.lightningAttackDamage.SetValue(_modify); }
     }
     #endregion
 
