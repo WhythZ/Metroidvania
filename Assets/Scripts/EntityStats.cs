@@ -176,6 +176,11 @@ public class EntityStats : MonoBehaviour
         {
             this.GetPhysicalDamagedBy(_attackingEntity.GetFinalPhysicalDamage());
         }
+
+        //受攻击的音效
+        AudioManager.instance.PlaySFX(12, null);
+        //受攻击的粒子效果，在自己（受伤者）身上
+        fx.CreatHitFX00(this.transform);
     }
     public virtual void GetTotalSkillDmgFrom(EntityStats _attackingEntity, int _skillDmg, bool _isMagical)
     //技能的伤害（物理、魔法）的伤害的，传入造成伤害者和造成的伤害大小、伤害的类型（是魔法的话还要进行debuff施加判定）
@@ -192,6 +197,11 @@ public class EntityStats : MonoBehaviour
         {
             this.GetPhysicalDamagedBy(_attackingEntity.GetFinalPhysicalDamage() + _skillDmg); 
         }
+
+        //受攻击的音效
+        AudioManager.instance.PlaySFX(12, null);
+        //受攻击的粒子效果，在自己（受伤者）身上
+        fx.CreatHitFX00(this.transform);
     }
     #endregion
 

@@ -22,10 +22,27 @@ public class CheckPoint : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.GetComponent<Player>() != null)
+        //必须是玩家，而非别的什么怪物都能触发
+        if (collision.GetComponent<Player>() != null)
         {
-            //接触火堆触发火堆的激活状态，表示重生点激活
-            ActivateCheckPoint();
+            //表示人物处于可触发交互界面的区域内，显示按键提示
+            UI_MainScene.instance.SetWhetherShowInteractToolTip(true);
+            //表示现在接触的可交互物是重生点
+            UI_MainScene.instance.isAtCheckPoint = true;
+            //给予自己的本身以便其操作
+            UI_MainScene.instance.touchedCheckPoint = this;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.GetComponent<Player>() != null)
+        {
+            //关闭按键提示
+            UI_MainScene.instance.SetWhetherShowInteractToolTip(false);
+            UI_MainScene.instance.isAtCheckPoint = false;
+            //销毁关于对方链接自己的权限
+            UI_MainScene.instance.touchedCheckPoint = null;
         }
     }
 

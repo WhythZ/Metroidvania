@@ -21,7 +21,7 @@ public class UI_MainScene : MonoBehaviour, ISavesManager
     //按键提示
     [SerializeField] private GameObject interactToolTipUI;
     //是否显示按键提示
-    private bool isShowInteractToolTip;
+    public bool isShowInteractToolTip {  get; private set; }
     #endregion
 
     #region UIMenus
@@ -32,6 +32,7 @@ public class UI_MainScene : MonoBehaviour, ISavesManager
     [SerializeField] private GameObject skillsUI;
     [SerializeField] private GameObject optionsUI;
     public GameObject cdPlayerUI;
+    public GameObject checkPointUI;
     #endregion
 
     #region FadeScreen
@@ -45,6 +46,13 @@ public class UI_MainScene : MonoBehaviour, ISavesManager
     [Header("Settings")]
     //储存音量大小设置的列表
     [SerializeField] private UI_VolumeSlider[] volumeSettings;
+    #endregion
+
+    #region Interact
+    [Header("Interact Objects")]
+    public bool isAtCDPlayer;
+    public bool isAtCheckPoint;
+    public CheckPoint touchedCheckPoint;
     #endregion
 
     private void Awake()
@@ -106,9 +114,30 @@ public class UI_MainScene : MonoBehaviour, ISavesManager
         }
 
         if (Input.GetKeyDown(KeyCode.E) && isShowInteractToolTip)
-        //当显示了按键提示UI时，按E打开或关闭唱片机交互UI
+        //当显示了按键提示UI时
         {
-            SwitchWithKeyToUI(cdPlayerUI);
+            if (isAtCDPlayer)
+            {
+                //按E打开或关闭唱片机交互UI
+                SwitchWithKeyToUI(cdPlayerUI);
+            }
+            if (isAtCheckPoint)
+            {
+                //第一次接触，激活重生点
+                if (!touchedCheckPoint.isActive)
+                {
+                    //火堆音效
+                    AudioManager.instance.PlaySFX(11, null);
+
+                    //接触火堆触发火堆的激活状态，表示重生点激活
+                    touchedCheckPoint.ActivateCheckPoint();
+                }
+                else
+                {
+                    //以后的接触，是询问是否刷新场景
+                    SwitchWithKeyToUI(checkPointUI);
+                }
+            }
         }
     }
     public void SwitchToUI(GameObject _menu)
@@ -205,7 +234,7 @@ public class UI_MainScene : MonoBehaviour, ISavesManager
         yield return new WaitForSeconds(2.5f);
         reSpawnButton.SetActive(true);
     }
-    //重新加载场景的函数，即重生
+    //重新加载场景的函数，即重生，放在此处是用来给按钮调用的
     public void ReStartGame() => GameManager.instance.RestartScene();
     #endregion
 

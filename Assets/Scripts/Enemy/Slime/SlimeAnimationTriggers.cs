@@ -13,9 +13,6 @@ public class SlimeAnimationTriggers : MonoBehaviour
 
     private void AttackDamageTrigger()
     {
-        //触发攻击音效
-        AudioManager.instance.PlaySFX(0, slime.transform);
-
         Collider2D[] collidersInAttackZone = Physics2D.OverlapCircleAll(slime.attackCheck.position, slime.attackCheckRadius);
 
         foreach (var beHitEntity in collidersInAttackZone)
@@ -37,9 +34,9 @@ public class SlimeAnimationTriggers : MonoBehaviour
     //敌人死亡
     private void SlimeDead()
     {
+        //死亡后会发生的事情写在这
+
         //销毁实体
         Destroy(slime.gameObject);
-
-        //死亡后会发生的事情写在这
     }
 }

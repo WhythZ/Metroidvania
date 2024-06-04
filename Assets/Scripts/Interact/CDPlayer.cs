@@ -24,6 +24,8 @@ public class CDPlayer : MonoBehaviour
         {
             //表示人物处于可触发交互界面的区域内，显示按键提示
             UI_MainScene.instance.SetWhetherShowInteractToolTip(true);
+            //表示现在接触的可交互物是唱片机
+            UI_MainScene.instance.isAtCDPlayer = true;
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -33,6 +35,7 @@ public class CDPlayer : MonoBehaviour
         {
             //关闭按键提示
             UI_MainScene.instance.SetWhetherShowInteractToolTip(false);
+            UI_MainScene.instance.isAtCDPlayer = false;
 
             //若离开时唱片机UI是开启的，则关闭
             //此处有点莫名其妙的bug...?

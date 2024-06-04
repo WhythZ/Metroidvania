@@ -54,7 +54,7 @@ MonoBehaviour:
   textAppearSpeed: 2
   textDisappearSpeed: 3
   colorDisappearSpeed: 1
-  lifeTime: 1.2
+  lifeTime: 0.8
 --- !u!23 &602232791280850655
 MeshRenderer:
   m_ObjectHideFlags: 0

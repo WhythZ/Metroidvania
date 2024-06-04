@@ -26,6 +26,7 @@ public class EntityFX : MonoBehaviour
     [SerializeField] private float changeMatDuration = 0.1f;
     [Header("Hit FX")]
     [SerializeField] private GameObject hitFX00;
+    [SerializeField] private GameObject hitFX01;
     #endregion
 
     #region Ailments
@@ -95,9 +96,26 @@ public class EntityFX : MonoBehaviour
         //float _zRotation = UnityEngine.Random.Range(-90, 90);
 
         //生成预制体
-        GameObject _newHitFX = Instantiate(hitFX00, _target.position, Quaternion.identity);
-        _newHitFX.transform.position = new Vector2(_xPosition, _yPosition);
+        GameObject _newHitFX = Instantiate(hitFX00, _target.position + new Vector3(_xPosition, _yPosition), Quaternion.identity);
         //_newHitFX.transform.Rotate(new Vector3(0, 0, _zRotation));
+
+        //1s后销毁
+        Destroy(_newHitFX, 1f);
+    }
+    public void CreatHitFX01(Transform _target)
+    //传入敌人位置，受击效果产生在敌人身上
+    {
+        //随机的位移与旋转，使得效果看起来不一样
+        float _xPosition = UnityEngine.Random.Range(-0.5f, 0.5f);
+        float _yPosition = UnityEngine.Random.Range(-0.5f, 0.5f);
+        //float _zRotation = UnityEngine.Random.Range(-90, 90);
+
+        //生成预制体
+        GameObject _newHitFX = Instantiate(hitFX01, _target.position + new Vector3(_xPosition, _yPosition), Quaternion.identity);
+        //_newHitFX.transform.Rotate(new Vector3(0, 0, _zRotation));
+
+        //1s后销毁
+        Destroy(_newHitFX, 0.5f);
     }
     #endregion
 

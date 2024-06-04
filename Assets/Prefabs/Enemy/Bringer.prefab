@@ -163,6 +163,7 @@ MonoBehaviour:
   magicalHitMat: {fileID: 2100000, guid: 58eb94208e0812a42bbdd5ab7480b334, type: 2}
   changeMatDuration: 0.1
   hitFX00: {fileID: 3174447369572977870, guid: 7df8732cf4ab25f44b18fddc4dde1cd5, type: 3}
+  hitFX01: {fileID: 977621856228250535, guid: 62db31b33c6eca345bf6c9c3d0621c6d, type: 3}
   ignitedColor: {r: 1, g: 0.4669811, b: 0.4669811, a: 1}
   chilledColor: {r: 0.33333334, g: 0.39215687, b: 0.83137256, a: 1}
   shockedColor: {r: 1, g: 0.8901961, b: 0.2627451, a: 1}

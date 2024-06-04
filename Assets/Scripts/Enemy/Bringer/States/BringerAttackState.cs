@@ -34,7 +34,6 @@ public class BringerAttackState : EnemyState
         //攻击时别乱动，也不可被击飞
         bringer.SetVelocity(0, 0);
 
-
         //攻击一次后返回battleState
         if (stateActionFinished)
         {

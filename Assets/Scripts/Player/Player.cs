@@ -38,6 +38,7 @@ public class Player : Entity
     #region Components
     //记录对象的数据统计脚本
     public PlayerStats sts {  get; private set; }
+    public UI_MainScene ui { get; private set; }
     #endregion
 
     #region Movement
@@ -148,6 +149,7 @@ public class Player : Entity
         #region Components
         //数据统计脚本
         sts = GetComponent<PlayerStats>();
+        ui = UI_MainScene.instance;
         #endregion
 
         //用站立状态初始化玩家的状态机
@@ -170,7 +172,7 @@ public class Player : Entity
         stateMachine.currentState.Update();
         //控制人物的冲刺状态
         DashController();
-        //控制人物的随身听
+        //控制人物的随身听召唤
         CDPlayerController();
     }
 

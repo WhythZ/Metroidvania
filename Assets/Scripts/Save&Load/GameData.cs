@@ -80,9 +80,9 @@ public class GameData
         this.criticChance = 5;
 
         this.primaryPhysicalDamage = 20;
-        this.fireAttackDamage = 5;
+        this.fireAttackDamage = 0;
         this.iceAttackDamage = 0;
-        this.lightningAttackDamage = 0;
+        this.lightningAttackDamage = 5;
 
         this.swordDamage = 10;
 
