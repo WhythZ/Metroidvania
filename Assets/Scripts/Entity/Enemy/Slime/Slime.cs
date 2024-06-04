@@ -117,7 +117,7 @@ public class Slime : Enemy
     #endregion
 
     #region SlimeSplit
-    public void CreatSplitSlime(GameObject _splitPrefab, int _amount)
+    /*public void CreatSplitSlime(GameObject _splitPrefab, int _amount)
     {
         for (int i = 0; i < _amount; i++)
         {
@@ -127,7 +127,35 @@ public class Slime : Enemy
             //分裂生成下一级史莱姆
             GameObject _newSlime = Instantiate(_splitPrefab, transform.position + new Vector3(_xPos, 0), Quaternion.identity);
         }
+    }*/
+
+    public void CreatSplitSlime(GameObject _splitPrefab, int _amount)
+    {
+        for (int i = 0; i < _amount; i++)
+        {
+            //分裂生成下一级史莱姆
+            GameObject _newSlime = Instantiate(_splitPrefab, transform.position, Quaternion.identity);
+            //给予分裂出来的史莱姆一个任意方向的初速度
+            _newSlime.GetComponent<Slime>().SetupSplitVector();
+        }
     }
+    public void SetupSplitVector()
+    //给分裂出来的史莱姆一个初速度，这样有动感
+    {
+        //给予一个范围内随机的速度向量，这里是框定范围
+        float dx = Random.Range(-5, 5);
+        float dy = Random.Range(6, 9);
+
+        //当实体处于isKnocked状态的时候，施加的速度向量不会被原本的SetVelocity的速度所覆盖，故而达到弹开的速度效果
+        isKnocked = true;
+
+        //向量的施加
+        GetComponent<Rigidbody2D>().velocity = new Vector2(dx, dy);
+        
+        //两秒后把isKnocked赋值为false
+        Invoke("CancelSliptVector", 2f);
+    }
+    private void CancelSliptVector() => isKnocked = false;
     #endregion
 
     #region DieOverride
