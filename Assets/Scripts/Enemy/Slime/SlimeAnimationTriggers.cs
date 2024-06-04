@@ -34,9 +34,17 @@ public class SlimeAnimationTriggers : MonoBehaviour
     //敌人死亡
     private void SlimeDead()
     {
-        //死亡后会发生的事情写在这
-
-        //销毁实体
-        Destroy(slime.gameObject);
+        //史莱姆死后分裂，但是最小的不分裂
+        if (slime.type == SlimeType.small)
+        {
+            //销毁实体
+            Destroy(slime.gameObject);
+        }
+        else
+        {
+            slime.CreatSplitSlime(slime.splitSlime, slime.splitSlimeCount);
+            //销毁实体
+            Destroy(slime.gameObject);
+        }
     }
 }
