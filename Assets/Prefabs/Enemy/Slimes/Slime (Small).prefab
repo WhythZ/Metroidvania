@@ -368,6 +368,7 @@ MonoBehaviour:
   chilledDuration: 5
   shockedDuration: 5
   ignitedDamageCooldown: 1
+  burnHealthPercentage: 0.03
   slowPercentage: 0.3
 --- !u!114 &8148509924891015347
 MonoBehaviour:
@@ -385,6 +386,7 @@ MonoBehaviour:
   flashHitMat: {fileID: 2100000, guid: 45632edcda931704b856a07b8c40447d, type: 2}
   magicalHitMat: {fileID: 2100000, guid: 58eb94208e0812a42bbdd5ab7480b334, type: 2}
   changeMatDuration: 0.1
+  thunderFX: {fileID: 2271112232052499684, guid: 0faef866fe79be94eb603957e24a2bed, type: 3}
   hitFX00: {fileID: 3174447369572977870, guid: 7df8732cf4ab25f44b18fddc4dde1cd5, type: 3}
   hitFX01: {fileID: 977621856228250535, guid: 62db31b33c6eca345bf6c9c3d0621c6d, type: 3}
   ignitedColor: {r: 1, g: 0.46666667, b: 0.46666667, a: 1}
@@ -409,7 +411,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 2.5
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 5a8e745e4468ea945a03f5cf81c4c07c, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

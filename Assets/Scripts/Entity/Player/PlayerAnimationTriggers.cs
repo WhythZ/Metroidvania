@@ -28,11 +28,10 @@ public class PlayerAnimationTriggers : MonoBehaviour
         foreach(var beHitEntity in collidersInAttackZone)
         {
 
-                /*
-                 * 待解决问题有一
-                 * 如何拓展到伤害所有被击中的Enemy类而不仅仅是Bringer
-                 * 解决办法：直接链接到<Entity>，会自动向下链接到其继承的子类中的脚本
-                 */
+            /*
+             * 一个问题:如何拓展到伤害所有被击中的Enemy类而不仅仅是Bringer
+             * 解决办法：直接链接到<Entity>，会自动向下链接到其继承的子类中的脚本
+             */
 
             //对Enemy各子类实体造成伤害
             if (beHitEntity.GetComponent<Enemy>() != null)

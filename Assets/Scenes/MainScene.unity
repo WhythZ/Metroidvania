@@ -2273,7 +2273,7 @@ MonoBehaviour:
   statName: Evade Chance %
   statNameText: {fileID: 1632647407}
   statValueText: {fileID: 168168528}
-  statType: 9
+  statType: 12
   statDescription: The probability for player to avoid enemy's attack damage
 --- !u!1001 &169494168
 PrefabInstance:
@@ -5640,7 +5640,7 @@ GameObject:
   - component: {fileID: 475544511}
   - component: {fileID: 475544510}
   m_Layer: 5
-  m_Name: Stat  Fire Dmg
+  m_Name: Stat  Fire Damage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5775,12 +5775,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46c76e098d5417f45afe516e3283a49a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statName: Fire Dmg
+  statName: Fire Damage
   statNameText: {fileID: 1400946390}
   statValueText: {fileID: 475544510}
   statType: 9
-  statDescription: Fire damage caused by player, which can ignite enemy to burn its
-    health in percentage of 2% each time
+  statDescription: Fire dmg can ignite enemy, ignited enemy's health will be burnt
+    and decreased in percentage each time
 --- !u!1 &478178596
 GameObject:
   m_ObjectHideFlags: 0
@@ -6323,7 +6323,7 @@ GameObject:
   - component: {fileID: 500640923}
   - component: {fileID: 500640922}
   m_Layer: 5
-  m_Name: Stat  Ice Dmg
+  m_Name: Stat  Ice Damage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6458,12 +6458,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46c76e098d5417f45afe516e3283a49a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statName: Ice Dmg
+  statName: Ice Damage
   statNameText: {fileID: 599414997}
   statValueText: {fileID: 500640922}
   statType: 10
-  statDescription: Ice damage caused by player, which can chill enemy to slow it
-    down
+  statDescription: Ice dmg can chill enemy, any motion of a chilled enemy will be
+    slowed down
 --- !u!1 &503628672
 GameObject:
   m_ObjectHideFlags: 0
@@ -6842,7 +6842,7 @@ GameObject:
   - component: {fileID: 514987466}
   - component: {fileID: 514987465}
   m_Layer: 5
-  m_Name: Stat  Physic Dmg
+  m_Name: Stat  Physic Damage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6977,7 +6977,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46c76e098d5417f45afe516e3283a49a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statName: Physic Dmg
+  statName: Physic Damage
   statNameText: {fileID: 1942155895}
   statValueText: {fileID: 514987465}
   statType: 5
@@ -8438,7 +8438,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ice Dmg
+  m_text: Ice Damage
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b0b5bfcb27e933644b85d3c7d28d0c57, type: 2}
   m_sharedMaterial: {fileID: 997478871241681131, guid: b0b5bfcb27e933644b85d3c7d28d0c57, type: 2}
@@ -10239,7 +10239,7 @@ MonoBehaviour:
   statName: Armor
   statNameText: {fileID: 1394688475}
   statValueText: {fileID: 737174870}
-  statType: 10
+  statType: 13
   statDescription: Damage reduction for enemy's physcal damage
 --- !u!1 &744580531
 GameObject:
@@ -18490,7 +18490,7 @@ GameObject:
   - component: {fileID: 1368052819}
   - component: {fileID: 1368052818}
   m_Layer: 5
-  m_Name: Stat  Lightning Dmg
+  m_Name: Stat  Lightning Damage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18625,12 +18625,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46c76e098d5417f45afe516e3283a49a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statName: Lightning Dmg
+  statName: Lightning Damage
   statNameText: {fileID: 1831834850}
   statValueText: {fileID: 1368052818}
   statType: 11
-  statDescription: Lightning damage caused by player, which can shock enemy to decrease
-    its armor and resistance
+  statDescription: Lightning dmg can shock enemy, defence of the enemy will be decreased
+    by 20% during shocked state
 --- !u!1 &1379084347
 GameObject:
   m_ObjectHideFlags: 0
@@ -19210,7 +19210,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Fire Dmg
+  m_text: Fire Damage
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b0b5bfcb27e933644b85d3c7d28d0c57, type: 2}
   m_sharedMaterial: {fileID: 997478871241681131, guid: b0b5bfcb27e933644b85d3c7d28d0c57, type: 2}
@@ -23144,7 +23144,7 @@ MonoBehaviour:
   statName: Resistance
   statNameText: {fileID: 649960183}
   statValueText: {fileID: 1687287198}
-  statType: 11
+  statType: 14
   statDescription: Damage reduction for enemy's magical damage
 --- !u!1 &1689532721
 GameObject:
@@ -24193,8 +24193,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1012.4467, y: 18.1}
-  m_SizeDelta: {x: 444.256, y: 100}
+  m_AnchoredPosition: {x: 1012.4467, y: 14.059}
+  m_SizeDelta: {x: 444.26, y: 108.083}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1771206796
 MonoBehaviour:
@@ -24753,7 +24753,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Lightning Dmg
+  m_text: Lightning Damage
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b0b5bfcb27e933644b85d3c7d28d0c57, type: 2}
   m_sharedMaterial: {fileID: 997478871241681131, guid: b0b5bfcb27e933644b85d3c7d28d0c57, type: 2}
@@ -26003,7 +26003,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Physic Dmg
+  m_text: Physic Damage
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b0b5bfcb27e933644b85d3c7d28d0c57, type: 2}
   m_sharedMaterial: {fileID: 997478871241681131, guid: b0b5bfcb27e933644b85d3c7d28d0c57, type: 2}

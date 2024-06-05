@@ -83,7 +83,7 @@ public class Sword_Controller : MonoBehaviour
             EntityStats _sts = PlayerManager.instance.player.sts;
             int _swordDamage = PlayerManager.instance.player.sts.swordDamage.GetValue();
             //对怪物造成剑的技能伤害（物理伤害）
-            transform.parent.GetComponentInParent<EnemyStats>().GetTotalSkillDmgFrom(_sts, _swordDamage, false);
+            transform.parent.GetComponentInParent<EnemyStats>().GetTotalSkillDmgFrom(_sts, _swordDamage, true, false);
         }
     }
 

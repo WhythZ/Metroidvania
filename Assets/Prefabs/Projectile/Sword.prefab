@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 6035239394682572272}
   - component: {fileID: 3604010286140112960}
   m_Layer: 8
-  m_Name: Sword
+  m_Name: Animator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

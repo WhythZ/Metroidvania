@@ -66,7 +66,7 @@ public class EntityStats : MonoBehaviour
     public bool isIgnited;
     //处于冰冻状态，效果时间内速度减慢
     public bool isChilled;
-    //处于眩晕状态
+    //处于眩晕状态，效果时间内防御降低
     public bool isShocked;
 
     //状态持续时长及其计时器
@@ -85,6 +85,13 @@ public class EntityStats : MonoBehaviour
 
     //处于冰冻状态时，所有速度减慢
     public float slowPercentage = 0.3f;
+    #endregion
+
+    #region Default
+    //存储原有值
+    private int defaultIntEvasion;
+    private int defaultIntArmor;
+    private int defaultIntResistance;
     #endregion
 
     #region Events
@@ -133,7 +140,7 @@ public class EntityStats : MonoBehaviour
             {
                 //Debug.Log(this.name + " Take Fire Damage");
                 //百分比烧血
-                int _ignitedDamage = Mathf.RoundToInt(originalMaxHealth.GetValue() * burnHealthPercentage);
+                int _ignitedDamage = Mathf.RoundToInt(GetFinalMaxHealth() * burnHealthPercentage);
                 //这里使用的函数仅对数值产生影响，而且其内还会触发各种效果，同时不会进行Ailments的检测，减少无效运算
                 this.GetMagicalDamagedBy(_ignitedDamage);
 
@@ -156,10 +163,18 @@ public class EntityStats : MonoBehaviour
         {
             shockedTimer -= Time.deltaTime;
 
+            //存储原本的防御值
+            Stat _evasion = evasionChance;
+
             //退出眩晕状态
-            if(shockedTimer < 0)
+            if (shockedTimer < 0)
             {
-                isShocked = false;
+                //恢复防御值，这个得放在上面，不然退出去了就不起作用了
+                evasionChance.SetValue(defaultIntEvasion);
+                physicalArmor.SetValue(defaultIntArmor);
+                magicalResistance.SetValue(defaultIntResistance);
+                
+                isShocked = false;                
             }
         }
         #endregion
@@ -173,10 +188,9 @@ public class EntityStats : MonoBehaviour
         //如果触发了闪避，则直接返回，不受伤
         if (CanEvade())
         {
-            
-            //闪避的音效
+            //受攻击的音效
             AudioManager.instance.PlaySFX(12, null);
-            //闪避的粒子效果，在自己（受攻击者）身上
+            //受攻击的粒子效果，在自己（受攻击者）身上
             fx.CreatHitFX00(this.transform);
 
             return;
@@ -200,8 +214,8 @@ public class EntityStats : MonoBehaviour
         //受攻击的粒子效果，在自己（受攻击者）身上
         fx.CreatHitFX00(this.transform);
     }
-    public virtual void GetTotalSkillDmgFrom(EntityStats _attackingEntity, int _skillDmg, bool _isMagical)
-    //技能的伤害（物理、魔法）的伤害的，传入造成伤害者和造成的伤害大小、伤害的类型（是魔法的话还要进行debuff施加判定）
+    public virtual void GetTotalSkillDmgFrom(EntityStats _attackingEntity, int _skillDmg, bool _doPhysic, bool _doMagic)
+    //技能的伤害（物理、魔法）的伤害的，传入造成伤害者和造成的伤害大小、伤害的类型（有魔法的话还要进行debuff施加判定）
     //技能伤害与对方原有伤害类型数值（非暴击）进行叠加，吃技能伤害时不会发生暴击
     {
         //技能不许闪避
@@ -210,16 +224,17 @@ public class EntityStats : MonoBehaviour
         {
             return;
         }*/
-        if (_isMagical)
+
+        if(_doPhysic)
+        {
+            this.GetPhysicalDamagedBy(_attackingEntity.GetFinalPhysicalDamage() + _skillDmg); 
+        }
+        if (_doMagic)
         {
             this.GetMagicalDamagedBy(_attackingEntity.GetNonCritMagicalDamage() + _skillDmg);
 
             //debuff施加
             CheckAilmentsFrom(_attackingEntity);
-        }
-        if(!_isMagical)
-        {
-            this.GetPhysicalDamagedBy(_attackingEntity.GetFinalPhysicalDamage() + _skillDmg); 
         }
 
         //受攻击的音效
@@ -303,6 +318,15 @@ public class EntityStats : MonoBehaviour
 
             //调用状态效果
             fx.InvokeShockedFXFor(shockedDuration);
+
+            //防御的降低，要先保存原有的数值
+            defaultIntEvasion = evasionChance.GetValue();
+            defaultIntArmor = physicalArmor.GetValue();
+            defaultIntResistance = magicalResistance.GetValue();
+            //降低防御
+            evasionChance.SetValue(Mathf.RoundToInt(evasionChance.GetValue() * 0.8f));
+            physicalArmor.SetValue(Mathf.RoundToInt(physicalArmor.GetValue() * 0.8f));
+            magicalResistance.SetValue(Mathf.RoundToInt(magicalResistance.GetValue() * 0.8f));
         }
     }
     #endregion

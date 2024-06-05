@@ -25,6 +25,7 @@ public class EntityFX : MonoBehaviour
     //材质更替后的停留时间
     [SerializeField] private float changeMatDuration = 0.1f;
     [Header("Hit FX")]
+    //[SerializeField] private GameObject thunderFX;
     [SerializeField] private GameObject hitFX00;
     [SerializeField] private GameObject hitFX01;
     #endregion
@@ -87,6 +88,20 @@ public class EntityFX : MonoBehaviour
     #endregion
 
     #region HitFX
+    /*public void CreateThunderFX(Transform _target)
+    {
+        //随机的位移与旋转，使得效果看起来不一样
+        float _xPosition = UnityEngine.Random.Range(-0.5f, 0.5f);
+        float _yPosition = UnityEngine.Random.Range(-0.5f, 0.5f);
+        //float _zRotation = UnityEngine.Random.Range(-90, 90);
+
+        //生成预制体
+        GameObject _newHitFX = Instantiate(thunderFX, _target.position + new Vector3(_xPosition, _yPosition), Quaternion.identity);
+        //_newHitFX.transform.Rotate(new Vector3(0, 0, _zRotation));
+
+        //销毁
+        Destroy(_newHitFX, 0.3f);
+    }*/
     public void CreatHitFX00(Transform _target)
     //传入敌人位置，受击效果产生在敌人身上
     {
@@ -99,7 +114,7 @@ public class EntityFX : MonoBehaviour
         GameObject _newHitFX = Instantiate(hitFX00, _target.position + new Vector3(_xPosition, _yPosition), Quaternion.identity);
         //_newHitFX.transform.Rotate(new Vector3(0, 0, _zRotation));
 
-        //1s后销毁
+        //销毁
         Destroy(_newHitFX, 1f);
     }
     public void CreatHitFX01(Transform _target)
@@ -107,14 +122,14 @@ public class EntityFX : MonoBehaviour
     {
         //随机的位移与旋转，使得效果看起来不一样
         float _xPosition = UnityEngine.Random.Range(-0.5f, 0.5f);
-        float _yPosition = UnityEngine.Random.Range(-0.5f, 0.5f);
+        float _yPosition = UnityEngine.Random.Range(10f, 11f);
         //float _zRotation = UnityEngine.Random.Range(-90, 90);
 
         //生成预制体
         GameObject _newHitFX = Instantiate(hitFX01, _target.position + new Vector3(_xPosition, _yPosition), Quaternion.identity);
         //_newHitFX.transform.Rotate(new Vector3(0, 0, _zRotation));
 
-        //1s后销毁
+        //销毁
         Destroy(_newHitFX, 0.5f);
     }
     #endregion
