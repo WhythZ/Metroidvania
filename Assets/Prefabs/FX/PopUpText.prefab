@@ -52,9 +52,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myText: {fileID: 6185290701004666891}
   textAppearSpeed: 2
-  textDisappearSpeed: 3
+  textDisappearSpeed: 2.5
   colorDisappearSpeed: 1
-  lifeTime: 0.8
+  lifeTime: 0.65
 --- !u!23 &602232791280850655
 MeshRenderer:
   m_ObjectHideFlags: 0

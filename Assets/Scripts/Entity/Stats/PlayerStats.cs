@@ -21,23 +21,6 @@ public class PlayerStats : EntityStats, ISavesManager
         player = PlayerManager.instance.player;
     }
 
-    #region EditPlayerStat
-    public void EditPlayerStat(StatType _statType, int _modify)
-    //用于在游进程戏中对人物数值进行修改
-    {
-        //能力属性值
-        if (_statType == StatType.strength) { this.strength.SetValue(_modify); }
-        if (_statType == StatType.agility) { this.agility.SetValue(_modify); }
-        if (_statType == StatType.vitality) { this.vitality.SetValue(_modify); }
-        if (_statType == StatType.intelligence) { this.intelligence.SetValue(_modify); }
-        
-        //魔法伤害的细化值
-        if (_statType == StatType.fireDamage) { this.fireAttackDamage.SetValue(_modify); }
-        if (_statType == StatType.iceDamage) { this.iceAttackDamage.SetValue(_modify); }
-        if (_statType == StatType.lightningDamage) { this.lightningAttackDamage.SetValue(_modify); }
-    }
-    #endregion
-
     #region DamagedOverride
     public override void GetMagicalDamagedBy(int _damage)
     {

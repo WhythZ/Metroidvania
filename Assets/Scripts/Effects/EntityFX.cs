@@ -14,7 +14,7 @@ public class EntityFX : MonoBehaviour
     [SerializeField] private GameObject popUpTextPrefab;
     #endregion
 
-    #region Attack
+    #region AttackFX
     [Header("Damaged Material")]
     //记录初始的材质
     private Material originMat;
@@ -30,13 +30,13 @@ public class EntityFX : MonoBehaviour
     [SerializeField] private GameObject hitFX01;
     #endregion
 
-    #region Ailments
-    [Header("Ailments Color")]
+    #region BuffsFX
+    [Header("Debuff Color")]
     [SerializeField] private Color ignitedColor;
     [SerializeField] private Color chilledColor;
     [SerializeField] private Color shockedColor;
 
-    [Header("Ailments Particle")]
+    [Header("Debuff Particle")]
     [SerializeField] private ParticleSystem ignitedFX;
     [SerializeField] private ParticleSystem chilledFX;
     [SerializeField] private ParticleSystem shockedFX;
@@ -102,7 +102,7 @@ public class EntityFX : MonoBehaviour
         //销毁
         Destroy(_newHitFX, 0.3f);
     }*/
-    public void CreatHitFX00(Transform _target)
+    public void CreateHitFX00(Transform _target)
     //传入敌人位置，受击效果产生在敌人身上
     {
         //随机的位移与旋转，使得效果看起来不一样
@@ -117,12 +117,12 @@ public class EntityFX : MonoBehaviour
         //销毁
         Destroy(_newHitFX, 1f);
     }
-    public void CreatHitFX01(Transform _target)
+    public void CreateHitFX01(Transform _target)
     //传入敌人位置，受击效果产生在敌人身上
     {
         //随机的位移与旋转，使得效果看起来不一样
         float _xPosition = UnityEngine.Random.Range(-0.5f, 0.5f);
-        float _yPosition = UnityEngine.Random.Range(10f, 11f);
+        float _yPosition = UnityEngine.Random.Range(-0.5f, 0.5f);
         //float _zRotation = UnityEngine.Random.Range(-90, 90);
 
         //生成预制体
@@ -168,7 +168,7 @@ public class EntityFX : MonoBehaviour
     }
     #endregion
 
-    #region AilmentsFX
+    #region DebuffsFX
     public void InvokeIgnitedFXFor(float _duration)
     //调用燃烧效果多长时间
     {

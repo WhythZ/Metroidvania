@@ -5560,7 +5560,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3322440531671970733, guid: b3f00b870bf00094e9e91942379f5377, type: 3}
       propertyPath: m_Name
-      value: AilmentsFX
+      value: BuffFX
       objectReference: {fileID: 0}
     - target: {fileID: 4662728491748902984, guid: b3f00b870bf00094e9e91942379f5377, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5779,8 +5779,8 @@ MonoBehaviour:
   statNameText: {fileID: 1400946390}
   statValueText: {fileID: 475544510}
   statType: 9
-  statDescription: Fire dmg can ignite enemy, ignited enemy's health will be burnt
-    and decreased in percentage each time
+  statDescription: Fire damage can ignite entity, ignited entity's health will be
+    gradually decreased by percentage
 --- !u!1 &478178596
 GameObject:
   m_ObjectHideFlags: 0
@@ -6462,8 +6462,8 @@ MonoBehaviour:
   statNameText: {fileID: 599414997}
   statValueText: {fileID: 500640922}
   statType: 10
-  statDescription: Ice dmg can chill enemy, any motion of a chilled enemy will be
-    slowed down
+  statDescription: Ice damage can chill entity, any motion of the chilled entity
+    is slowed down
 --- !u!1 &503628672
 GameObject:
   m_ObjectHideFlags: 0
@@ -15022,6 +15022,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1165862730}
   - component: {fileID: 1165862731}
+  - component: {fileID: 1165862737}
   - component: {fileID: 1165862736}
   - component: {fileID: 1165862734}
   - component: {fileID: 1165862733}
@@ -15203,59 +15204,60 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   originalMaxHealth:
     baseValue: 0
-    modifiers: 
   currentHealth: 0
   strength:
     baseValue: 0
-    modifiers: 
   agility:
     baseValue: 0
-    modifiers: 
   vitality:
     baseValue: 0
-    modifiers: 
   intelligence:
     baseValue: 0
-    modifiers: 
-  criticPower:
-    baseValue: 0
-    modifiers: 
   criticChance:
     baseValue: 0
-    modifiers: 
+  criticPower:
+    baseValue: 0
   primaryPhysicalDamage:
     baseValue: 0
-    modifiers: 
   fireAttackDamage:
     baseValue: 0
-    modifiers: 
   iceAttackDamage:
     baseValue: 0
-    modifiers: 
   lightningAttackDamage:
     baseValue: 0
-    modifiers: 
   evasionChance:
     baseValue: 0
-    modifiers: 
   physicalArmor:
     baseValue: 0
-    modifiers: 
   magicalResistance:
     baseValue: 0
-    modifiers: 
-  isIgnited: 0
-  isChilled: 0
-  isShocked: 0
-  ignitedDuration: 5
-  chilledDuration: 5
-  shockedDuration: 5
-  ignitedDamageCooldown: 1
-  burnHealthPercentage: 0.03
-  slowPercentage: 0.3
   swordDamage:
     baseValue: 0
-    modifiers: 
+--- !u!114 &1165862737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1165862729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf5e06547afd6d24a8709be4186749ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ignited:
+    status: 0
+    duration: 5
+    damageCooldown: 1
+    burnHealthPercentage: 0.03
+  chilled:
+    status: 0
+    duration: 5
+    slowPercentage: 0.3
+  shocked:
+    status: 0
+    duration: 5
+    defenceDecreasePercentage: 0.2
 --- !u!4 &1167865374 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6242178111037904844, guid: 0857ff890e229b44b865e564cafb94ab, type: 3}
@@ -18629,8 +18631,8 @@ MonoBehaviour:
   statNameText: {fileID: 1831834850}
   statValueText: {fileID: 1368052818}
   statType: 11
-  statDescription: Lightning dmg can shock enemy, defence of the enemy will be decreased
-    by 20% during shocked state
+  statDescription: Lightning damage can shock entity, shocked entity's defence is
+    decreased by percentage
 --- !u!1 &1379084347
 GameObject:
   m_ObjectHideFlags: 0
@@ -24193,8 +24195,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1012.4467, y: 14.059}
-  m_SizeDelta: {x: 444.26, y: 108.083}
+  m_AnchoredPosition: {x: 1012.4467, y: 18.003}
+  m_SizeDelta: {x: 444.26, y: 100.194}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1771206796
 MonoBehaviour:

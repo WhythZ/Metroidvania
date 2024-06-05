@@ -194,7 +194,7 @@ public class Entity : MonoBehaviour
     }
     #endregion
 
-    #region LastAnimBoolName
+    #region Anim
     public virtual void AssignLastAnimBoolName(string _lastAnimBoolName)
     {
         lastAnimBoolName = _lastAnimBoolName;
