@@ -46,6 +46,11 @@ public class Entity : MonoBehaviour
     protected bool facingRight = true;
     #endregion
 
+    #region Default
+    //私有的，用于存储原有的凡是和位移相关的原本速度
+    private float defaultMoveSpeed;
+    #endregion
+
     #region Knockback
     [Header("Knockback Info")]
     //实体被攻击后的击退效果向量，即含有x和y两个效果分量
@@ -85,6 +90,11 @@ public class Entity : MonoBehaviour
         //链接碰撞组件
         cd = GetComponent<BoxCollider2D>();
         #endregion
+
+        #region Default
+        //储存初始数值
+        defaultMoveSpeed = moveSpeed;
+        #endregion
     }
 
     protected virtual void Update()
@@ -98,6 +108,30 @@ public class Entity : MonoBehaviour
         //检测实体的死亡
         DieDetect();
     }
+
+    #region SlowEntity
+    public virtual void SlowEntityBy(float _slowPercentage, float _slowDuration)
+    //使实体减速，传入减速百分比和减速状态持续时长；注意了，敌人有move，而玩家有move、jump、dash几种speed，所以要override
+    {
+        //Debug.Log(this.name + " BeSlowed");
+
+        //移动速度减速
+        this.moveSpeed *= (1 - _slowPercentage);
+        //动画的播放速度也需要被减缓
+        this.anim.speed *= (1 - _slowPercentage);
+
+        //经历这段时间后恢复原有速度
+        Invoke("ReturnDefaultSpeed", _slowDuration);
+    }
+    protected virtual void ReturnDefaultSpeed()
+    {
+        //Debug.Log(this.name + " DeSlowd");
+
+        //恢复原有速度
+        this.moveSpeed = defaultMoveSpeed;
+        this.anim.speed = 1;
+    }
+    #endregion
 
     #region Knockback
     protected virtual void KnockbackDirDetect()

@@ -35,7 +35,7 @@ public class SlimeAnimationTriggers : MonoBehaviour
     private void SlimeDead()
     {
         //史莱姆死后分裂，但是最小的不分裂
-        if (slime.type == SlimeType.small)
+        if (slime.enemyType == EnemyType.slime_Small)
         {
             //销毁实体
             Destroy(slime.gameObject);

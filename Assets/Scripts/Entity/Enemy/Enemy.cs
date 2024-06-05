@@ -11,40 +11,46 @@ public class Enemy : Entity
     public EnemyStateMachine stateMachine { get; private set; }
     #endregion
 
+    #region EnemyType
+    [Header("EnemyType")]
+    //记录怪物的种类
+    public EnemyType enemyType;
+    #endregion
+
     #region EnemyMove
     [Header("Enemy Move Info")]
     //怪物站立了一段时间后自动开始移动
     public float pauseTime = 0.5f;
 
     //怪物发现玩家后，以加速倍率移动（这个值是用来乘上moveSpeed的）
-    public float fasterSpeedInBattle = 2f;
+    public float battleSpeedMultiplier = 2f;
     //依据玩家位置决定battle状态下应当前往左边（-1）还是右边（1）行进
     public int battleMoveDir;
-    
+
     //怪物与玩家重合位置的判定区域半径
     //public float overlapRegionRadius = 0.1f;
     #endregion
 
-    #region PlayerDetect
-    [Header("Player Detect")]
-    public bool isPlayer;
-    [SerializeField] protected Transform playerCheck;
-    [SerializeField] protected float playerCheckDistance;
-    [SerializeField] protected LayerMask whatIsPlayer;
+    #region Default
+    private float defaultBattleSpeedMultiplier;
     #endregion
 
     #region Battle
     [Header("Battle Info")]
+    public bool isPlayer;
+    [SerializeField] protected Transform playerCheck;
+    [SerializeField] protected float playerCheckDistance;
+    [SerializeField] protected LayerMask whatIsPlayer;
     //进入攻击距离（新建一个距离检测）之后，可以进入攻击状态了；沿用Player的图层
-    public bool enterAttackRegion;
     [SerializeField] protected Transform canAttackCheck;
     [SerializeField] protected float canAttackCheckDistance;
-    //攻击冷却时间计时器
-    protected float attackCooldownTimer;
+    public bool enterAttackRegion;
     //攻击冷却时间长度
     public float attackCooldown = 1.1f;
     //攻击冷却结束时，可以攻击
     public bool canAttack;
+    //攻击冷却时间计时器
+    protected float attackCooldownTimer;
 
     //持续一段时间在battleState而没有进行攻击的话，脱战
     public float quitBattleTime = 20f;
@@ -74,9 +80,13 @@ public class Enemy : Entity
     protected override void Start()
     {
         base.Start();
+
+        #region Default
+        defaultBattleSpeedMultiplier = battleSpeedMultiplier;
+        #endregion
     }
-    
-    protected override void Update()
+
+protected override void Update()
     {
         base.Update();
 
@@ -128,6 +138,24 @@ public class Enemy : Entity
     }
     #endregion
 
+    #region SlowEntityOverride
+    public override void SlowEntityBy(float _slowPercentage, float _slowDuration)
+    {
+        //特性的减速，写在前面
+        battleSpeedMultiplier *= (1 - _slowPercentage);
+
+        base.SlowEntityBy(_slowPercentage, _slowDuration);
+    }
+    protected override void ReturnDefaultSpeed()
+    {
+        base.ReturnDefaultSpeed();
+
+        //恢复速度
+        battleSpeedMultiplier = defaultBattleSpeedMultiplier;
+    }
+    #endregion
+
+
     #region Attack
     public virtual void AttackController()
     {
@@ -163,7 +191,7 @@ public class Enemy : Entity
     }
     #endregion
 
-    #region PlayerDetect&AttackDetect
+    #region PlayerDetect
     public virtual void PlayerCollisionDetect()
     {
         isPlayer = Physics2D.Raycast(playerCheck.position, Vector2.right * facingDir, playerCheckDistance, whatIsPlayer);
@@ -181,7 +209,7 @@ public class Enemy : Entity
     }
     #endregion
 
-    #region AttackAnimationRelatedScripts
+    #region AnimationTrigger
     public void AnimationTrigger() => stateMachine.currentState.TriggerWhenAnimationFinished();
     //当此函数被调用时（即攻击动作结束的时候），返回调用当前状态的TriggerWhenAnimationFinished()函数的结果；此语句等价于下面这句
     //public void AnimationTrigger(){stateMachine.currentState.TriggerWhenAnimationFinished();}

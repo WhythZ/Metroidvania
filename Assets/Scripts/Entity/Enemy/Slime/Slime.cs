@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//史莱姆三种大小形态
-public enum SlimeType { big, medium, small };
-
 public class Slime : Enemy
 {
     #region States
@@ -22,8 +19,6 @@ public class Slime : Enemy
 
     #region SlimeSplit
     [Header("Slime Split")]
-    //史莱姆的大小类型
-    public SlimeType type;
     //史莱姆分裂后产生多少下一级史莱姆
     public int splitSlimeCount;
     //分裂出来的下一级史莱姆，最小级史莱姆不分裂

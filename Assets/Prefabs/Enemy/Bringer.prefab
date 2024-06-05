@@ -67,7 +67,7 @@ MonoBehaviour:
   knockbackDirVector: {x: 5, y: 6}
   knockbackDuration: 0.2
   pauseTime: 0.3
-  fasterSpeedInBattle: 4
+  battleSpeedMultiplier: 2
   battleMoveDir: 0
   isPlayer: 0
   playerCheck: {fileID: 2449663108388424347}
@@ -133,10 +133,11 @@ MonoBehaviour:
   isIgnited: 0
   isChilled: 0
   isShocked: 0
-  ignitedDuration: 3
-  chilledDuration: 3
-  shockedDuration: 3
-  ignitedDamageCooldown: 0.5
+  ignitedDuration: 5
+  chilledDuration: 5
+  shockedDuration: 5
+  ignitedDamageCooldown: 1
+  slowPercentage: 0.5
   evasionChance:
     baseValue: 5
     modifiers: 

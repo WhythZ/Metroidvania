@@ -287,7 +287,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.9
+      scalar: 0.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -748,8 +748,8 @@ ParticleSystem:
     m_TextureAlphaAffectsParticles: 1
     m_TextureBilinearFiltering: 0
     randomDirectionAmount: 0
-    sphericalDirectionAmount: 0.03
-    randomPositionAmount: 0.03
+    sphericalDirectionAmount: 0.06
+    randomPositionAmount: 0.07
     radius:
       value: 0.43
       mode: 0
@@ -870,7 +870,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 2.5
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -1487,7 +1487,7 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: -948727852, guid: 3f42a0ede9ddf7641bc8f401276d8785, type: 3}
+    - sprite: {fileID: -1888004571, guid: a3a3364357277834d8b24280dad2a3da, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:

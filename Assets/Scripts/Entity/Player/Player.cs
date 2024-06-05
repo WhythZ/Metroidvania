@@ -41,6 +41,12 @@ public class Player : Entity
     public UI_MainScene ui { get; private set; }
     #endregion
 
+    #region Default
+    //私有的，用于存储原有的凡是和位移（moveSpeed在基类里解决完了）相关的原本速度
+    private float defaultJumpForce;
+    private float defaultDashSpeed;
+    #endregion
+
     #region Movement
     [Header("Player Movement Info")]
     //人物在空中的移动速度是moveSpeed的小于一倍
@@ -152,6 +158,12 @@ public class Player : Entity
         ui = UI_MainScene.instance;
         #endregion
 
+        #region Default
+        //储存初始速度值
+        defaultJumpForce = jumpForce;
+        defaultDashSpeed = dashSpeed;
+        #endregion
+
         //用站立状态初始化玩家的状态机
         stateMachine.Initialize(idleState);
         //简化代码
@@ -192,6 +204,25 @@ public class Player : Entity
                 stateMachine.ChangeState(dashState);
             }
         }
+    }
+    #endregion
+
+    #region SlowEntityOverride
+    public override void SlowEntityBy(float _slowPercentage, float _slowDuration)
+    {
+        //特性的减速，写在前面，因为Invoke恢复速度的函数在底下的base里面
+        jumpForce *= (1 - _slowPercentage);
+        dashSpeed *= (1 - _slowPercentage);
+
+        base.SlowEntityBy(_slowPercentage, _slowDuration);
+    }
+    protected override void ReturnDefaultSpeed()
+    {
+        base.ReturnDefaultSpeed();
+
+        //恢复速度
+        jumpForce = defaultJumpForce;
+        dashSpeed = defaultDashSpeed;
     }
     #endregion
 

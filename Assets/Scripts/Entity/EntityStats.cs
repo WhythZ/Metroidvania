@@ -52,25 +52,27 @@ public class EntityStats : MonoBehaviour
 
     #region Ailments
     [Header("Ailments")]
-    //处于燃烧状态，持续一段时间掉血
+    //处于燃烧状态，效果时间内持续掉血
     public bool isIgnited;
-    //处于冰冻状态（待实现效果：速度减少40%）
+    //处于冰冻状态，效果时间内速度减慢
     public bool isChilled;
-    //处于眩晕状态（待实现效果：降低防御和抵抗力）
+    //处于眩晕状态
     public bool isShocked;
     
     //状态持续时长及其计时器
-    [SerializeField] private float ignitedDuration = 3f;
-    [SerializeField] private float chilledDuration = 3f;
-    [SerializeField] private float shockedDuration = 3f;
+    [SerializeField] private float ignitedDuration = 5f;
+    [SerializeField] private float chilledDuration = 5f;
+    [SerializeField] private float shockedDuration = 5f;
     private float ignitedTimer;
     private float chilledTimer;
     private float shockedTimer;
 
     //处于灼烧状态时，每隔多长时间受到一次灼烧伤害
-    public float ignitedDamageCooldown = 0.5f;
+    public float ignitedDamageCooldown = 1f;
     private float ignitedDamageTimer;
 
+    //处于冰冻状态时，所有速度减慢
+    public float slowPercentage = 0.5f;
     #endregion
 
     #region Defence
@@ -138,9 +140,11 @@ public class EntityStats : MonoBehaviour
             }
         }
         if(isChilled)
+        //冷冻状态的减速buff在刚开始进入此状态的时候调用一次即可，即GetAilments函数处
         {
             chilledTimer -= Time.deltaTime;
 
+            //退出冰冻状态
             if(chilledTimer < 0)
             {
                 isChilled = false;
@@ -150,6 +154,7 @@ public class EntityStats : MonoBehaviour
         {
             shockedTimer -= Time.deltaTime;
 
+            //退出眩晕状态
             if(shockedTimer < 0)
             {
                 isShocked = false;
@@ -163,6 +168,17 @@ public class EntityStats : MonoBehaviour
     //提供一种调用全部伤害的函数，所有触发伤害都调用此函数，不建议单独调用
     //第二、第三参数位要传入是否只触发单独一类伤害或者两者一起触发的布尔值
     {
+        //如果触发了闪避，则直接返回，不受伤
+        if (CanEvade())
+        {
+            
+            //闪避的音效
+            AudioManager.instance.PlaySFX(12, null);
+            //闪避的粒子效果，在自己（受攻击者）身上
+            fx.CreatHitFX00(this.transform);
+
+            return;
+        }
         //若是对方基础伤害为0，则不应进行最终值的获取（其中还要进行暴击判定，判定若是成功了还会返回暴击效果，这是不需要的，因为暴击与否都是0伤害）
         if (_attackingEntity.GetNonCritMagicalDamage() > 0 && _doMagic)
         {
@@ -179,14 +195,20 @@ public class EntityStats : MonoBehaviour
 
         //受攻击的音效
         AudioManager.instance.PlaySFX(12, null);
-        //受攻击的粒子效果，在自己（受伤者）身上
+        //受攻击的粒子效果，在自己（受攻击者）身上
         fx.CreatHitFX00(this.transform);
     }
     public virtual void GetTotalSkillDmgFrom(EntityStats _attackingEntity, int _skillDmg, bool _isMagical)
     //技能的伤害（物理、魔法）的伤害的，传入造成伤害者和造成的伤害大小、伤害的类型（是魔法的话还要进行debuff施加判定）
     //技能伤害与对方原有伤害类型数值（非暴击）进行叠加，吃技能伤害时不会发生暴击
     {
-        if(_isMagical)
+        //技能不许闪避
+        /*//如果触发了闪避，则直接返回，不受伤
+        if (CanEvade())
+        {
+            return;
+        }*/
+        if (_isMagical)
         {
             this.GetMagicalDamagedBy(_attackingEntity.GetNonCritMagicalDamage() + _skillDmg);
 
@@ -200,7 +222,7 @@ public class EntityStats : MonoBehaviour
 
         //受攻击的音效
         AudioManager.instance.PlaySFX(12, null);
-        //受攻击的粒子效果，在自己（受伤者）身上
+        //受攻击的粒子效果，在自己（受攻击者）身上
         fx.CreatHitFX00(this.transform);
     }
     #endregion
@@ -268,6 +290,9 @@ public class EntityStats : MonoBehaviour
 
             //调用状态效果
             fx.InvokeChilledFXFor(chilledDuration);
+
+            //应用冷冻的减速
+            entity.SlowEntityBy(slowPercentage, chilledDuration);
         }
         if(_shocked)
         {
@@ -284,33 +309,25 @@ public class EntityStats : MonoBehaviour
     public virtual void GetMagicalDamagedBy(int _damage)
     //这里是数值的伤害的施加，而debuff的判定（需要传入敌方Stats）不放在这里，因为有些纯魔法攻击不会产生debuff
     {
-        //如果触发了闪避，则直接返回，不受伤
-        if (CanEvade())
+        #region AttackedFX
+        //受攻击的材质变化，使得有针对魔法伤害的闪烁的动画效果
+        entity.fx.StartCoroutine("MagicalHitFX");
+
+        //弹出伤害数值文本效果，玩家不弹
+        if (entity.GetComponent<Player>() == null)
+            entity.fx.CreatPopUpText(_damage.ToString(), Color.cyan);
+
+        //魔法伤害不需要击退，其实是防止有复合伤害时的击退距离更长
+        //entity.StartCoroutine("HitKnockback");
+        #endregion
+
+        //受到的伤害由自身抵抗力减免后作用在生命值上
+        currentHealth -= CheckResistance(this, _damage);
+
+        //被攻击时，调用一下血条UI的更新
+        if (onHealthChanged != null)
         {
-            return;
-        }
-        else
-        {
-            #region AttackedFX
-            //受攻击的材质变化，使得有针对魔法伤害的闪烁的动画效果
-            entity.fx.StartCoroutine("MagicalHitFX");
-
-            //弹出伤害数值文本效果，玩家不弹
-            if (entity.GetComponent<Player>() == null)
-                entity.fx.CreatPopUpText(_damage.ToString(), Color.cyan);
-
-            //魔法伤害不需要击退，其实是防止有复合伤害时的击退距离更长
-            //entity.StartCoroutine("HitKnockback");
-            #endregion
-
-            //受到的伤害由自身抵抗力减免后作用在生命值上
-            currentHealth -= CheckResistance(this, _damage);
-
-            //被攻击时，调用一下血条UI的更新
-            if (onHealthChanged != null)
-            {
-                onHealthChanged();
-            }
+            onHealthChanged();
         }
     }
     public virtual int CheckResistance(EntityStats _targetStats, int _damage)
@@ -331,33 +348,25 @@ public class EntityStats : MonoBehaviour
     public virtual void GetPhysicalDamagedBy(int _damage)
     //有关物理伤害数值的调用，其他的如击退效果，在继承后重写有需要时调用
     {
-        //如果触发了闪避，则直接返回，不受伤
-        if(CanEvade())
+        #region AttackedFX
+        //受攻击的材质变化，使得有闪烁的动画效果
+        entity.fx.StartCoroutine("FlashHitFX");
+
+        //弹出伤害数值文本效果，玩家不弹
+        if (entity.GetComponent<Player>() == null)
+            entity.fx.CreatPopUpText(_damage.ToString(), Color.white);
+
+        //受伤的击退效果
+        entity.StartCoroutine("HitKnockback");
+        #endregion
+
+        //被攻击时，调用对方的攻击数值，在自己的当前生命值上减掉
+        currentHealth -= CheckArmor(this, _damage);
+
+        //被攻击时，调用一下血条UI的更新
+        if (onHealthChanged != null)
         {
-            return;
-        }
-        else
-        {
-            #region AttackedFX
-            //受攻击的材质变化，使得有闪烁的动画效果
-            entity.fx.StartCoroutine("FlashHitFX");
-
-            //弹出伤害数值文本效果，玩家不弹
-            if (entity.GetComponent<Player>() == null)
-                entity.fx.CreatPopUpText(_damage.ToString(), Color.white);
-
-            //受伤的击退效果
-            entity.StartCoroutine("HitKnockback");
-            #endregion
-
-            //被攻击时，调用对方的攻击数值，在自己的当前生命值上减掉
-            currentHealth -= CheckArmor(this, _damage);
-
-            //被攻击时，调用一下血条UI的更新
-            if (onHealthChanged != null)
-            {
-                onHealthChanged();
-            }
+            onHealthChanged();
         }
     }
     public virtual int CheckArmor(EntityStats _targetStats, int _damage)

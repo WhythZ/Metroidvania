@@ -54,7 +54,7 @@ public class BringerBattleState : EnemyState
                 if(!bringer.enterAttackRegion)
                 {
                     //赋予朝向玩家的移动速度
-                    bringer.SetVelocity(bringer.moveSpeed * bringer.fasterSpeedInBattle * bringer.battleMoveDir, rb.velocity.y);
+                    bringer.SetVelocity(bringer.moveSpeed * bringer.battleSpeedMultiplier * bringer.battleMoveDir, rb.velocity.y);
                 }
                 else
                 {

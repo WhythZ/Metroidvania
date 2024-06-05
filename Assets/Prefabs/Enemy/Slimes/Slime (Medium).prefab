@@ -216,8 +216,9 @@ MonoBehaviour:
   moveSpeed: 2
   knockbackDirVector: {x: 2, y: 3}
   knockbackDuration: 0.07
+  enemyType: 2
   pauseTime: 0.7
-  fasterSpeedInBattle: 2
+  battleSpeedMultiplier: 2
   battleMoveDir: 0
   isPlayer: 0
   playerCheck: {fileID: 8281911472938255237}
@@ -234,7 +235,6 @@ MonoBehaviour:
   quitBattleDistanceRatio: 1.5
   shouldEnterBattle: 0
   stunnedDuration: 1
-  type: 1
   splitSlimeCount: 2
   splitSlime: {fileID: 2742561418544599168, guid: 2de2a53d653bda741aa6d80a9d094587, type: 3}
 --- !u!114 &3628517601976915538
@@ -286,10 +286,11 @@ MonoBehaviour:
   isIgnited: 0
   isChilled: 0
   isShocked: 0
-  ignitedDuration: 3
-  chilledDuration: 3
-  shockedDuration: 3
-  ignitedDamageCooldown: 0.5
+  ignitedDuration: 5
+  chilledDuration: 5
+  shockedDuration: 5
+  ignitedDamageCooldown: 1
+  slowPercentage: 0.5
   evasionChance:
     baseValue: 5
     modifiers: 

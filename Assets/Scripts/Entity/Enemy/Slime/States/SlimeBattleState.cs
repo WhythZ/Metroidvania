@@ -52,7 +52,7 @@ public class SlimeBattleState : EnemyState
                 if (!slime.enterAttackRegion)
                 {
                     //赋予朝向玩家的移动速度
-                    slime.SetVelocity(slime.moveSpeed * slime.fasterSpeedInBattle * slime.battleMoveDir, rb.velocity.y);
+                    slime.SetVelocity(slime.moveSpeed * slime.battleSpeedMultiplier * slime.battleMoveDir, rb.velocity.y);
                 }
                 else
                 {
