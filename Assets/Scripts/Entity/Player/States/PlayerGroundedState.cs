@@ -46,7 +46,7 @@ public class PlayerGroundedState : PlayerState
             if (UI_MainScene.instance.ActivatedStateOfMainUIs() == true)
                 return;
 
-            player.stateMachine.ChangeState(player.primaryAttack);
+            player.stateMachine.ChangeState(player.primaryAttackState);
         }
 
         //在地面上按下K键或鼠标右键进入防御反击状态

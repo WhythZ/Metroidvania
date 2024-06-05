@@ -50,8 +50,10 @@ public class GameData
     #region CheckPoints
     //储存激活的存档点的字典
     public SerializableDictionary<string, bool> checkpointsDict;
-    //储存里玩家最近的存档点id
-    public string closestCheckPointID;
+    //储存玩家上次休息的存档点id
+    public string lastRestCPID;
+    //储存距离玩家最近的存档点id
+    //public string closestCheckPointID;
     #endregion
 
     #region Settings
@@ -97,7 +99,8 @@ public class GameData
 
         #region CheckPoints
         this.checkpointsDict = new SerializableDictionary<string, bool>();
-        this.closestCheckPointID = string.Empty;
+        this.lastRestCPID = string.Empty;
+        //this.closestCheckPointID = string.Empty;
         #endregion
 
         #region Settings

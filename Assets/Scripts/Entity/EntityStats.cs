@@ -50,6 +50,16 @@ public class EntityStats : MonoBehaviour
     public Stat lightningAttackDamage;
     #endregion
 
+    #region Defence
+    [Header("Defence Stats")]
+    //闪避率（百分比）
+    public Stat evasionChance;
+    //护甲值，提供物理减伤（百分比）
+    public Stat physicalArmor;
+    //法术抵抗力，提供法术减伤（百分比）
+    public Stat magicalResistance;
+    #endregion
+
     #region Ailments
     [Header("Ailments")]
     //处于燃烧状态，效果时间内持续掉血
@@ -58,7 +68,7 @@ public class EntityStats : MonoBehaviour
     public bool isChilled;
     //处于眩晕状态
     public bool isShocked;
-    
+
     //状态持续时长及其计时器
     [SerializeField] private float ignitedDuration = 5f;
     [SerializeField] private float chilledDuration = 5f;
@@ -68,21 +78,13 @@ public class EntityStats : MonoBehaviour
     private float shockedTimer;
 
     //处于灼烧状态时，每隔多长时间受到一次灼烧伤害
-    public float ignitedDamageCooldown = 1f;
+    [SerializeField] private float ignitedDamageCooldown = 1f;
+    //每次受到灼烧伤害掉百分之多少血量
+    [SerializeField] private float burnHealthPercentage = 0.03f;
     private float ignitedDamageTimer;
 
     //处于冰冻状态时，所有速度减慢
-    public float slowPercentage = 0.5f;
-    #endregion
-
-    #region Defence
-    [Header("Defence Stats")]
-    //闪避率（百分比）
-    public Stat evasionChance;
-    //护甲值，提供物理减伤（百分比）
-    public Stat physicalArmor;
-    //法术抵抗力，提供法术减伤（百分比）
-    public Stat magicalResistance;
+    public float slowPercentage = 0.3f;
     #endregion
 
     #region Events
@@ -131,7 +133,7 @@ public class EntityStats : MonoBehaviour
             {
                 //Debug.Log(this.name + " Take Fire Damage");
                 //百分比烧血
-                int _ignitedDamage = Mathf.RoundToInt(originalMaxHealth.GetValue() * 0.02f);
+                int _ignitedDamage = Mathf.RoundToInt(originalMaxHealth.GetValue() * burnHealthPercentage);
                 //这里使用的函数仅对数值产生影响，而且其内还会触发各种效果，同时不会进行Ailments的检测，减少无效运算
                 this.GetMagicalDamagedBy(_ignitedDamage);
 

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 737937425374336508}
   - component: {fileID: 6946411458847651979}
   - component: {fileID: 7744700330724639692}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,7 +50,7 @@ MonoBehaviour:
   spawnerFX: {fileID: 6467538783874559494}
   randomSpawn: 1
   spawnType: 0
-  spawnCooldown: 15
+  spawnCooldown: 10
   spawnAmount: 1
 --- !u!61 &6946411458847651979
 BoxCollider2D:
@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 516783890684600383}
   - component: {fileID: 6467538783874559494}
   - component: {fileID: 4608638841837081794}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SpawnerFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}

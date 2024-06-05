@@ -62,6 +62,7 @@ public class UI_MainScene : MonoBehaviour, ISavesManager
         else
             instance = this;
     }
+
     private void Start()
     {
         //游戏主场景的bgm
@@ -134,7 +135,7 @@ public class UI_MainScene : MonoBehaviour, ISavesManager
                 }
                 else
                 {
-                    //以后的接触，是询问是否刷新场景
+                    //以后的接触，是询问是否休息
                     SwitchWithKeyToUI(checkPointUI);
                 }
             }
@@ -208,6 +209,14 @@ public class UI_MainScene : MonoBehaviour, ISavesManager
     #endregion
 
     #region Interact
+    public void RestAtCheckPoint()
+    {
+        //记录下这个存档点的id，用于死亡复活以及下次进入游戏从这里开始
+        GameManager.instance.lastRestCheckPointID = touchedCheckPoint.id;
+
+        //重新加载场景，这个一定要放在记录完id之后
+        ReStartGame();
+    }
     public void SetWhetherShowInteractToolTip(bool _bool)
     //此函数用于决定是否显示按键提示UI
     {
@@ -220,7 +229,7 @@ public class UI_MainScene : MonoBehaviour, ISavesManager
     }
     #endregion
 
-    #region Death
+    #region Die&Restart
     public void PlayDeathText()
     {
         StartCoroutine(DeathScreenAnimation());

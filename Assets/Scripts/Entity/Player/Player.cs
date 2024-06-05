@@ -23,7 +23,7 @@ public class Player : Entity
     //引入人物的滑墙状态
     public PlayerWallJumpState wallJumpState { get; private set; }
     //引入人物的墙跳状态
-    public PlayerPrimaryAttack primaryAttack { get; private set; }
+    public PlayerPrimaryAttack primaryAttackState { get; private set; }
     //引入人物的攻击状态
     public PlayerCounterAttackState counterAttackState { get; private set; }
     //引入人物的弹反状态，这个状态控制着两个相关的parameters
@@ -136,7 +136,7 @@ public class Player : Entity
         //初始化墙跳状态
         wallJumpState = new PlayerWallJumpState(this, stateMachine, "WallJump");
         //初始化第一段攻击
-        primaryAttack = new PlayerPrimaryAttack(this, stateMachine, "Attack");
+        primaryAttackState = new PlayerPrimaryAttack(this, stateMachine, "Attack");
         //初始化防御反击
         counterAttackState = new PlayerCounterAttackState(this, stateMachine, "CounterAttack");
         //初始化瞄准动作
@@ -195,7 +195,7 @@ public class Player : Entity
         //dashCooldownTimer -= Time.deltaTime;
 
         //不能从攻击，瞄准与投掷状态冲刺
-        if (stateMachine.currentState != primaryAttack && stateMachine.currentState != aimSwordState && stateMachine.currentState != throwSwordState)
+        if (stateMachine.currentState != primaryAttackState && stateMachine.currentState != aimSwordState && stateMachine.currentState != throwSwordState)
         {
             //冲刺可以从任意允许的状态进入开始，故而放在此处Update里赋予其高优先级；只要按下左shift，且冷却时间结束，便进入冲刺状态；
             //注意这里使用了PlayerSkillManager
@@ -233,8 +233,8 @@ public class Player : Entity
             return;
         else
         {
-            //你妈的，这个状态直接给他特判掉，我倒看你tm还出不出问题！
-            if(stateMachine.currentState != wallSlideState)
+            //你妈的，这些状态直接给他特判掉，我倒看你tm还出不出问题！
+            if(stateMachine.currentState != wallSlideState && stateMachine.currentState != aimSwordState && stateMachine.currentState != primaryAttackState && stateMachine.currentState != throwSwordState)
             {
                 //这里新增一个xInput限制，防止莫名的速度增量产生的转向问题
                 if ((stateMachine.currentState.xInput > 0) && (rb.velocity.x > 0) && !facingRight)

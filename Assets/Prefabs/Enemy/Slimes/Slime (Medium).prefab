@@ -226,9 +226,9 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 64
-  enterAttackRegion: 0
   canAttackCheck: {fileID: 7857362722416052442}
   canAttackCheckDistance: 2
+  enterAttackRegion: 0
   attackCooldown: 0.5
   canAttack: 0
   quitBattleTime: 20
@@ -283,6 +283,15 @@ MonoBehaviour:
   lightningAttackDamage:
     baseValue: 0
     modifiers: 
+  evasionChance:
+    baseValue: 5
+    modifiers: 
+  physicalArmor:
+    baseValue: 10
+    modifiers: 
+  magicalResistance:
+    baseValue: 10
+    modifiers: 
   isIgnited: 0
   isChilled: 0
   isShocked: 0
@@ -290,16 +299,7 @@ MonoBehaviour:
   chilledDuration: 5
   shockedDuration: 5
   ignitedDamageCooldown: 1
-  slowPercentage: 0.5
-  evasionChance:
-    baseValue: 5
-    modifiers: 
-  physicalArmor:
-    baseValue: 0
-    modifiers: 
-  magicalResistance:
-    baseValue: 0
-    modifiers: 
+  slowPercentage: 0.3
 --- !u!114 &1937801026229190902
 MonoBehaviour:
   m_ObjectHideFlags: 0

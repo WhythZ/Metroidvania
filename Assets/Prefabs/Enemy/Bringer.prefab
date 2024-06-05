@@ -66,6 +66,7 @@ MonoBehaviour:
   moveSpeed: 2
   knockbackDirVector: {x: 5, y: 6}
   knockbackDuration: 0.2
+  enemyType: 0
   pauseTime: 0.3
   battleSpeedMultiplier: 2
   battleMoveDir: 0
@@ -75,9 +76,9 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 64
-  enterAttackRegion: 0
   canAttackCheck: {fileID: 1746508222509782917}
   canAttackCheckDistance: 6.44
+  enterAttackRegion: 0
   attackCooldown: 0.4
   canAttack: 0
   quitBattleTime: 20
@@ -130,14 +131,6 @@ MonoBehaviour:
   lightningAttackDamage:
     baseValue: 0
     modifiers: 
-  isIgnited: 0
-  isChilled: 0
-  isShocked: 0
-  ignitedDuration: 5
-  chilledDuration: 5
-  shockedDuration: 5
-  ignitedDamageCooldown: 1
-  slowPercentage: 0.5
   evasionChance:
     baseValue: 5
     modifiers: 
@@ -147,6 +140,14 @@ MonoBehaviour:
   magicalResistance:
     baseValue: 20
     modifiers: 
+  isIgnited: 0
+  isChilled: 0
+  isShocked: 0
+  ignitedDuration: 5
+  chilledDuration: 5
+  shockedDuration: 5
+  ignitedDamageCooldown: 1
+  slowPercentage: 0.3
 --- !u!114 &1204914346799142247
 MonoBehaviour:
   m_ObjectHideFlags: 0

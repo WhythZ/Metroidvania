@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour, ISavesManager
     public static GameManager instance;
     //储存存档点的列表
     [SerializeField] private CheckPoint[] checkpointsList;
+    //储存上一次休息的存档点
+    public string lastRestCheckPointID = "";
 
     private void Awake()
     {
@@ -69,8 +71,8 @@ public class GameManager : MonoBehaviour, ISavesManager
     }
     #endregion
 
-    #region CheckPoints
-    public CheckPoint FindClosestCheckPoint()
+    #region ClosestCP
+    /*public CheckPoint FindClosestCheckPoint()
     //返回和玩家距离最近的已激活存档点
     {
         float _closestDistance = Mathf.Infinity;
@@ -86,9 +88,8 @@ public class GameManager : MonoBehaviour, ISavesManager
                 _closestCP = _cp;
             }
         }
-
         return _closestCP;
-    }
+    }*/
     #endregion
 
     #region ISaveManager
@@ -104,7 +105,22 @@ public class GameManager : MonoBehaviour, ISavesManager
                     _checkpoint.ActivateCheckPoint();
             }
         }
-        //通过存储的id锁定距离玩家最近的已激活存档点
+
+        //读取玩家上次休息的存档点
+        lastRestCheckPointID = _data.lastRestCPID;
+
+        //通过存储的id锁定玩家上次休息的存档点
+        foreach (CheckPoint _cp in checkpointsList)
+        {
+            //把玩家定位在此处
+            if (_data.lastRestCPID == _cp.id)
+            {
+                //生成位置在其上方一点，防止卡在地底下
+                GameObject.Find("Player").transform.position = _cp.transform.position + new Vector3(0, 2, 0);
+            }
+        }
+
+        /*//通过存储的id锁定距离玩家最近的已激活存档点
         foreach(CheckPoint _cp in checkpointsList)
         {
             //把玩家定位在此处
@@ -113,10 +129,9 @@ public class GameManager : MonoBehaviour, ISavesManager
                 //生成位置在其上方一点，防止卡在地底下
                 GameObject.Find("Player").transform.position = _cp.transform.position + new Vector3(0, 2, 0);
             }
-        }
+        }*/
         #endregion
     }
-
     public void SaveData(ref GameData _data)
     {
         //以防万一，先清除再存储
@@ -128,12 +143,22 @@ public class GameManager : MonoBehaviour, ISavesManager
         {
             _data.checkpointsDict.Add(_checkpoint.id, _checkpoint.isActive);
         }
-        //储存保存游戏的时候距离玩家最近的已激活存档点，而不是直接存储一个CheckPoint类型的数据，只有字符串等基本数据类型才能被存储在存档文本文件里
-        if(FindClosestCheckPoint() != null)
+        //储存上一次休息的存档点
+        if (lastRestCheckPointID != null)
+        {
+            _data.lastRestCPID = lastRestCheckPointID;
+            //Debug.Log("Save lastRestCPID As " + lastRestCheckPointID);
+        }
+        if (lastRestCheckPointID == null)
+            _data.lastRestCPID = "";
+
+        /*//储存保存游戏的时候距离玩家最近的已激活存档点，而不是直接存储一个CheckPoint类型的数据，只有字符串等基本数据类型才能被存储在存档文本文件里
+        if (FindClosestCheckPoint() != null)
             _data.closestCheckPointID = FindClosestCheckPoint().id;
         if (FindClosestCheckPoint() == null)
-            _data.closestCheckPointID = "";
+            _data.closestCheckPointID = "";*/
         #endregion
     }
     #endregion
+
 }
