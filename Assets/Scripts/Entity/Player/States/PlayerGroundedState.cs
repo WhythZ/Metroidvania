@@ -63,6 +63,10 @@ public class PlayerGroundedState : PlayerState
         //在地面上按下鼠标中键进入瞄准状态；前提是可以投掷，即比如可投掷剑数为1，则手中的剑没丢出去过才可以投掷
         if (Input.GetKeyDown(KeyCode.Mouse2) && player.isGround && !PlayerSkillManager.instance.assignedSword)
         {
+            //能力限制
+            if (PlayerManager.instance.ability_CanThrowSword == false)
+                return;
+
             //在主要UI显示的时候，不能进行此运动
             if (UI_MainScene.instance.ActivatedStateOfMainUIs() == true)
                 return;
@@ -82,6 +86,10 @@ public class PlayerGroundedState : PlayerState
         //火球发射
         if (Input.GetKeyDown(KeyCode.Alpha1) && player.isGround)
         {
+            //能力限制
+            if (PlayerManager.instance.ability_CanFireBall == false)
+                return;
+
             //冷却时不可用，应当先检测不可用，不然放在后面的话，刚检测完如果可用，那么一定会被检测出不可用
             if (!PlayerSkillManager.instance.fireballSkill.CanUseSkill())
             {
@@ -101,6 +109,10 @@ public class PlayerGroundedState : PlayerState
         //冰球发射
         if (Input.GetKeyDown(KeyCode.Alpha2) && player.isGround)
         {
+            //能力限制
+            if (PlayerManager.instance.ability_CanIceBall == false)
+                return;
+
             //冷却时不可用，应当先检测不可用，不然放在后面的话，刚检测完如果可用，那么一定会被检测出不可用
             if (!PlayerSkillManager.instance.iceballSkill.CanUseSkill())
             {

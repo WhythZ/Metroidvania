@@ -87,6 +87,10 @@ public class PlayerDashState : PlayerState
             //冲刺到墙上立即进入WallState而不是进入AirState再进入WallState
             else if(player.facingDir == xInput)
             {
+                //能力限制
+                if (PlayerManager.instance.ability_CanWallSlide == false)
+                    return;
+
                 player.stateMachine.ChangeState(player.wallSlideState);
             }
         }

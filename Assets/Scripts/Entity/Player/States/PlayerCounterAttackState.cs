@@ -47,6 +47,9 @@ public class PlayerCounterAttackState : PlayerState
 
                     //返回弹反成功的讯号
                     player.anim.SetBool("SuccessCounterAttack", true);
+
+                    //弹反成功的音效
+                    AudioManager.instance.PlaySFX(15, null);
                 }
             }
         }

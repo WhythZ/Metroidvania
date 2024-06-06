@@ -17,6 +17,13 @@ public class SwordSkill : PlayerSkill
     public float returnSpeed = 30f;
     //实时更新的剑的投掷瞄准方向，由于AimDirection()所得向量后续会被取归一化，坐标值很小，故需要每项乘上launchDir各项值
     private Vector2 finalAimDir;
+    /*[Header("Sword Bounce Info")]
+    //剑最多能弹几次
+    public int bounceMaxAmount = 4;
+    //弹跳检测范围半径
+    public float bounceRadius = 15f;
+    //弹跳移动速度
+    public float bounceSpeed = 30f;*/
     #endregion
 
     #region AimDirectionDots

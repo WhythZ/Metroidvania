@@ -48,8 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnerFX: {fileID: 6467538783874559494}
-  randomSpawn: 1
-  spawnType: 0
+  randomSpawn: 0
+  spawnType: 3
   spawnCooldown: 10
   spawnAmount: 1
 --- !u!61 &6946411458847651979

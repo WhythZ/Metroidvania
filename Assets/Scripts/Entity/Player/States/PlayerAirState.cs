@@ -52,17 +52,7 @@ public class PlayerAirState : PlayerUntouchedState
             player.stateMachine.ChangeState(player.idleState);
         }
 
-        //坠落的时候如果蹭着墙，则进入滑墙状态
-        if (player.isWall && !player.isGround)
-        {
-            //你总不能面向左边的墙壁按了A还能进入滑墙状态吧；注意这里是GetKey而不是GetKeyDown
-            if ((Input.GetKey(KeyCode.A) && player.facingDir == -1) || (Input.GetKey(KeyCode.D) && player.facingDir == 1))
-            {
-                player.stateMachine.ChangeState(player.wallSlideState);
-                //Debug.Log("Air to WallSlide");
-            }
-        }
-
+        #region Wall
         //如果是从墙跳状态转移过来本状态的，且许可保持原有速度，则需要保持原有水平速度，若按了A/D则结束这种保持
         if (player.stateMachine.formerState == player.wallJumpState && keepWallJumpVelocity)
         {
@@ -83,5 +73,21 @@ public class PlayerAirState : PlayerUntouchedState
             //下坠过程中通过A/D键左右移动
             player.SetVelocity(xInput * player.airMoveSpeedRate * player.moveSpeed, rb.velocity.y);
         }
+
+        //坠落的时候如果蹭着墙，则进入滑墙状态
+        if (player.isWall && !player.isGround)
+        {
+            //能力限制
+            if (PlayerManager.instance.ability_CanWallSlide == false)
+                return;
+
+            //你总不能面向左边的墙壁按了A还能进入滑墙状态吧；注意这里是GetKey而不是GetKeyDown
+            if ((Input.GetKey(KeyCode.A) && player.facingDir == -1) || (Input.GetKey(KeyCode.D) && player.facingDir == 1))
+            {
+                player.stateMachine.ChangeState(player.wallSlideState);
+                //Debug.Log("Air to WallSlide");
+            }
+        }
+        #endregion
     }
 }

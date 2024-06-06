@@ -39,6 +39,7 @@ public class Player : Entity
     //记录对象的数据统计脚本
     public PlayerStats sts {  get; private set; }
     public UI_MainScene ui { get; private set; }
+    public PlayerManager manager { get; private set; }
     public PlayerSkillManager skill { get; private set; }
     #endregion
 
@@ -149,6 +150,8 @@ public class Player : Entity
         //数据统计脚本
         sts = GetComponent<PlayerStats>();
         ui = UI_MainScene.instance;
+        manager = PlayerManager.instance;
+        skill = PlayerSkillManager.instance;
         #endregion
 
         #region Default
@@ -159,8 +162,6 @@ public class Player : Entity
 
         //用站立状态初始化玩家的状态机
         stateMachine.Initialize(idleState);
-        //简化代码
-        skill = PlayerSkillManager.instance;
     }
 
     protected override void Update()
@@ -184,8 +185,9 @@ public class Player : Entity
     #region Dash
     private void DashController()
     {
-        //计时器开始计时
-        //dashCooldownTimer -= Time.deltaTime;
+        //能力限制
+        if (manager.ability_CanDash == false)
+            return;
 
         //不能从攻击，瞄准与投掷状态冲刺
         if (stateMachine.currentState != primaryAttackState && stateMachine.currentState != aimSwordState && stateMachine.currentState != throwSwordState)
@@ -296,8 +298,8 @@ public class Player : Entity
     #endregion
 
     #region AttackAnimationRelatedScripts
-    public void AnimationTrigger() => stateMachine.currentState.TriggerWhenAnimationFinished();
     //当此函数被调用时（即攻击动作结束的时候），返回调用当前状态的TriggerWhenAnimationFinished()函数的结果；此语句等价于下面这句
     //public void AnimationTrigger(){stateMachine.currentState.TriggerWhenAnimationFinished();}
+    public void AnimationTrigger() => stateMachine.currentState.TriggerWhenAnimationFinished();
     #endregion
 }

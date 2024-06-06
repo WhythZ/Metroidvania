@@ -65,6 +65,10 @@ public class UI_InGame : MonoBehaviour
     }
     private void UpdateDashCooldown()
     {
+        //能力限制
+        if (PlayerManager.instance.ability_CanThrowSword == false)
+            return;
+
         //dash技能冷却条的更新
         UpdateSkillCooldownUIOf(dashCooldownImage, PlayerSkillManager.instance.dashSkill.cooldown);
 
@@ -83,21 +87,33 @@ public class UI_InGame : MonoBehaviour
     }
     private void UpdateFireBallCooldown()
     {
+        //能力限制
+        if (PlayerManager.instance.ability_CanFireBall == false)
+            return;
+
         //技能冷却条的更新
         UpdateSkillCooldownUIOf(fireballCooldownImage, PlayerSkillManager.instance.fireballSkill.cooldown);
-
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        
+        //防止人物在不能释放技能的时候按下技能按键导致冷却图标刷新
+        if (PlayerManager.instance.player.stateMachine.currentState == PlayerManager.instance.player.idleState || PlayerManager.instance.player.stateMachine.currentState == PlayerManager.instance.player.moveState)
         {
-            ResetSkillCooldownUIFor(fireballCooldownImage);
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+                ResetSkillCooldownUIFor(fireballCooldownImage);
         }
     }
     private void UpdateIceBallCooldown()
     {
+        //能力限制
+        if (PlayerManager.instance.ability_CanIceBall == false)
+            return;
+
         //技能冷却条的更新
         UpdateSkillCooldownUIOf(iceballCooldownImage, PlayerSkillManager.instance.iceballSkill.cooldown);
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        //防止人物在不能释放技能的时候按下技能按键导致冷却图标刷新
+        if (PlayerManager.instance.player.stateMachine.currentState == PlayerManager.instance.player.idleState || PlayerManager.instance.player.stateMachine.currentState == PlayerManager.instance.player.moveState)
         {
+            if (Input.GetKeyDown(KeyCode.Alpha2))
             ResetSkillCooldownUIFor(iceballCooldownImage);
         }
     }

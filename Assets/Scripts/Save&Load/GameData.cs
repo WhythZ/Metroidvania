@@ -10,10 +10,19 @@ public class GameData
     public int currency;
     #endregion
 
+    #region Ability
+    public bool canWallSlide;
+    public bool canDash;
+    public bool canDoubleJump;
+    public bool canThrowSword;
+    public bool canFireBall;
+    public bool canIceBall;
+    #endregion
+
     #region Stats
     //注意，在EntityStat内这些属性的数据类型是"Stat"，而存档文本里无法使用，所以用回int，注意是在没有用到Stat内置的modifiers的情况下才可如此
     //实际的属性值（加成后）会在背包UI界面显示，这里记录的都是未经加成前的原始值，也是需要保存的值
-    
+
     //角色能力值
     public int strength;
     public int agility;
@@ -71,6 +80,16 @@ public class GameData
         this.currency = 0;
         #endregion
 
+        #region Ability
+        //默认初始能力许可
+        this.canWallSlide = false;
+        this.canDash = false;
+        this.canDoubleJump = true;
+        this.canThrowSword = false;
+        this.canFireBall = false;
+        this.canIceBall = false;
+        #endregion
+
         #region Stats
         //设定这些属性的初始默认值
         this.strength = 0;
@@ -88,7 +107,7 @@ public class GameData
         this.iceAttackDamage = 0;
         this.lightningAttackDamage = 5;
 
-        this.swordDamage = 10;
+        this.swordDamage = 5;
         this.fireballDamage = 25;
         this.iceballDamage = 25;
 
