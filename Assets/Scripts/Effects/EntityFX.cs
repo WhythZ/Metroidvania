@@ -20,8 +20,6 @@ public class EntityFX : MonoBehaviour
     private Material originMat;
     //记录用于受攻击动画效果的的材质
     [SerializeField] private Material flashHitMat;
-    //记录用于受法术攻击动画效果的材质
-    [SerializeField] private Material magicalHitMat;
     //材质更替后的停留时间
     [SerializeField] private float changeMatDuration = 0.1f;
     [Header("Hit FX")]
@@ -87,7 +85,7 @@ public class EntityFX : MonoBehaviour
     }
     #endregion
 
-    #region HitFX
+    #region HitParticleFX
     /*public void CreateThunderFX(Transform _target)
     {
         //随机的位移与旋转，使得效果看起来不一样
@@ -134,7 +132,7 @@ public class EntityFX : MonoBehaviour
     }
     #endregion
 
-    #region DamagedFX
+    #region DamagedMatFX
     private IEnumerator FlashHitFX()
     //这个函数需要使用如fx.StartCoroutine("FlashHitFX");来调用，而不是直接用fx.FlashHitFX()
     {
@@ -145,18 +143,6 @@ public class EntityFX : MonoBehaviour
         //回归原来的材质
         sr.material = originMat;
     }
-
-    private IEnumerator MagicalHitFX()
-    //这个函数需要使用如fx.StartCoroutine("MagicalHitFX");来调用，而不是直接用fx.MagicalHitFX()
-    {
-        //使用受击材质
-        sr.material = magicalHitMat;
-        //延迟一段时间
-        yield return new WaitForSeconds(changeMatDuration);
-        //回归原来的材质
-        sr.material = originMat;
-    }
-
     private void RedBlink()
     //调用方法示例bringer.fx.InvokeRepeating("RedBlink", 0, 0.1f);此为延迟零秒后以0.1f的频率持续调用
     {
@@ -168,7 +154,7 @@ public class EntityFX : MonoBehaviour
     }
     #endregion
 
-    #region DebuffsFX
+    #region BuffsFX
     public void InvokeIgnitedFXFor(float _duration)
     //调用燃烧效果多长时间
     {

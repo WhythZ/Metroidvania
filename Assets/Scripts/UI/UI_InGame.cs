@@ -13,6 +13,8 @@ public class UI_InGame : MonoBehaviour
     //手动在Hierarchy内赋值吧，Start获取到该组件比较难，因为Image类型的太多了
     [SerializeField] private UnityEngine.UI.Image dashCooldownImage;
     [SerializeField] private UnityEngine.UI.Image swordCooldownImage;
+    [SerializeField] private UnityEngine.UI.Image fireballCooldownImage;
+    [SerializeField] private UnityEngine.UI.Image iceballCooldownImage;
 
     private void Start()
     {
@@ -33,8 +35,10 @@ public class UI_InGame : MonoBehaviour
     private void Update()
     //由于游戏内UI需要实时检测一些重要功能，如各UI切换，技能冷却显示UI等，所以对这些功能使用Update函数
     {
-        UpdateDashCooldown();
         UpdateSwordCooldown();
+        UpdateDashCooldown();
+        UpdateFireBallCooldown();
+        UpdateIceBallCooldown();
     }
 
     #region HealthUI
@@ -48,7 +52,17 @@ public class UI_InGame : MonoBehaviour
     }
     #endregion
 
-    #region Dash
+    #region SkillCooldown
+    private void UpdateSwordCooldown()
+    {
+        //剑被召唤出来时时使得技能进入冷却
+        if (PlayerSkillManager.instance.assignedSword)
+            ResetSkillCooldownUIFor(swordCooldownImage);
+
+        //剑丢出去后一直处于冷却状态，除非收回剑
+        if (!PlayerSkillManager.instance.assignedSword)
+            swordCooldownImage.fillAmount = 0;
+    }
     private void UpdateDashCooldown()
     {
         //dash技能冷却条的更新
@@ -60,24 +74,36 @@ public class UI_InGame : MonoBehaviour
             //防止在按了shift而没有进行冲刺的情况下（如攻击时按shift是无法冲刺的）刷新冷却条UI
             if(PlayerManager.instance.player.stateMachine.currentState == PlayerManager.instance.player.dashState)
                 ResetSkillCooldownUIFor(dashCooldownImage);
+            else
+            {
+                //调用文字弹出效果，提示技能处于冷却
+                PlayerManager.instance.player.fx.CreatPopUpText("Cooldown", Color.white);
+            }
+        }
+    }
+    private void UpdateFireBallCooldown()
+    {
+        //技能冷却条的更新
+        UpdateSkillCooldownUIOf(fireballCooldownImage, PlayerSkillManager.instance.fireballSkill.cooldown);
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            ResetSkillCooldownUIFor(fireballCooldownImage);
+        }
+    }
+    private void UpdateIceBallCooldown()
+    {
+        //技能冷却条的更新
+        UpdateSkillCooldownUIOf(iceballCooldownImage, PlayerSkillManager.instance.iceballSkill.cooldown);
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            ResetSkillCooldownUIFor(iceballCooldownImage);
         }
     }
     #endregion
 
-    #region Sword
-    private void UpdateSwordCooldown()
-    {
-        //剑被召唤出来时时使得技能进入冷却
-        if (PlayerManager.instance.player.assignedSword)
-            ResetSkillCooldownUIFor(swordCooldownImage);
-        
-        //剑丢出去后一直处于冷却状态，除非收回剑
-        if(!PlayerManager.instance.player.assignedSword)
-            swordCooldownImage.fillAmount = 0;
-    }
-    #endregion
-
-    #region SkillCooldown
+    #region SkillUI
     private void UpdateSkillCooldownUIOf(UnityEngine.UI.Image _image, float _cooldown)
     //当一个技能处于冷却时，对其冷却条进行递减，直到冷却结束
     {
@@ -92,7 +118,9 @@ public class UI_InGame : MonoBehaviour
         //当调用此函数时，技能图标进入冷却状态
         //这里的约束条件使得即使在冷却未结束前再次按了触发冷却的键，也不会重新从头开始显示冷却时间，所以Update函数内的判断条件可以不用写的那么全
         if(_image.fillAmount <= 0)
+        {
             _image.fillAmount = 1;
+        }
     }
     #endregion
 }

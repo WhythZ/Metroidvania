@@ -35,6 +35,8 @@ public class GameData
 
     //技能攻击力（未经加成）
     public int swordDamage;
+    public int fireballDamage;
+    public int iceballDamage;
 
     //闪避与防御（未经加成）
     public int evasionChance;
@@ -79,7 +81,7 @@ public class GameData
         this.originalMaxHealth = 200;
 
         this.criticPower = 150;
-        this.criticChance = 5;
+        this.criticChance = 10;
 
         this.primaryPhysicalDamage = 20;
         this.fireAttackDamage = 0;
@@ -87,6 +89,8 @@ public class GameData
         this.lightningAttackDamage = 5;
 
         this.swordDamage = 10;
+        this.fireballDamage = 25;
+        this.iceballDamage = 25;
 
         this.evasionChance = 5;
         this.physicalArmor = 10;

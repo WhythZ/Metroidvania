@@ -11,6 +11,10 @@ public class PlayerStats : EntityStats, ISavesManager
     [Header("Skill Stats")]
     //投掷剑技能的基础伤害
     public Stat swordDamage;
+    //火球基础伤害
+    public Stat fireballDamage;
+    //冰球基础伤害
+    public Stat iceballDamage;
     #endregion
 
     protected override void Start()
@@ -54,12 +58,16 @@ public class PlayerStats : EntityStats, ISavesManager
         this.criticPower.SetValue(_data.criticPower);
         this.criticChance.SetValue(_data.criticChance);
 
-        //各项攻击力（未经加成）
+        //物理和法术攻击力（未经加成）
         this.primaryPhysicalDamage.SetValue(_data.primaryPhysicalDamage);
-        this.swordDamage.SetValue(_data.swordDamage);
         this.fireAttackDamage.SetValue(_data.fireAttackDamage);
         this.iceAttackDamage.SetValue(_data.iceAttackDamage);
         this.lightningAttackDamage.SetValue(_data.lightningAttackDamage);
+
+        //技能攻击力（未经加成）
+        this.swordDamage.SetValue(_data.swordDamage);
+        this.fireballDamage.SetValue(_data.fireballDamage);
+        this.iceballDamage.SetValue(_data.iceballDamage);
 
         //闪避与防御（未经加成）
         this.evasionChance.SetValue(_data.evasionChance);
@@ -91,6 +99,8 @@ public class PlayerStats : EntityStats, ISavesManager
 
         //技能攻击力（未经加成）
         _data.swordDamage = this.swordDamage.GetValue();
+        _data.fireballDamage = this.fireballDamage.GetValue();
+        _data.iceballDamage = this.iceballDamage.GetValue();
 
         //闪避与防御（未经加成）
         _data.evasionChance = this.evasionChance.GetValue();

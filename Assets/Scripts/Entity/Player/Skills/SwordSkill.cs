@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SwordSkill : PlayerSkill
+//此脚本用于作为PlayerSkillManager的组件，实现冷却计时和记录技能基本信息的功能，而另一个脚本Sword_Controller则是赋予剑本身控制其行为的
 {
     #region SwordSkillInfo
     [Header("Sword Skill Info")]
@@ -12,6 +13,8 @@ public class SwordSkill : PlayerSkill
     [SerializeField] private float swordGravity;
     //剑的发射速度大小的控制向量
     [SerializeField] private Vector2 launchForce;
+    //返回的速度
+    public float returnSpeed = 30f;
     //实时更新的剑的投掷瞄准方向，由于AimDirection()所得向量后续会被取归一化，坐标值很小，故需要每项乘上launchDir各项值
     private Vector2 finalAimDir;
     #endregion
@@ -41,14 +44,13 @@ public class SwordSkill : PlayerSkill
         base.Update();
 
         //注意这是GetKey而不是GetKeyDown，否则不能实时更新finalAimDir
-        //实时更新的剑的投掷瞄准方向，注意这里的实现，可以单独控制向量的两个项
-        //normalized归一化，表示取这个方向向量（一条射线，无限延伸，需要取一个代表性的点的值来代表这个方向）离向量原点较近的一个点与该远点组成向量代表此方向
-        if (Input.GetKey(KeyCode.Mouse2))
-            finalAimDir = new Vector2(AimDirection().normalized.x * launchForce.x, AimDirection().normalized.y * launchForce.y);
-
-        //把点安插在抛物线上不同时间点（以(i * spaceBetweenDots)表示时间t）的等距位置
         if (Input.GetKey(KeyCode.Mouse2))
         {
+            //实时更新的剑的投掷瞄准方向，注意这里的实现，可以单独控制向量的两个项
+            //normalized归一化，表示取这个方向向量（一条射线，无限延伸，需要取一个代表性的点的值来代表这个方向）离向量原点较近的一个点与该远点组成向量代表此方向
+            finalAimDir = new Vector2(AimDirection().normalized.x * launchForce.x, AimDirection().normalized.y * launchForce.y);
+
+            //把点安插在抛物线上不同时间点（以(i * spaceBetweenDots)表示时间t）的等距位置
             for (int i = 0; i < dotsNum; i++)
             {
                 dotsArray[i].transform.position = DotsPosition(i * spaceBetweenDots);
@@ -64,12 +66,11 @@ public class SwordSkill : PlayerSkill
         //初始化剑的Unity内对象、位置、旋转
         GameObject _newSword = Instantiate(swordPrefab, PlayerManager.instance.player.transform.position, transform.rotation);
         //链接到剑的控制器
-        Sword_Controller newSwordController = _newSword.GetComponent<Sword_Controller>();
+        Sword_Controller _control = _newSword.GetComponent<Sword_Controller>();
         //初始化剑的发射方向、刚体重力
-        newSwordController.SetupSword(finalAimDir, swordGravity);
-
+        _control.SetupSword(finalAimDir, swordGravity);
         //记录一下，创建了一个新的剑，防止无限投掷
-        PlayerManager.instance.player.AssignNewSword(_newSword);
+        PlayerSkillManager.instance.AssignNewSword(_newSword);
 
         //创建了剑出来之后，关闭辅助瞄准轨迹点线
         ActivateDots(false);

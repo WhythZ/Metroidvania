@@ -29,8 +29,9 @@ public class PlayerGroundedState : PlayerState
     {
         base.Update();
 
+        #region BasicInput
         //在地面的状态时（包括Idle和Move），若按空格且在地面上时，则进入跳跃状态
-        if(Input.GetKeyDown(KeyCode.Space) && player.isGround)
+        if (Input.GetKeyDown(KeyCode.Space) && player.isGround)
         {
             //在主要UI显示的时候，不能进行此运动
             if (UI_MainScene.instance.ActivatedStateOfMainUIs() == true)
@@ -38,7 +39,6 @@ public class PlayerGroundedState : PlayerState
 
             stateMachine.ChangeState(player.jumpState);
         }
-
         //在地面上按下J键或者鼠标左键进入攻击状态
         if((Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.Mouse0)) && player.isGround)
         {
@@ -48,7 +48,6 @@ public class PlayerGroundedState : PlayerState
 
             player.stateMachine.ChangeState(player.primaryAttackState);
         }
-
         //在地面上按下K键或鼠标右键进入防御反击状态
         if((Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.Mouse1)) && player.isGround)
         {
@@ -58,11 +57,11 @@ public class PlayerGroundedState : PlayerState
 
             player.stateMachine.ChangeState(player.counterAttackState);
         }
+        #endregion
 
-        #region SwordSkill
-        //在地面上按下鼠标中键或者Q键进入瞄准状态
-        //前提是可以投掷，即比如可投掷剑数为1，则手中的剑没丢出去过才可以投掷
-        if (Input.GetKeyDown(KeyCode.Mouse2) && player.isGround && !player.assignedSword)
+        #region SkillInput
+        //在地面上按下鼠标中键进入瞄准状态；前提是可以投掷，即比如可投掷剑数为1，则手中的剑没丢出去过才可以投掷
+        if (Input.GetKeyDown(KeyCode.Mouse2) && player.isGround && !PlayerSkillManager.instance.assignedSword)
         {
             //在主要UI显示的时候，不能进行此运动
             if (UI_MainScene.instance.ActivatedStateOfMainUIs() == true)
@@ -70,16 +69,53 @@ public class PlayerGroundedState : PlayerState
 
             player.stateMachine.ChangeState(player.aimSwordState);
         }
-
-        //如果玩家投掷出去剑了后，再按一次中键或者Q键，则使剑返回到玩家手里
-        if (PlayerManager.instance.player.assignedSword && Input.GetKeyDown(KeyCode.Mouse2))
+        //如果玩家投掷出去剑了后，再按一次中键，则使剑返回到玩家手里
+        if (PlayerSkillManager.instance.assignedSword && Input.GetKeyDown(KeyCode.Mouse2))
         {
             //在主要UI显示的时候，不能进行此运动
             if (UI_MainScene.instance.ActivatedStateOfMainUIs() == true)
                 return;
 
             //调用玩家丢出去的剑对象的返回函数
-            player.assignedSword.GetComponent<Sword_Controller>().ReturnTheSword();
+            PlayerSkillManager.instance.assignedSword.GetComponent<Sword_Controller>().ReturnTheSword();
+        }
+        //火球发射
+        if (Input.GetKeyDown(KeyCode.Alpha1) && player.isGround)
+        {
+            //冷却时不可用，应当先检测不可用，不然放在后面的话，刚检测完如果可用，那么一定会被检测出不可用
+            if (!PlayerSkillManager.instance.fireballSkill.CanUseSkill())
+            {
+                //调用文字弹出效果，提示技能处于冷却
+                PlayerManager.instance.player.fx.CreatPopUpText("Cooldown", Color.white);
+            }
+            if (PlayerSkillManager.instance.fireballSkill.CanUseSkill() && !PlayerSkillManager.instance.assignedFireBall)
+            {
+                //在主要UI显示的时候，不能进行此运动
+                if (UI_MainScene.instance.ActivatedStateOfMainUIs() == true)
+                    return;
+
+                //在玩家位置，朝向玩家面对方向生成球
+                PlayerSkillManager.instance.fireballSkill.CreateFireBall(player.transform.position, player.facingDir);
+            }
+        }
+        //冰球发射
+        if (Input.GetKeyDown(KeyCode.Alpha2) && player.isGround)
+        {
+            //冷却时不可用，应当先检测不可用，不然放在后面的话，刚检测完如果可用，那么一定会被检测出不可用
+            if (!PlayerSkillManager.instance.iceballSkill.CanUseSkill())
+            {
+                //调用文字弹出效果，提示技能处于冷却
+                PlayerManager.instance.player.fx.CreatPopUpText("Cooldown", Color.white);
+            }
+            if (PlayerSkillManager.instance.iceballSkill.CanUseSkill() && !PlayerSkillManager.instance.assignedIceBall)
+            {
+                //在主要UI显示的时候，不能进行此运动
+                if (UI_MainScene.instance.ActivatedStateOfMainUIs() == true)
+                    return;
+
+                //在玩家位置，朝向玩家面对方向生成球
+                PlayerSkillManager.instance.iceballSkill.CreateIceBall(player.transform.position, player.facingDir);
+            }
         }
         #endregion
     }

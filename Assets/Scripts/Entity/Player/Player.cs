@@ -39,6 +39,7 @@ public class Player : Entity
     //记录对象的数据统计脚本
     public PlayerStats sts {  get; private set; }
     public UI_MainScene ui { get; private set; }
+    public PlayerSkillManager skill { get; private set; }
     #endregion
 
     #region Default
@@ -59,14 +60,6 @@ public class Player : Entity
     public float jumpForce = 15;
     //人物剩余的可跳跃次数，人物最多可以二段跳
     public int jumpNum = 2;
-    #endregion
-
-    #region Skills
-    //使得代码更简洁，不用PlayerSkillManager.instance.xxx，直接player.skill.instance.xxx即可
-    public PlayerSkillManager skill {  get; private set; }
-    //记录是否已经投掷出去了剑，防止无限投掷，在GroundedState中（即投掷能力的入口处）检测是否已经创建过剑Prefab
-    //那里的player.assignedSword可以当bool值使用
-    public GameObject assignedSword {  get; private set; }
     #endregion
 
     #region Dash
@@ -199,9 +192,11 @@ public class Player : Entity
         {
             //冲刺可以从任意允许的状态进入开始，故而放在此处Update里赋予其高优先级；只要按下左shift，且冷却时间结束，便进入冲刺状态；
             //注意这里使用了PlayerSkillManager
-            if (Input.GetKeyDown(KeyCode.LeftShift) && skill.dashSkill.WhetherCanUseSkill() && canDash)
+            if (Input.GetKeyDown(KeyCode.LeftShift) && skill.dashSkill.CanUseSkill() && canDash)
             {
                 stateMachine.ChangeState(dashState);
+                //恢复冷却
+                skill.dashSkill.RefreshCooldown();
             }
         }
     }
@@ -247,19 +242,6 @@ public class Player : Entity
                 }
             }
         }
-    }
-    #endregion
-
-    #region Sword
-    public void AssignNewSword(GameObject _newSword)
-    {
-        //记录一下新建了一个剑Prefab，在CreateSword()函数中被调用一次
-        assignedSword = _newSword;
-    }
-    public void ClearAssignedSword()
-    {
-        //销毁多余的剑Prefab
-        Destroy(assignedSword);
     }
     #endregion
 

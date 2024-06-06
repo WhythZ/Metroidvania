@@ -9,8 +9,20 @@ public class PlayerSkillManager : MonoBehaviour
     //这里就不需要链接Player对象了，因为可以直接用PlayerManager来调用相关需求
 
     #region Skills
+    [Header("Skill List")]
     public DashSkill dashSkill;
     public SwordSkill swordSkill;
+    public FireBallSkill fireballSkill;
+    public IceBallSkill iceballSkill;
+    #endregion
+
+    #region SkillObject
+    [Header("Skill Object")]
+    //记录是否已经投掷出去了剑，防止无限投掷，在GroundedState中（即投掷能力的入口处）检测是否已经创建过剑Prefab
+    //那里的player.assignedSword可以当bool值使用
+    public GameObject assignedSword;
+    public GameObject assignedFireBall;
+    public GameObject assignedIceBall;
     #endregion
 
     private void Awake()
@@ -32,6 +44,37 @@ public class PlayerSkillManager : MonoBehaviour
         //链接这个dash到DashSkill的脚本;以便从任何地方通过此Manager访问Player的DashSkill
         dashSkill = GetComponent<DashSkill>();
         swordSkill = GetComponent<SwordSkill>();
+        fireballSkill = GetComponent<FireBallSkill>();
+        iceballSkill = GetComponent<IceBallSkill>();
         #endregion
     }
+
+    #region ObjectLife
+    public void AssignNewSword(GameObject _newObject)
+    {
+        //记录一下新建了一个剑Prefab，在CreateSword()函数中被调用一次
+        assignedSword = _newObject;
+    }
+    public void AssignNewFireBall(GameObject _newObject)
+    {
+        assignedFireBall = _newObject;
+    }
+    public void AssignNewIceBall(GameObject _newObject)
+    {
+        assignedIceBall = _newObject;
+    }
+    public void ClearAssignedSword()
+    {
+        //销毁多余的剑Prefab
+        Destroy(assignedSword);
+    }
+    public void ClearAssignedFireBall()
+    {
+        Destroy(assignedFireBall);
+    }
+    public void ClearAssignedIceBall()
+    {
+        Destroy(assignedIceBall);
+    }
+    #endregion
 }

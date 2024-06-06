@@ -24,7 +24,9 @@ public enum StatType
     lightningDamage,
     evasion,
     armor,
-    resistance
+    resistance,
+    fireballDamage,
+    iceballDamage
 }
 #endregion
 
@@ -165,8 +167,8 @@ public class EntityStats : MonoBehaviour
             buf.CheckBuffsFrom(_attackingEntity); 
         }
     }
-    public virtual void GetTotalSpecialDmgFrom(EntityStats _attackingEntity, int _specialDmg, bool _doPhysic, bool _doMagic)
-    //用于如技能伤害的触发，传入攻击者和造成的伤害大小、伤害的类型（有魔法的话还要进行debuff施加判定）
+    public virtual void GetTotalSpecialDmgFrom(EntityStats _attackingEntity, int _specialDmg, bool _doPhysic, bool _doMagic, bool _ignite, bool _chill, bool _shock)
+    //用于如技能伤害的触发，传入攻击者和造成的伤害大小、伤害的类型（有魔法的话还要传入Debuff施加判定）
     {
         #region Evade&Crit
         //记录对方伤害、暴击等属性
@@ -210,11 +212,11 @@ public class EntityStats : MonoBehaviour
             this.GetMagicalDamagedBy(_magicDmg + _specialDmg);
 
             //debuff施加
-            buf.CheckBuffsFrom(_attackingEntity);
+            buf.ApplyBuffs(_ignite, _chill, _shock);
         }
     }
     #endregion
-    
+
     //单独考虑实体受到的物理伤害值
     #region PhysicalDamaged
     public virtual void GetPhysicalDamagedBy(int _damage)
@@ -256,15 +258,15 @@ public class EntityStats : MonoBehaviour
         return Mathf.RoundToInt(_checkedFinalDamage);
     }
     #endregion
-    
+
     //单独考虑实体受到的魔法伤害值
     #region MagicalDamaged
     public virtual void GetMagicalDamagedBy(int _damage)
     //这里是数值的伤害的施加，而debuff的判定（需要传入敌方Stats）不放在这里，因为有些纯魔法攻击不会产生debuff
     {
         #region AttackedFX
-        //受攻击的材质变化，使得有针对魔法伤害的闪烁的动画效果
-        entity.fx.StartCoroutine("MagicalHitFX");
+        //受攻击的材质变化，使得有闪烁的动画效果
+        entity.fx.StartCoroutine("FlashHitFX");
 
         //弹出伤害数值文本效果，玩家不弹
         if (entity.GetComponent<Player>() == null)

@@ -6,10 +6,13 @@ using UnityEngine;
 public class PlayerSkill : MonoBehaviour
 //这里继承的是MonoBehaviour，所以Update一直在刷新
 {
+    #region Cooldown
+    [Header("Skill Cooldown")]
     //每个技能类的冷却时长
     public float cooldown;
     //技能冷却的计时器
     protected float cooldownTimer;
+    #endregion
 
     protected virtual void Update()
     {
@@ -17,28 +20,21 @@ public class PlayerSkill : MonoBehaviour
         cooldownTimer -= Time.deltaTime;
     }
 
-    public virtual bool WhetherCanUseSkill()
+    public virtual bool CanUseSkill()
     {
         if(cooldownTimer < 0)
-        {
-            //当技能冷却处于可用阶段时，使用技能
-            UseSkill();
-            //恢复冷却时间，然后返回可以使用技能的信号true
-            cooldownTimer = cooldown;
-            
+        {            
             return true;
         }
         else
         {
-            //调用文字弹出效果，提示技能处于冷却
-            PlayerManager.instance.player.fx.CreatPopUpText("Cooldown", Color.white);
-
             return false;
         }
     }
 
-    public virtual void UseSkill()
+    public virtual void RefreshCooldown()
     {
-        //使用该技能产生的效果；用于被继承后重写
+        //恢复冷却时间
+        cooldownTimer = cooldown;
     }
 }

@@ -133,6 +133,17 @@ public class Entity : MonoBehaviour
     }
     #endregion
 
+    #region Velocity
+    public virtual void SetVelocity(float _xVelocity, float _yVelocity)
+    //当需要控制实体速度的时候调用此函数
+    {
+        //当不在被击退状态时，才速度正常；这种写法无需设置isKnocked的默认值
+        if (isKnocked)
+            return;
+        rb.velocity = new Vector2(_xVelocity, _yVelocity);
+    }
+    #endregion
+
     #region Knockback
     protected virtual void KnockbackDirDetect()
     {
@@ -180,17 +191,6 @@ public class Entity : MonoBehaviour
         //攻击范围的圆
         Gizmos.color = Color.black;
         Gizmos.DrawWireSphere(attackCheck.position, attackCheckRadius);
-    }
-    #endregion
-
-    #region Velocity
-    public virtual void SetVelocity(float _xVelocity, float _yVelocity)
-    //当需要控制实体速度的时候调用此函数
-    {
-        //当不在被击退状态时，才速度正常；这种写法无需设置isKnocked的默认值
-        if (isKnocked)
-            return;
-        rb.velocity = new Vector2(_xVelocity, _yVelocity);
     }
     #endregion
 

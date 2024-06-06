@@ -148,7 +148,7 @@ public class Slime : Enemy
         GetComponent<Rigidbody2D>().velocity = new Vector2(dx, dy);
         
         //两秒后把isKnocked赋值为false
-        Invoke("CancelSliptVector", 2f);
+        Invoke("CancelSliptVector", 1f);
     }
     private void CancelSliptVector() => isKnocked = false;
     #endregion
