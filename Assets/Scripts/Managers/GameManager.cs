@@ -7,10 +7,24 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour, ISavesManager
 {
     public static GameManager instance;
+
+    #region CheckPoint
+    [Header("CheckPoint")]
     //储存存档点的列表
     [SerializeField] private CheckPoint[] checkpointsList;
     //储存上一次休息的存档点
     public string lastRestCheckPointID = "";
+    #endregion
+
+    #region AbilityActivator
+    [Header("Ability Activator")]
+    //储存解锁人物能力的关键道具
+    [SerializeField] private GameObject wallslideActivator;
+    [SerializeField] private GameObject dashActivator;
+    [SerializeField] private GameObject throwswordActivator;
+    [SerializeField] private GameObject fireballActivator;
+    [SerializeField] private GameObject iceballActivator;
+    #endregion
 
     private void Awake()
     {
@@ -23,6 +37,18 @@ public class GameManager : MonoBehaviour, ISavesManager
         //建议手动拖动赋值，因为存档点的录入必须在存档加载之前完成，不然无法读取
         //获取所有（当前场景中的？）存档点
         //checkpointsList = FindObjectsOfType<CheckPoint>();
+    }
+
+    private void Start()
+    {
+        #region CheckAbility
+        //根据角色的能力激活权限来判断这些激活能力的关键道具是否应该出现
+        if (!PlayerManager.instance.ability_CanWallSlide) { wallslideActivator.gameObject.SetActive(true); } else { wallslideActivator.gameObject.SetActive(false);}
+        if (!PlayerManager.instance.ability_CanDash) { dashActivator.gameObject.SetActive(true); } else { dashActivator.gameObject.SetActive(false);}
+        if (!PlayerManager.instance.ability_CanThrowSword) { throwswordActivator.gameObject.SetActive(true); } else { throwswordActivator.gameObject.SetActive(false);}
+        if (!PlayerManager.instance.ability_CanFireBall) { fireballActivator.gameObject.SetActive(true); } else { fireballActivator.gameObject.SetActive(false);}
+        if (!PlayerManager.instance.ability_CanIceBall) { iceballActivator.gameObject.SetActive(true); } else { iceballActivator.gameObject.SetActive(false);}
+        #endregion
     }
 
     #region Scenes
@@ -72,7 +98,7 @@ public class GameManager : MonoBehaviour, ISavesManager
     #endregion
 
     #region ClosestCP
-    /*public CheckPoint FindClosestCheckPoint()
+    public CheckPoint FindClosestCheckPoint()
     //返回和玩家距离最近的已激活存档点
     {
         float _closestDistance = Mathf.Infinity;
@@ -81,15 +107,15 @@ public class GameManager : MonoBehaviour, ISavesManager
         foreach (var _cp in checkpointsList)
         {
             float _distanceToCP = Vector2.Distance(PlayerManager.instance.player.transform.position, _cp.transform.position);
-        
-            if(_distanceToCP<_closestDistance && _cp.isActive)
+
+            if (_distanceToCP < _closestDistance && _cp.isActive)
             {
                 _closestDistance = _distanceToCP;
                 _closestCP = _cp;
             }
         }
         return _closestCP;
-    }*/
+    }
     #endregion
 
     #region ISaveManager
@@ -160,5 +186,4 @@ public class GameManager : MonoBehaviour, ISavesManager
         #endregion
     }
     #endregion
-
 }

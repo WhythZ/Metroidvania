@@ -35,6 +35,10 @@ public class UI_InGame : MonoBehaviour
     private void Update()
     //由于游戏内UI需要实时检测一些重要功能，如各UI切换，技能冷却显示UI等，所以对这些功能使用Update函数
     {
+        //能力权限检测
+        SkillAccessCheck();
+
+        //冷却条的刷新
         UpdateSwordCooldown();
         UpdateDashCooldown();
         UpdateFireBallCooldown();
@@ -66,7 +70,7 @@ public class UI_InGame : MonoBehaviour
     private void UpdateDashCooldown()
     {
         //能力限制
-        if (PlayerManager.instance.ability_CanThrowSword == false)
+        if (PlayerManager.instance.ability_CanDash == false)
             return;
 
         //dash技能冷却条的更新
@@ -120,6 +124,29 @@ public class UI_InGame : MonoBehaviour
     #endregion
 
     #region SkillUI
+    private void SkillAccessCheck()
+    //权限的检测，若是没有解锁对应能力，则不会显示在技能栏
+    {
+        if (PlayerManager.instance.ability_CanDash == false)
+            dashCooldownImage.transform.parent.gameObject.SetActive(false);
+        else
+            dashCooldownImage.transform.parent.gameObject.SetActive(true);
+
+        if (PlayerManager.instance.ability_CanThrowSword == false)
+            swordCooldownImage.transform.parent.gameObject.SetActive(false);
+        else
+            swordCooldownImage.transform.parent.gameObject.SetActive(true);
+
+        if (PlayerManager.instance.ability_CanFireBall == false)
+            fireballCooldownImage.transform.parent.gameObject.SetActive(false);
+        else
+            fireballCooldownImage.transform.parent.gameObject.SetActive(true);
+
+        if (PlayerManager.instance.ability_CanIceBall == false)
+            iceballCooldownImage.transform.parent.gameObject.SetActive(false);
+        else
+            iceballCooldownImage.transform.parent.gameObject.SetActive(true);
+    }
     private void UpdateSkillCooldownUIOf(UnityEngine.UI.Image _image, float _cooldown)
     //当一个技能处于冷却时，对其冷却条进行递减，直到冷却结束
     {

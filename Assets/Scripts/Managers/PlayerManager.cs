@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+#region AbilityType
 public enum AbilityType
 {
     canWallSlide,
@@ -11,11 +12,12 @@ public enum AbilityType
     CanFireBall,
     CanIceBall
 }
+#endregion
 
 public class PlayerManager : MonoBehaviour, ISavesManager
 //这里继承的是MonoBehaviour，所以Update一直在刷新
 {
-    #region Interface
+    #region Components
     //可以通过PlayerManager.instance来访问这个对象内的成员，想引用player需要用PlayerManager.instance.player.position而不是PlayerManager.instance.position，他妈的别再搞错了！
     //这个类只能有一个对象，不然会出问题
     public static PlayerManager instance {  get; private set; }
@@ -58,6 +60,29 @@ public class PlayerManager : MonoBehaviour, ISavesManager
         else
             instance = this;
     }
+
+    #region Ability
+    public void ActivateAbility(AbilityType _type)
+    //激活能力权限
+    {
+        if (_type == AbilityType.canWallSlide) { ability_CanWallSlide = true; }
+        if (_type == AbilityType.CanDash) { ability_CanDash = true; }
+        if (_type == AbilityType.CanDoubleJump) {  ability_CanDoubleJump = true; }
+        if (_type == AbilityType.CanThrowSword) {  ability_CanThrowSword = true; }
+        if (_type == AbilityType.CanFireBall) {  ability_CanFireBall = true; }
+        if (_type == AbilityType.CanIceBall) {  ability_CanIceBall = true; }
+    }
+    public void DeactivateAbility(AbilityType _type)
+    //关闭能力权限
+    {
+        if (_type == AbilityType.canWallSlide) { ability_CanWallSlide = false; }
+        if (_type == AbilityType.CanDash) { ability_CanDash = false; }
+        if (_type == AbilityType.CanDoubleJump) { ability_CanDoubleJump = false; }
+        if (_type == AbilityType.CanThrowSword) { ability_CanThrowSword = false; }
+        if (_type == AbilityType.CanFireBall) { ability_CanFireBall = false; }
+        if (_type == AbilityType.CanIceBall) { ability_CanIceBall = false; }
+    }
+    #endregion
 
     #region ISavesManager
     public void LoadData(GameData _data)
