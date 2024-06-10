@@ -1,13 +1,10 @@
-# RPG-Dev-2024
+# Metroidvania-2024
 
 ## LICENSE
 This repo adopts [MIT License](https://spdx.org/licenses/MIT)
 
-## Status
-Work In Progress
-
 ## About
-This repo is a ***metroidvania prototype*** developed by Unity2D
+This repo is a ***Metroidvania*** game prototype developed by Unity2D
 
 I'm a super lover of RPGs, especially Souls, Metroidvanias, Survival games like Terraria and Minecraft and Core Keeper, SLGs like Stardew Valley, Roguelike/Roguelite games like Noita and Dead Cells and so on
 
