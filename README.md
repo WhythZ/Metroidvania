@@ -1,4 +1,4 @@
-# Metroidvania-2024
+# Metroidvania
 
 ## LICENSE
 This repo adopts [MIT License](https://spdx.org/licenses/MIT)
