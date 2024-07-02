@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 
 public class Player : Entity
@@ -33,6 +34,8 @@ public class Player : Entity
     //引入人物的投掷状态
     public PlayerDeadState deadState { get; private set; }
     //引入死亡状态
+    public PlayerBlackholeState blackholeState { get; private set; }
+    //引入黑洞状态
     #endregion
 
     #region Components
@@ -139,6 +142,8 @@ public class Player : Entity
         throwSwordState = new PlayerThrowSwordState(this, stateMachine, "ThrowSword");
         //初始化死亡状态
         deadState = new PlayerDeadState(this, stateMachine, "Dead");
+        //释放黑洞，原地起飞
+        blackholeState = new PlayerBlackholeState(this, stateMachine, "Jump");
         #endregion
     }
 
@@ -201,6 +206,13 @@ public class Player : Entity
                 skill.dashSkill.RefreshCooldown();
             }
         }
+    }
+    #endregion
+
+    #region ExitBlackhole
+    public void ExitBlackholeAbility()
+    {
+        stateMachine.ChangeState(airState);
     }
     #endregion
 
