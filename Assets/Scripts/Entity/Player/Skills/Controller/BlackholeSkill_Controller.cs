@@ -17,8 +17,9 @@ public class BlackholeSkill_Controller : MonoBehaviour
     private bool canCreateHotKeys = true;
     private bool cloneAttackReleased;
 
-    private int amountOfAttacks = 4;
-    private float cloneAttackCoolDown = .3f;
+    [Header("Clone Attack Info")]
+    [SerializeField] private int amountOfAttacks = 4;
+    [SerializeField] private float cloneAttackCoolDown = .3f;
     private float cloneAttackTimer;
             
     private List<Transform> targets = new List<Transform>();
@@ -37,7 +38,7 @@ public class BlackholeSkill_Controller : MonoBehaviour
     {
         cloneAttackTimer -= Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             if (targets.Count <= 0)
             {
@@ -47,7 +48,8 @@ public class BlackholeSkill_Controller : MonoBehaviour
             else
                 ReleaseCloneAttack();
         }
-        else if (Input.GetKeyDown(KeyCode.LeftShift))   //防止对于dashState的误判
+        //防止对于dashState的误判
+        else if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             canShrink = true;
             DestroyHotKey();
@@ -55,7 +57,8 @@ public class BlackholeSkill_Controller : MonoBehaviour
 
         CloneAttackLogic();
 
-        if (canGrow && !canShrink)    //黑洞缓慢变大
+        //黑洞缓慢变大
+        if (canGrow && !canShrink)
         {
             transform.localScale = Vector2.Lerp(transform.localScale, new Vector2(maxSize, maxSize), growSpeed * Time.deltaTime);
         }
@@ -80,7 +83,8 @@ public class BlackholeSkill_Controller : MonoBehaviour
         canCreateHotKeys = false;
     }
 
-    private void CloneAttackLogic() //对列表内所有敌人造成一定次数的攻击
+    //对列表内所有敌人造成一定次数的攻击
+    private void CloneAttackLogic()
     {
         if (cloneAttackTimer < 0 && cloneAttackReleased)
         {

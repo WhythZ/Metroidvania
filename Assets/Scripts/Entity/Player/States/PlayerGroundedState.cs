@@ -129,12 +129,29 @@ public class PlayerGroundedState : PlayerState
                 PlayerSkillManager.instance.iceballSkill.CreateIceBall(player.transform.position, player.facingDir);
             }
         }
-        //黑洞技能,X键展开，按顺序按键后再按一次X释放
-        if (Input.GetKeyDown(KeyCode.X) && player.isGround && PlayerSkillManager.instance.blackholeSkill.CanUseSkill())
+        //黑洞技能，按数字3键展开，按顺序按键后再按一次X释放
+        if (Input.GetKeyDown(KeyCode.Alpha3) && player.isGround)
         {
-            stateMachine.ChangeState(player.blackholeState);
-            PlayerSkillManager.instance.blackholeSkill.UseSkill(player.transform.position);
-            PlayerSkillManager.instance.blackholeSkill.RefreshCooldown();
+            //能力限制
+            if (PlayerManager.instance.ability_CanBlackhole == false)
+                return;
+
+            if (!PlayerSkillManager.instance.blackholeSkill.CanUseSkill())
+            {
+                //调用文字弹出效果，提示技能处于冷却
+                PlayerManager.instance.player.fx.CreatPopUpText("Cooldown", Color.white);
+            }
+            if (PlayerSkillManager.instance.blackholeSkill.CanUseSkill())
+            {
+                //在主要UI显示的时候，不能进行此运动
+                if (UI_MainScene.instance.ActivatedStateOfMainUIs() == true)
+                    return;
+
+                //生成黑洞
+                stateMachine.ChangeState(player.blackholeState);
+                PlayerSkillManager.instance.blackholeSkill.UseSkill(player.transform.position);
+                PlayerSkillManager.instance.blackholeSkill.RefreshCooldown();
+            }
         }
         #endregion
     }

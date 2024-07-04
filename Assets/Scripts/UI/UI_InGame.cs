@@ -15,6 +15,7 @@ public class UI_InGame : MonoBehaviour
     [SerializeField] private UnityEngine.UI.Image swordCooldownImage;
     [SerializeField] private UnityEngine.UI.Image fireballCooldownImage;
     [SerializeField] private UnityEngine.UI.Image iceballCooldownImage;
+    [SerializeField] private UnityEngine.UI.Image blackholeCooldownImage;
 
     private void Start()
     {
@@ -43,6 +44,7 @@ public class UI_InGame : MonoBehaviour
         UpdateDashCooldown();
         UpdateFireBallCooldown();
         UpdateIceBallCooldown();
+        UpdateBlackholeCooldown();
     }
 
     #region HealthUI
@@ -118,34 +120,60 @@ public class UI_InGame : MonoBehaviour
         if (PlayerManager.instance.player.stateMachine.currentState == PlayerManager.instance.player.idleState || PlayerManager.instance.player.stateMachine.currentState == PlayerManager.instance.player.moveState)
         {
             if (Input.GetKeyDown(KeyCode.Alpha2))
-            ResetSkillCooldownUIFor(iceballCooldownImage);
+                ResetSkillCooldownUIFor(iceballCooldownImage);
+        }
+    }
+    private void UpdateBlackholeCooldown()
+    {
+        //能力限制
+        if (PlayerManager.instance.ability_CanBlackhole == false)
+            return;
+
+        //技能冷却条的更新
+        UpdateSkillCooldownUIOf(blackholeCooldownImage, PlayerSkillManager.instance.blackholeSkill.cooldown);
+
+        //当玩家在结束黑洞技能的时候（结束技能时是处于blackholeState的）刷新冷却
+        if (PlayerManager.instance.player.stateMachine.currentState == PlayerManager.instance.player.blackholeState)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+                ResetSkillCooldownUIFor(blackholeCooldownImage);
         }
     }
     #endregion
 
-    #region SkillUI
+    #region UpdateOfSkillUI
     private void SkillAccessCheck()
     //权限的检测，若是没有解锁对应能力，则不会显示在技能栏
     {
+        //冲刺
         if (PlayerManager.instance.ability_CanDash == false)
             dashCooldownImage.transform.parent.gameObject.SetActive(false);
         else
             dashCooldownImage.transform.parent.gameObject.SetActive(true);
 
+        //投掷剑
         if (PlayerManager.instance.ability_CanThrowSword == false)
             swordCooldownImage.transform.parent.gameObject.SetActive(false);
         else
             swordCooldownImage.transform.parent.gameObject.SetActive(true);
 
+        //火球
         if (PlayerManager.instance.ability_CanFireBall == false)
             fireballCooldownImage.transform.parent.gameObject.SetActive(false);
         else
             fireballCooldownImage.transform.parent.gameObject.SetActive(true);
 
+        //冰球
         if (PlayerManager.instance.ability_CanIceBall == false)
             iceballCooldownImage.transform.parent.gameObject.SetActive(false);
         else
             iceballCooldownImage.transform.parent.gameObject.SetActive(true);
+
+        //黑洞
+        if (PlayerManager.instance.ability_CanBlackhole == false)
+            blackholeCooldownImage.transform .parent.gameObject.SetActive(false);
+        else
+            blackholeCooldownImage.transform.parent .gameObject.SetActive(true);
     }
     private void UpdateSkillCooldownUIOf(UnityEngine.UI.Image _image, float _cooldown)
     //当一个技能处于冷却时，对其冷却条进行递减，直到冷却结束

@@ -17,6 +17,7 @@ public class GameData
     public bool canThrowSword;
     public bool canFireBall;
     public bool canIceBall;
+    public bool canBlackhole;
     #endregion
 
     #region Stats
@@ -88,6 +89,7 @@ public class GameData
         this.canThrowSword = false;
         this.canFireBall = false;
         this.canIceBall = false;
+        this.canBlackhole = false;
         #endregion
 
         #region Stats

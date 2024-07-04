@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour, ISavesManager
     [SerializeField] private GameObject throwswordActivator;
     [SerializeField] private GameObject fireballActivator;
     [SerializeField] private GameObject iceballActivator;
+    [SerializeField] private GameObject blackholeActivator;
     #endregion
 
     private void Awake()
@@ -48,6 +49,7 @@ public class GameManager : MonoBehaviour, ISavesManager
         if (!PlayerManager.instance.ability_CanThrowSword) { throwswordActivator.gameObject.SetActive(true); } else { throwswordActivator.gameObject.SetActive(false);}
         if (!PlayerManager.instance.ability_CanFireBall) { fireballActivator.gameObject.SetActive(true); } else { fireballActivator.gameObject.SetActive(false);}
         if (!PlayerManager.instance.ability_CanIceBall) { iceballActivator.gameObject.SetActive(true); } else { iceballActivator.gameObject.SetActive(false);}
+        if (!PlayerManager.instance.ability_CanBlackhole) { blackholeActivator.gameObject.SetActive(true); } else { blackholeActivator.gameObject.SetActive(false);}
         #endregion
     }
 

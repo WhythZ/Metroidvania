@@ -187,7 +187,7 @@ public class Player : Entity
         CDPlayerController();
     }
 
-    #region Dash
+    #region Skill
     private void DashController()
     {
         //能力限制
@@ -207,11 +207,9 @@ public class Player : Entity
             }
         }
     }
-    #endregion
-
-    #region ExitBlackhole
     public void ExitBlackholeAbility()
     {
+        //停止释放黑洞技能
         stateMachine.ChangeState(airState);
     }
     #endregion

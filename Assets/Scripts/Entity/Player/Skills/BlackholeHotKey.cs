@@ -5,6 +5,7 @@ using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 public class BlackholeHotKey : MonoBehaviour
+//在召唤出了黑洞后，范围内的怪物身上出现热键，按下对应热键后停止黑洞技能会在怪物处出现替身攻击
 {
     private SpriteRenderer sr;
     private KeyCode myHotKey;

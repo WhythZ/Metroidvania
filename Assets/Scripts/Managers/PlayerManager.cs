@@ -10,7 +10,8 @@ public enum AbilityType
     CanDoubleJump,
     CanThrowSword,
     CanFireBall,
-    CanIceBall
+    CanIceBall,
+    CanBlackhole
 }
 #endregion
 
@@ -44,6 +45,8 @@ public class PlayerManager : MonoBehaviour, ISavesManager
     public bool ability_CanFireBall;
     //玩家是否能扔冰球
     public bool ability_CanIceBall;
+    //玩家能否释放黑洞
+    public bool ability_CanBlackhole;
     #endregion
 
     private void Awake()
@@ -71,6 +74,7 @@ public class PlayerManager : MonoBehaviour, ISavesManager
         if (_type == AbilityType.CanThrowSword) {  ability_CanThrowSword = true; }
         if (_type == AbilityType.CanFireBall) {  ability_CanFireBall = true; }
         if (_type == AbilityType.CanIceBall) {  ability_CanIceBall = true; }
+        if (_type == AbilityType.CanBlackhole) {  ability_CanBlackhole = true; }
     }
     public void DeactivateAbility(AbilityType _type)
     //关闭能力权限
@@ -81,6 +85,7 @@ public class PlayerManager : MonoBehaviour, ISavesManager
         if (_type == AbilityType.CanThrowSword) { ability_CanThrowSword = false; }
         if (_type == AbilityType.CanFireBall) { ability_CanFireBall = false; }
         if (_type == AbilityType.CanIceBall) { ability_CanIceBall = false; }
+        if (_type == AbilityType.CanBlackhole) { ability_CanBlackhole = false; }
     }
     #endregion
 
@@ -97,6 +102,7 @@ public class PlayerManager : MonoBehaviour, ISavesManager
         ability_CanThrowSword = _data.canThrowSword;
         ability_CanFireBall = _data.canFireBall;
         ability_CanIceBall = _data.canIceBall;
+        ability_CanBlackhole = _data.canBlackhole;
     }
 
     public void SaveData(ref GameData _data)
@@ -110,6 +116,7 @@ public class PlayerManager : MonoBehaviour, ISavesManager
         _data.canThrowSword = ability_CanThrowSword;
         _data.canFireBall = ability_CanFireBall;
         _data.canIceBall = ability_CanIceBall;
+        _data.canBlackhole = ability_CanBlackhole;
     }
     #endregion
 }
