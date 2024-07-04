@@ -14,6 +14,8 @@ public class PlayerSkillManager : MonoBehaviour
     public SwordSkill swordSkill;
     public FireBallSkill fireballSkill;
     public IceBallSkill iceballSkill;
+    public CloneSkill cloneSkill;
+    public BlackholeSkill blackholeSkill;
     #endregion
 
     #region SkillObject
@@ -46,6 +48,8 @@ public class PlayerSkillManager : MonoBehaviour
         swordSkill = GetComponent<SwordSkill>();
         fireballSkill = GetComponent<FireBallSkill>();
         iceballSkill = GetComponent<IceBallSkill>();
+        cloneSkill = GetComponent<CloneSkill>();
+        blackholeSkill = GetComponent<BlackholeSkill>();
         #endregion
     }
 

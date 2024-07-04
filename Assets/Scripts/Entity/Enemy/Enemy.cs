@@ -33,6 +33,7 @@ public class Enemy : Entity
 
     #region Default
     private float defaultBattleSpeedMultiplier;
+    //private float defaultMoveSpeed;   基类已有相应的定义
     #endregion
 
     #region Battle
@@ -66,6 +67,28 @@ public class Enemy : Entity
     public float stunnedDuration = 1f;
     //可以被弹反的信号，受专属函数控制，为AnimationTrigger脚本提供接口
     private bool canBeStunned = false;
+    #endregion
+
+    #region FreezeTime
+    public virtual void FreezeTime(bool _timeFrozen)
+    {
+        if (_timeFrozen)
+        {
+            moveSpeed = 0;
+            anim.speed = 0;
+        }
+        else
+        {
+            this.ReturnDefaultSpeed();
+        }
+    }
+
+    protected virtual IEnumerator FreezeTimeFor(float _seconds)
+    {
+        FreezeTime(true);
+        yield return new WaitForSeconds(_seconds);
+        FreezeTime(false);
+    }
     #endregion
 
     protected override void Awake()
