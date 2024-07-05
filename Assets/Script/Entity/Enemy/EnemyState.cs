@@ -20,10 +20,6 @@ public class EnemyState
     //每个状态都有的一个状态触发记录器
     protected bool stateActionFinished;
 
-    //这个已经不需要了，直接用PlayerManager.instance.transform.position即可
-    //记录玩家的位置（注意是Transform数据类型）
-    //public Transform playerPos;
-
     public EnemyState(Enemy _enemyBase, EnemyStateMachine _stateMachine, string _animBoolName)
     {
         this.enemyBase = _enemyBase;

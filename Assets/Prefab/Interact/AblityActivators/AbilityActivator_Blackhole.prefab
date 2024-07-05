@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2573979694537586457}
   - component: {fileID: 2761225479171711991}
   - component: {fileID: 7123123522238250480}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AbilityActivator_Blackhole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 732706243953571386}
   - component: {fileID: 3056605046255657043}
   - component: {fileID: 145886221611404578}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: ParticleFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
