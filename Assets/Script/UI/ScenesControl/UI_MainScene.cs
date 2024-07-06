@@ -166,7 +166,7 @@ public class UI_MainScene : MonoBehaviour, ISavesManager
         //打开UI时暂停游戏
         if(GameManager.instance != null)
         {
-            if (_menu == inGameUI || _menu == cdPlayerUI)
+            if (_menu == inGameUI)
                 GameManager.instance.PauseGame(false);
             else
                 GameManager.instance.PauseGame(true);

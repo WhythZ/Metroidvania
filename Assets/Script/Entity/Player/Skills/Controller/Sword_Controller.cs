@@ -104,7 +104,7 @@ public class Sword_Controller : MonoBehaviour
             EntityStats _sts = PlayerManager.instance.player.sts;
             int _swordDamage = PlayerManager.instance.player.sts.swordDamage.GetValue();
             //造成技能伤害，仅物理伤害
-            collision.transform.GetComponent<EnemyStats>().GetTotalSpecialDmgFrom(_sts, _swordDamage, true, true, false, false, true);
+            collision.transform.GetComponent<EnemyStats>().GetTotalSkillDmgFrom(_sts, _swordDamage, true, true, false, false, true);
             #endregion
 
             /*#region Bounce

@@ -6,7 +6,7 @@ This repo adopts [MIT License](https://spdx.org/licenses/MIT)
 ## About
 This repo is a ***Metroidvania*** game prototype developed by Unity2D
 
-We have constructed multiple extensible systems (see the [combat showcase](https://www.bilibili.com/video/BV1eb421E7bN/?spm_id_from=333.999.list.card_archive.click&vd_source=6fbd8ea5d181239758f62d5f9a9d8dfb))
+We have constructed multiple extensible systems (see the [showcase](https://www.bilibili.com/video/BV1eb421E7bN/?spm_id_from=333.999.list.card_archive.click&vd_source=6fbd8ea5d181239758f62d5f9a9d8dfb))
 
 - Entity (Player&Enemy) system
     - Finite state machine
@@ -72,10 +72,13 @@ We have constructed multiple extensible systems (see the [combat showcase](https
     - File data handler
 
 ## Deployment
-Follow the steps to deploy this project locally
-- Install the corresponding Unity version as `2022.3.17f1c1`
-- Create a new Unity 2D project, exit after successfully entering it
-- Replace by these files in the repo
+Project Runtime Environment
+
+|Software|Version|
+|---|---|
+|Unity Editor|2022.3.17f1c1|
+|Visual Studio|2022|
+|Windows|10/11|
 
 The game save will be stored in the directory
 ```
