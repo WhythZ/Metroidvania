@@ -167,7 +167,7 @@ public class EntityStats : MonoBehaviour
             buf.CheckBuffsFrom(_attackingEntity); 
         }
     }
-    public virtual void GetTotalSkillDmgFrom(EntityStats _attackingEntity, int _skillDmg, bool _doPhysic, bool _doMagic, bool _ignite, bool _chill, bool _shock)
+    public virtual void GetTotalSpecialDmgFrom(EntityStats _attackingEntity, int _specialDmg, bool _doPhysic, bool _doMagic, bool _ignite, bool _chill, bool _shock)
     //用于如技能伤害的触发，传入攻击者和造成的伤害大小、伤害的类型（有魔法的话还要传入Debuff施加判定）
     {
         #region Evade&Crit
@@ -204,12 +204,12 @@ public class EntityStats : MonoBehaviour
         if (_doPhysic)
         {
             //物理数值伤害的施加
-            this.GetPhysicalDamagedBy(_physicDmg + _skillDmg); 
+            this.GetPhysicalDamagedBy(_physicDmg + _specialDmg); 
         }
         if (_doMagic)
         {
             //魔法数值伤害的施加
-            this.GetMagicalDamagedBy(_magicDmg + _skillDmg);
+            this.GetMagicalDamagedBy(_magicDmg + _specialDmg);
 
             //debuff施加
             buf.ApplyBuffs(_ignite, _chill, _shock);

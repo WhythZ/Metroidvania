@@ -53,7 +53,7 @@ public class FireBall_Controller : MonoBehaviour
             EntityStats _sts = PlayerManager.instance.player.sts;
             int _skilldmg = PlayerManager.instance.player.sts.fireballDamage.GetValue();
             //造成技能伤害，仅法术伤害；造成灼烧buff
-            collision.GetComponent<EnemyStats>().GetTotalSkillDmgFrom(_sts, _skilldmg, false, true, true, false, false);
+            collision.GetComponent<EnemyStats>().GetTotalSpecialDmgFrom(_sts, _skilldmg, false, true, true, false, false);
         }
     }
 
