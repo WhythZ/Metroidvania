@@ -15,7 +15,7 @@ public class Trap_Spike : Trap
             //受攻击的音效
             AudioManager.instance.PlaySFX(12, null);
             //受攻击的粒子效果，在自己（受攻击者）身上
-            collision.GetComponent<Entity>().fx.CreateHitFX00(this.transform);
+            collision.GetComponent<Entity>().fx.CreateHitFX00(collision.GetComponent<Entity>().transform);
             #endregion
 
             //地刺造成数值伤害
