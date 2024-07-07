@@ -41,9 +41,9 @@ We have constructed multiple extensible systems (see the [showcase](https://www.
 - UI system
     - Ingame UI
         - Dynamic health bar
-        - Dynamic skill cooldown panal
+        - Dynamic skill cooldown panel
     - Inventory UI
-        - Item slots
+        - Item slotse
         - Stat slots
         - Description tooltip
     - Settings UI
