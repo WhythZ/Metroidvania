@@ -61,9 +61,9 @@ public class Clone_Controller : MonoBehaviour
             if (hit.GetComponent<Enemy>() != null)
             {
                 EntityStats _sts = PlayerManager.instance.player.sts;
-                int _damage = _sts.GetNonCritPhysicalDamage();
+                int _damage = Mathf.RoundToInt(_sts.GetNonCritPhysicalDamage() * 0.25f);
                 //造成技能伤害，仅物理伤害
-                hit.transform.GetComponent<EnemyStats>().GetTotalSpecialDmgFrom(_sts, _damage, true, true, false, false, true);
+                hit.transform.GetComponent<EnemyStats>().GetTotalSkillDmgFrom(_sts, _damage, true, false, false, false, true);
             }
         }
     }

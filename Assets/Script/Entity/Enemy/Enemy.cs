@@ -178,7 +178,6 @@ protected override void Update()
     }
     #endregion
 
-
     #region Attack
     public virtual void AttackController()
     {

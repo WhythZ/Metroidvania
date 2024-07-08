@@ -48,7 +48,7 @@ public class IceBall_Controller : MonoBehaviour
             EntityStats _sts = PlayerManager.instance.player.sts;
             int _skilldmg = PlayerManager.instance.player.sts.iceballDamage.GetValue();
             //造成技能伤害，仅法术伤害；造成冷冻buff
-            collision.GetComponent<EnemyStats>().GetTotalSpecialDmgFrom(_sts, _skilldmg, false, true, false, true, false);
+            collision.GetComponent<EnemyStats>().GetTotalSkillDmgFrom(_sts, _skilldmg, false, true, false, true, false);
         }
     }
 
