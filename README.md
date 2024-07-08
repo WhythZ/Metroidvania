@@ -6,70 +6,39 @@ This repo adopts [MIT License](https://spdx.org/licenses/MIT)
 ## About
 This repo is a ***Metroidvania*** game prototype developed by Unity2D
 
-We have constructed multiple extensible systems (see the [showcase](https://www.bilibili.com/video/BV1eb421E7bN/?spm_id_from=333.999.list.card_archive.click&vd_source=6fbd8ea5d181239758f62d5f9a9d8dfb))
+We have constructed multiple extensible systems (see the [showcase](https://www.bilibili.com/video/BV1fM4m1171d/?share_source=copy_web&vd_source=5ef86699cafaaf10c5dc362759c73a7d))
 
-- Entity (Player&Enemy) system
-    - Finite state machine
-        - Entity behavior
-        - Entity animation
-    - Entity manager
-        - Player manager
-        - Enemy manager
-    - Skill system
-        - Player skill
-            - Dash
-            - Wall slide
-            - Throw sword
-            - Elemental ball
-            - Blackhole
-            - Clone
-        - Enemy skill
-    - Statistics system
-        - Health
-        - Attributes
-        - Attack
-        - Defence
-    - Buff system
-        - Ignited
-        - Chilled
-        - Shocked
-    - Visual effect system
-        - Buff FX
-        - Hit FX
-        - Critical hit FX
+- Entity System
+    - Finite State Machine
+        - Entity Behavior
+        - Entity Animation
+    - Skill System
+    - Statistics System
+    - Buff System
+    - Visual Effect System
 
-- UI system
+- UI System
     - Ingame UI
-        - Dynamic health bar
-        - Dynamic skill cooldown panel
-    - Inventory UI
-        - Item slotse
-        - Stat slots
-        - Description tooltip
+    - Character UI
+    - Skill Tree UI
     - Settings UI
-        - Audio volume settings
-        - Game save button
-    - Skills UI
-    - Interact UI
+    - Interactive Object UI
 
-- Inventory system
-    - Item system
-    - Storage system
+- Inventory System
+    - Item System
+    - Storage System
 
-- Interact system
-    - Checkpoint
-    - Jukebox
-    - Portal
-    - Enemy spawner
-    - Dead zone
+- Interact System
+    - Object Triggered With UI Menu
+    - Object Triggered With Other Effect
 
-- Audio system
-    - Background music
-    - Sound effect
+- Audio System
+    - Background Music
+    - Sound Effect
 
-- Save&Load system
-    - Game data file
-    - File data handler
+- Save&Load System
+    - Game Data Structure
+    - File Data Handler
 
 ## Deployment
 Project Runtime Environment
@@ -80,12 +49,12 @@ Project Runtime Environment
 |Visual Studio|2022|
 |Windows|10/11|
 
+Use `Ctrl + B` to build the game and get the executable file 
+
 The game save will be stored in the directory
 ```
 C:\Users\your_user_name\AppData\LocalLow\DefaultCompany\your_project_name\data.whythz
 ```
-
-You can build the game using `Ctrl + B` to get the executable file 
 
 ## References
 - My loved games and anime
@@ -93,3 +62,9 @@ You can build the game using `Ctrl + B` to get the executable file
 - [itch.io](https://itch.io/)
 - [udemy.com](https://www.udemy.com/course/2d-rpg-alexdev/)
 - [bilibili.com](https://www.bilibili.com/)
+
+## Acknowledgement
+- ttyclear: supporting on skill implementation
+- Elaina: supporting on enemy implementation
+- NSPoison: supporting on building game scene
+- GirlsBandCry: keeping me company with melodies since beginning of the project
