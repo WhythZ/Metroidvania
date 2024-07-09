@@ -4,9 +4,7 @@
 This repo adopts [MIT License](https://spdx.org/licenses/MIT)
 
 ## About
-This repo is a ***Metroidvania*** game prototype developed by Unity2D
-
-We have constructed multiple extensible systems (see the [showcase](https://www.bilibili.com/video/BV1fM4m1171d/?share_source=copy_web&vd_source=5ef86699cafaaf10c5dc362759c73a7d))
+We have constructe multiple extensible systems (see the [showcase](https://www.bilibili.com/video/BV1fM4m1171d/?share_source=copy_web&vd_source=5ef86699cafaaf10c5dc362759c73a7d)) for this game prototype, aiming at making it comfortably and joyfully playable
 
 - Entity System
     - Finite State Machine
