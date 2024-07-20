@@ -1,6 +1,6 @@
 # Metroidvania
 
-## LICENSE
+## License
 This repo adopts [MIT License](https://spdx.org/licenses/MIT)
 
 ## About
@@ -39,7 +39,7 @@ We have constructe multiple extensible systems (see the [showcase](https://www.b
     - File Data Handler
 
 ## Deployment
-Project Runtime Environment
+Runtime Environment
 
 |Software|Version|
 |---|---|
