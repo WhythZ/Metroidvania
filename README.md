@@ -39,8 +39,6 @@ We have constructe multiple extensible systems (see the [showcase](https://www.b
     - File Data Handler
 
 ## Deployment
-Runtime Environment
-
 |Software|Version|
 |---|---|
 |Unity Editor|2022.3.17f1c1|
