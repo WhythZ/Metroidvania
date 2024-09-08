@@ -31,6 +31,7 @@ public class PlayerAnimationTriggers : MonoBehaviour
             /*
              * 一个问题:如何拓展到伤害所有被击中的Enemy类而不仅仅是Bringer
              * 解决办法：直接链接到<Entity>，会自动向下链接到其继承的子类中的脚本
+             * 相关思想：依赖倒置原则
              */
 
             //对Enemy各子类实体造成伤害
