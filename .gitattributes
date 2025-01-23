@@ -1,0 +1,45 @@
+* text=auto
+
+# 明确声明始终要规范化并在检出时转换为本机行尾的文本文件
+*.cs text diff=csharp
+*.cginc text
+*.shader text
+
+# 固定CRLF行尾
+*.sln text eol=crlf
+
+# 标明二进制文件
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.tga binary
+*.psd binary
+*.bmp binary
+*.fbx binary
+*.ogg binary
+*.aif binary
+*.wav binary
+*.a binary
+*.pdf binary
+*.zip binary
+*.dll binary
+*.so binary
+*.a binary
+*.dylib binary
+*.unitypackage binary
+
+# Unity文件
+*.meta text merge=unityyamlmerge eol=lf
+*.unity text merge=unityyamlmerge eol=lf
+*.asset text merge=unityyamlmerge eol=lf
+*.anim text merge=unityyamlmerge eol=lf
+*.prefab text merge=unityyamlmerge eol=lf
+*.mat text merge=unityyamlmerge eol=lf
+*.controller text merge=unityyamlmerge eol=lf
+*.shadergraph text eol=lf
+*.dwlt text eol=lf
+*.json text eol=lf
+*.txt text eol=lf
+
+# VS文件
+*.vsconfig text eol=lf
