@@ -84,8 +84,6 @@ public class FileDataHandler
         string _fullPath = Path.Combine(dataFileDirPath, dateFileName);
 
         if(File.Exists(_fullPath))
-        {
             File.Delete(_fullPath);
-        }
     }
 }

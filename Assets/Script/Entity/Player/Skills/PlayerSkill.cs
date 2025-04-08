@@ -24,13 +24,9 @@ public class PlayerSkill : MonoBehaviour
     public virtual bool CanUseSkill()
     {
         if(cooldownTimer < 0)
-        {            
             return true;
-        }
         else
-        {
             return false;
-        }
     }
 
     public virtual void RefreshCooldown()

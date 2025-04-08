@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//使得该类可被检测到
+//使得该类可被序列化显示在Hierarchy面板上
 [System.Serializable]
 public class Buff
 {

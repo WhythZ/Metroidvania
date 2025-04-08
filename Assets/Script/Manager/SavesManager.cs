@@ -82,8 +82,8 @@ public class SavesManager : MonoBehaviour
     public void SaveGame()
     //储存游戏
     {
-        foreach(ISavesManager _savesManager in savesManagers)
         //将存储在此Manager内的gameData传给所有用到存档接口的类内
+        foreach(ISavesManager _savesManager in savesManagers)
         {
             //传入引用，才能使得对象能被修改
             _savesManager.SaveData(ref gameData);
@@ -115,11 +115,8 @@ public class SavesManager : MonoBehaviour
     public bool WhetherHasSavedGameData()
     //检测是否有已保存的游戏数据
     {
-        if(dataHandler.LoadGameData() != null)
-        {
+        if (dataHandler.LoadGameData() != null)
             return true;
-        }
-
         return false;
     }
 }

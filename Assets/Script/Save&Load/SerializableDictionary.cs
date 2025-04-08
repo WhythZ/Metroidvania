@@ -9,7 +9,6 @@ public class SerializableDictionary<Tkey, TValue> : Dictionary<Tkey, TValue>, IS
     [SerializeField] List<Tkey> keys = new List<Tkey>();
     [SerializeField] List<TValue> values = new List<TValue>();
 
-
     public void OnBeforeSerialize()
     {
         //清除原来的数据，因为物品栏字典中的映射可能会发生变化
@@ -33,8 +32,6 @@ public class SerializableDictionary<Tkey, TValue> : Dictionary<Tkey, TValue>, IS
         }
 
         for (int i = 0; i < keys.Count; i++)
-        {
             this.Add(keys[i], values[i]);
-        }
     }
 }
